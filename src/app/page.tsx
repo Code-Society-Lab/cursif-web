@@ -1,6 +1,24 @@
+"use client";
+
 import Image from 'next/image'
 
+// Perhaps we could abstract this furth with the graphql/client
+import { gql } from "@apollo/client"
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+
+
+const GET_USERS = gql`
+  query GetUsers {
+    users {
+      id
+      username
+    }
+  }
+`;
+
 export default function Home() {
+  const { data } = useSuspenseQuery(GET_USERS);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
