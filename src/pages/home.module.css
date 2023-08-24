@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  .text {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .cornerText {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .whiteCornerText {
+    color: white;
+  }
+  
+  .blackCornerText {
+    color: black;
+  }
+  
