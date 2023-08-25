@@ -21,18 +21,18 @@ export default function LoginScreen() {
   };
 
   const containerStyle = {
-    backgroundColor: isDarkMode ? 'black' : 'white',
+    backgroundColor: isDarkMode ? '#404040' : 'white',
     color: isDarkMode ? 'white' : 'black',
   };
 
   const buttonStyle = {
-    backgroundColor: isDarkMode ? 'white' : 'black',
+    backgroundColor: isDarkMode ? 'white' : '#404040',
     color: isDarkMode ? 'black' : 'white',
   };
 
   const inputStyle = {
-    backgroundColor: isDarkMode ? 'black' : '#dfdfdfdd',
-    color: isDarkMode ? 'white' : 'black',
+    backgroundColor: isDarkMode ? '#404040' : '#dfdfdfdd',
+    color: isDarkMode ? 'black' : 'white',
   };
 
   const [loginMutation] = useMutation(LOGIN_MUTATION);

@@ -5,7 +5,7 @@ export default function HomeScreen() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const containerStyle = {
-    backgroundColor: isDarkMode ? 'black' : 'white',
+    backgroundColor: isDarkMode ? '#404040' : 'white',
     color: isDarkMode ? 'white' : 'black',
   };
 
