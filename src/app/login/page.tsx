@@ -132,7 +132,7 @@ export default function Page() {
             </div>
 
             {/* Using float isn't the best approach but until this is full refactored it's fine*/}
-            <Button className="accent mt-8 float-right" onClick={handleLogin}>Login</Button>
+            <button className="button accent mt-8 float-right" onClick={handleLogin}>Login</button>
           </div>
         </div>
       </div>
