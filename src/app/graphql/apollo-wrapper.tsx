@@ -1,6 +1,5 @@
 "use client";
-
-import { HttpLink } from "@apollo/client";
+import { HttpLink, ApolloLink } from "@apollo/client";
 import {
   NextSSRApolloClient,
   ApolloNextAppProvider,
@@ -9,6 +8,7 @@ import {
 } from "@apollo/experimental-nextjs-app-support/ssr";
 import { setContext } from '@apollo/client/link/context';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
+
 
 loadDevMessages();
 loadErrorMessages();
