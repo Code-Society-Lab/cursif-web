@@ -1,4 +1,5 @@
 "use client";
+
 import { HttpLink, ApolloLink } from "@apollo/client";
 import {
   NextSSRApolloClient,
@@ -8,6 +9,7 @@ import {
 } from "@apollo/experimental-nextjs-app-support/ssr";
 import { setContext } from '@apollo/client/link/context';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
+import Config from '@/config';
 
 
 loadDevMessages();
@@ -30,7 +32,7 @@ function makeClient() {
   });
 
   const httpLink = authLink.concat(new HttpLink(
-    { uri: "http://localhost:4000/api" }
+    { uri: Config.graphql.endpoint }
   ));
 
   return new NextSSRApolloClient({

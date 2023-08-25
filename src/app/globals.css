@@ -1,3 +1,8 @@
+/*
+  This file is used to define global styles for the entire application. It is 
+  applied to all routes and pages.
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
