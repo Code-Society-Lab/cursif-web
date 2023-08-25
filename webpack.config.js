@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')  // Assuming your source code is in the 'src' directory
+      '@': path.resolve(__dirname, 'src/app'),
+      '@config': path.resolve(__dirname, 'src/config') 
     }
   }
 };

@@ -1,7 +1,6 @@
 "use client"
 
 import { useDarkMode } from './dark-mode-context';
-import styles from './globals.css';
 
 export default function Page() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();

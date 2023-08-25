@@ -7,6 +7,8 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useMutation, gql } from '@apollo/client';
 import { useDarkMode } from '@/app/dark-mode-context';
 
+import { Button } from '@/app/components/button';
+
 const LOGIN_MUTATION = gql`
     mutation Login($email: String!, $password: String!) {
         login(email: $email, password: $password) {
@@ -129,8 +131,8 @@ export default function Page() {
               <a href="#">Forgot Password?</a>
             </div>
 
-            <button className={styles.button} onClick={handleLogin}>Login</button>
-      
+            {/* Using float isn't the best approach but until this is full refactored it's fine*/}
+            <Button className="accent mt-8 float-right" onClick={handleLogin}>Login</Button>
           </div>
         </div>
       </div>

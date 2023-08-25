@@ -11,6 +11,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --accent: #E83151;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,4 +31,25 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+/* This is here temporarily. For some reason doing this from the component folder doesn't work */
+.button {
+    padding: 10px 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    color: white;
+    background-color: black;
+}
+
+.button.accent {
+    color: white !important;
+    background-color: var(--accent) !important;
+}
+
+.button.light {
+    color: black !important;
+    background-color: white !important;
 }
