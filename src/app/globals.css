@@ -8,19 +8,16 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-color: 0, 0, 0;
+  --background-color: 255, 255, 255;
 
   --accent: #E83151;
-  --bg-color: rgb(42, 41, 41);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 42, 41, 41;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-color: 255, 255, 255;
+    --background-color: 0, 0, 0;
   }
 
   .registerButton {
@@ -45,40 +42,10 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  color: var(--foreground-color);
+  background: var(--background-color)
 }
 
-@layer components {
-  .header {
-    @apply flex justify-between w-full p-8 absolute top-0 left-0 max-w-full box-border;
-  }
-
-  .header-cursif {
-    @apply text-5xl leading-8;
-    font-family: 'Montez', cursive;
-  }
-
-  .registerButton {
-    @apply buttonRegister bg-color font-normal text-2xl leading-7 text-center px-3 py-2 rounded-md transition duration-300;
-  }
-
-  .inputBox {
-    @apply relative items-center bg-white dark:bg-gray-300 pr-28 p-5 px-4 rounded-md my-3 transition duration-300;
-  }
-
-  .container {
-    @apply flex flex-col items-center justify-center min-h-screen max-w-full;
-  }
-
-  .passwordEyeButton {
-    @apply absolute top-11 right-1 transform -translate-y-1/2 border-none bg-transparent cursor-pointer;
-  }
-}
-
-/* This is here temporarily. For some reason doing this from the component folder doesn't work */
 .button {
   padding: 10px 50px;
   border: none;
@@ -87,20 +54,6 @@ body {
 
   color: white;
   background-color: black;
-}
-
-.buttonRegister {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  color: white;
-  background-color: var(--bg-color);
-}
-
-.buttonRegister.bg-color {
-  background-color: white;
 }
 
 .button.accent {

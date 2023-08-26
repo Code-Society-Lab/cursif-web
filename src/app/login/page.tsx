@@ -62,56 +62,65 @@ export default function Page() {
 	};
 
 	return (
-		<div className='dark'>
-			<div className="container">
-				<div className="header">
-					<h1 className="header-cursif"><a href="/">Cursif</a></h1>
+		<div className="">
+			<div>
+				<span className="logo">Cursif</span>
+			</div>
 
-					<div className="relative l-10">
-						<button className="registerButton">Register</button>
-					</div>
-				</div>
-
-				<div className="relative">
-					<h2 className="mb-24 text-5xl text-center">
-						<b className="font-semibold">LOG</b> IN
-					</h2>
-
-					<div>
-						<div className="relative">
-							<input
-								className='inputBox'
-								type="text"
-								placeholder="Email"
-								value={email}
-								onChange={handleEmailChange}
-							/>
-						</div>
-
-						<div className="relative">
-							<input
-								className="inputBox"
-								type={showPassword ? 'text' : 'password'}
-								placeholder="Password"
-								value={password}
-								onChange={handlePasswordChange}
-							/>
-							<button
-								className="passwordEyeButton"
-								onClick={handlePasswordToggle}>
-								{showPassword ? <FaEyeSlash /> : <EyeIcon />}
-							</button>
-						</div>
-
-						<div className="float-left text-sm">
-							<a href="#">Forgot Password?</a>
-						</div>
-
-						{/* Using float isn't the best approach but until this is full refactored it's fine*/}
-						<button className="button accent mt-8 float-right" onClick={handleLogin}>Login</button>
-					</div>
-				</div>
+			<div>
+				<h1><b>Log</b> in</h1>
 			</div>
 		</div>
 	);
+	// return (
+	// 	<div className='dark'>
+	// 		<div className="container">
+	// 			<div className="header">
+	// 				<h1 className="header-cursif font-montez">Cursif</h1>
+
+	// 				<div className="relative">
+	// 					<button className="registerButton font-roboto">Register</button>
+	// 				</div>
+	// 			</div>
+
+	// 			<div className="relative">
+	// 				<h2 className="mb-24 text-5xl text-center">
+	// 					<b className="font-semibold">LOG</b> IN
+	// 				</h2>
+
+	// 				<div>
+	// 					<input
+	// 						className='inputBox'
+	// 						type="text"
+	// 						placeholder="Email"
+	// 						value={email}
+	// 						onChange={handleEmailChange}
+	// 					/>
+
+	// 					<div className="relative">
+	// 						<input
+	// 							className="inputBox"
+	// 							type={showPassword ? 'text' : 'password'}
+	// 							placeholder="Password"
+	// 							value={password}
+	// 							onChange={handlePasswordChange}
+	// 						/>
+	// 						<button
+	// 							className="passwordEyeButton"
+	// 							onClick={handlePasswordToggle}>
+	// 							{showPassword ? <FaEyeSlash /> : <FaEye />}
+	// 						</button>
+	// 					</div>
+
+	// 					<div className="float-left text-sm">
+	// 						<a href="#">Forgot Password?</a>
+	// 					</div>
+
+	// 					{/* Using float isn't the best approach but until this is full refactored it's fine*/}
+	// 					<button className="button accent mt-8 float-right" onClick={handleLogin}>Login</button>
+	// 				</div>
+	// 			</div>
+	// 		</div>
+	// 	</div>
+	// );
 }
