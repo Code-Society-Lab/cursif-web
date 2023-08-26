@@ -22,12 +22,25 @@
     --background-start-rgb: 42, 41, 41;
     --background-end-rgb: 0, 0, 0;
   }
+
+  .registerButton {
+    color: black;
+    background-color: white;
+  }
+
+  .passwordEyeButton {
+    color: black;
+  }
+
+  .inputBox {
+    color: black;
+  }
 }
 
 /* Media queries for responsiveness */
 @media (max-width: 350px) {
   body {
-      padding: 10px;
+    padding: 10px;
   }
 }
 
@@ -40,22 +53,28 @@ body {
 
 @layer components {
   .header {
-    @apply flex justify-between items-center w-full p-8 absolute top-0 left-0 max-w-full box-border;
+    @apply flex justify-between w-full p-8 absolute top-0 left-0 max-w-full box-border;
   }
+
   .header-cursif {
-    @apply font-normal text-5xl leading-8;
+    @apply text-5xl leading-8;
+    font-family: 'Montez', cursive;
   }
+
   .registerButton {
-    @apply buttonRegister w-full h-full font-normal text-2xl leading-7 text-center px-3 py-2 rounded-md transition duration-300;
+    @apply buttonRegister bg-color font-normal text-2xl leading-7 text-center px-3 py-2 rounded-md transition duration-300;
   }
+
   .inputBox {
-    @apply bg-white dark:bg-gray-300 p-3 px-4 rounded-md my-3 transition duration-300;
+    @apply relative items-center bg-white dark:bg-gray-300 pr-28 p-5 px-4 rounded-md my-3 transition duration-300;
   }
+
   .container {
-    @apply flex flex-col items-center justify-center min-h-screen w-full;
+    @apply flex flex-col items-center justify-center min-h-screen max-w-full;
   }
+
   .passwordEyeButton {
-    @apply absolute top-9 right-1 transform -translate-y-1/2 border-none bg-transparent cursor-pointer;
+    @apply absolute top-11 right-1 transform -translate-y-1/2 border-none bg-transparent cursor-pointer;
   }
 }
 
@@ -78,6 +97,10 @@ body {
 
   color: white;
   background-color: var(--bg-color);
+}
+
+.buttonRegister.bg-color {
+  background-color: white;
 }
 
 .button.accent {
