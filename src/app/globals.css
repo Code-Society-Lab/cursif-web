@@ -18,38 +18,41 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
+    --background-start-rgb: 42, 41, 41;
     --background-end-rgb: 0, 0, 0;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 /* This is here temporarily. For some reason doing this from the component folder doesn't work */
 .button {
-    padding: 10px 50px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 10px 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 
-    color: white;
-    background-color: black;
+  color: white;
+  background-color: black;
 }
 
 .button.accent {
-    color: white !important;
-    background-color: var(--accent) !important;
+  color: white !important;
+  background-color: var(--accent) !important;
 }
 
 .button.light {
-    color: black !important;
-    background-color: white !important;
+  color: black !important;
+  background-color: white !important;
+}
+
+/* Light Mode CSS */
+.body.light-mode {
+  background-color: white;
+  color: black;
 }
