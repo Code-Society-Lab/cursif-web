@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa';
 import { useMutation, gql } from '@apollo/client';
+import EyeIcon from '../eye-icone';
 
 const LOGIN_MUTATION = gql`
 	mutation Login($email: String!, $password: String!) {
@@ -64,10 +65,10 @@ export default function Page() {
 		<div className='dark'>
 			<div className="container">
 				<div className="header">
-					<h1 className="header-cursif font-montez">Cursif</h1>
+					<h1 className="header-cursif"><a href="/">Cursif</a></h1>
 
-					<div className="relative">
-						<button className="registerButton font-roboto">Register</button>
+					<div className="relative l-10">
+						<button className="registerButton">Register</button>
 					</div>
 				</div>
 
@@ -77,13 +78,15 @@ export default function Page() {
 					</h2>
 
 					<div>
-						<input
-							className='inputBox'
-							type="text"
-							placeholder="Email"
-							value={email}
-							onChange={handleEmailChange}
-						/>
+						<div className="relative">
+							<input
+								className='inputBox'
+								type="text"
+								placeholder="Email"
+								value={email}
+								onChange={handleEmailChange}
+							/>
+						</div>
 
 						<div className="relative">
 							<input
@@ -96,7 +99,7 @@ export default function Page() {
 							<button
 								className="passwordEyeButton"
 								onClick={handlePasswordToggle}>
-								{showPassword ? <FaEyeSlash /> : <FaEye />}
+								{showPassword ? <FaEyeSlash /> : <EyeIcon />}
 							</button>
 						</div>
 
