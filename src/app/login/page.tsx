@@ -1,10 +1,10 @@
 "use client"
 
+import styles from './styles.module.css'
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useMutation, gql } from '@apollo/client';
 import { useDarkMode } from '@/app/dark-mode-context';
-import styles from './styles.module.css'
 
 const LOGIN_MUTATION = gql`
 	mutation Login($email: String!, $password: String!) {
