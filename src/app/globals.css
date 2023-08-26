@@ -38,6 +38,27 @@ body {
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
+@layer components {
+  .header {
+    @apply flex justify-between items-center w-full p-8 absolute top-0 left-0 max-w-full box-border;
+  }
+  .header-cursif {
+    @apply font-normal text-5xl leading-8;
+  }
+  .registerButton {
+    @apply buttonRegister w-full h-full font-normal text-2xl leading-7 text-center px-3 py-2 rounded-md transition duration-300;
+  }
+  .inputBox {
+    @apply bg-white dark:bg-gray-300 p-3 px-4 rounded-md my-3 transition duration-300;
+  }
+  .container {
+    @apply flex flex-col items-center justify-center min-h-screen w-full;
+  }
+  .passwordEyeButton {
+    @apply absolute top-9 right-1 transform -translate-y-1/2 border-none bg-transparent cursor-pointer;
+  }
+}
+
 /* This is here temporarily. For some reason doing this from the component folder doesn't work */
 .button {
   padding: 10px 50px;
@@ -49,6 +70,16 @@ body {
   background-color: black;
 }
 
+.buttonRegister {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  color: white;
+  background-color: var(--bg-color);
+}
+
 .button.accent {
   color: white !important;
   background-color: var(--accent) !important;
@@ -57,25 +88,4 @@ body {
 .button.light {
   color: black !important;
   background-color: white !important;
-}
-
-/* button color for register */
-.buttonRegister.bg-color-dark {
-  color: white;
-  background-color: var(--bg-color);
-}
-
-.buttonRegister.bg-color-light {
-  color: black;
-  background-color: white;
-}
-
-/* Light Mode CSS */
-.body.dark-mode {
-  background-color: var(--bg-color);
-  color: white;
-}
-.body.light-mode {
-  background-color: white;
-  color: black;
 }
