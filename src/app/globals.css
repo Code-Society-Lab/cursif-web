@@ -13,6 +13,7 @@
   --background-end-rgb: 255, 255, 255;
 
   --accent: #E83151;
+  --bg-color: rgb(42, 41, 41);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +21,13 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 42, 41, 41;
     --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 350px) {
+  body {
+      padding: 10px;
   }
 }
 
@@ -51,7 +59,22 @@ body {
   background-color: white !important;
 }
 
+/* button color for register */
+.buttonRegister.bg-color-dark {
+  color: white;
+  background-color: var(--bg-color);
+}
+
+.buttonRegister.bg-color-light {
+  color: black;
+  background-color: white;
+}
+
 /* Light Mode CSS */
+.body.dark-mode {
+  background-color: var(--bg-color);
+  color: white;
+}
 .body.light-mode {
   background-color: white;
   color: black;
