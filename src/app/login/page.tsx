@@ -7,18 +7,18 @@ import { useDarkMode } from '@/app/dark-mode-context';
 import styles from './styles.module.css'
 
 const LOGIN_MUTATION = gql`
-		mutation Login($email: String!, $password: String!) {
-				login(email: $email, password: $password) {
-						token
-						user {
-								email
-								firstName
-								id
-								lastName
-								username
-						}
-				}
+	mutation Login($email: String!, $password: String!) {
+		login(email: $email, password: $password) {
+			token
+			user {
+				email
+				firstName
+				id
+				lastName
+				username
+			}
 		}
+	}
 `;
 
 export default function Page() {
