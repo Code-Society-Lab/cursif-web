@@ -1,141 +1,114 @@
 "use client"
 
-import styles from './styles.module.css';
-
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useMutation, gql } from '@apollo/client';
-import { useDarkMode } from '@/app/dark-mode-context';
-
-import { Button } from '@/app/components/button';
 
 const LOGIN_MUTATION = gql`
-    mutation Login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-            token
-            user {
-                email
-                firstName
-                id
-                lastName
-                username
-            }
-        }
-    }
+	mutation Login($email: String!, $password: String!) {
+		login(email: $email, password: $password) {
+			token
+			user {
+				email
+				firstName
+				id
+				lastName
+				username
+			}
+		}
+	}
 `;
 
 export default function Page() {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+	const [loginMutation] = useMutation(LOGIN_MUTATION);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [showPassword, setShowPassword] = useState(false);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+	const handlePasswordToggle = () => {
+		setShowPassword(!showPassword);
+	};
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+	const handleEmailChange = (event) => {
+		setEmail(event.target.value);
+	};
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+	const handlePasswordChange = (event) => {
+		setPassword(event.target.value);
+	};
 
-  const containerStyle = {
-    backgroundColor: isDarkMode ? '#404040' : 'white',
-    color: isDarkMode ? 'white' : 'black',
-  };
+	const handleLogin = async () => {
+		try {
+			const { data } = await loginMutation({
+				variables: {
+					email: email,
+					password: password,
+				},
+			});
 
-  const buttonStyle = {
-    backgroundColor: isDarkMode ? 'white' : '#404040',
-    color: isDarkMode ? 'black' : 'white',
-  };
+			if (data && data.login && data.login.user) {
+				const username = data.login.user.username;
+				console.log('Login successful. Username:', username);
 
-  const inputStyle = {
-    backgroundColor: isDarkMode ? '#404040' : '#dfdfdfdd',
-    color: isDarkMode ? 'black' : 'white',
-  };
+				// Redirect to home screen
+				window.location.href = '/';
+			} else {
+				console.log('Login failed. Please check your credentials.');
+			}
+		} catch (error) {
+			console.error('Error logging in:', error);
+		}
+	};
 
-  const [loginMutation] = useMutation(LOGIN_MUTATION);
+	return (
+		<div className='dark'>
+			<div className="container">
+				<div className="header">
+					<h1 className="header-cursif font-montez">Cursif</h1>
 
-  const handleLogin = async () => {
-    try {
-      const { data } = await loginMutation({
-        variables: {
-          email: email,
-          password: password,
-        },
-      });
+					<div className="relative">
+						<button className="registerButton font-roboto">Register</button>
+					</div>
+				</div>
 
-      if (data && data.login && data.login.user) {
-        const username = data.login.user.username;
-        console.log('Login successful. User ID:', username);
-        
-        // Redirect to home screen
-        window.location.href = '/';
-      } else {
-        console.log('Login failed. Please check your credentials.');
-      }
-    } catch (error) {
-      console.error('Error logging in:', error);
-    }
-  };
+				<div className="relative">
+					<h2 className="mb-24 text-5xl text-center">
+						<b className="font-semibold">LOG</b> IN
+					</h2>
 
-  const [showPassword, setShowPassword] = useState(false);
+					<div>
+						<input
+							className='inputBox'
+							type="text"
+							placeholder="Email"
+							value={email}
+							onChange={handleEmailChange}
+						/>
 
-  const handlePasswordToggle = () => {
-    setShowPassword(!showPassword);
-  };
+						<div className="relative">
+							<input
+								className="inputBox"
+								type={showPassword ? 'text' : 'password'}
+								placeholder="Password"
+								value={password}
+								onChange={handlePasswordChange}
+							/>
+							<button
+								className="passwordEyeButton"
+								onClick={handlePasswordToggle}>
+								{showPassword ? <FaEyeSlash /> : <FaEye />}
+							</button>
+						</div>
 
-  return (
-    <div className={styles.container} style={containerStyle}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h1>Cursif</h1>
+						<div className="float-left text-sm">
+							<a href="#">Forgot Password?</a>
+						</div>
 
-          <div className={`${styles.cornerText} ${isDarkMode ? styles.whiteCornerText : styles.blackCornerText}`}>
-            <button onClick={toggleDarkMode}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</button>
-          </div>
-
-          <div className={styles.registerButtonContainer}>
-            <button className={styles.registerButton} style={buttonStyle}>Register</button>
-          </div>
-        </div>
-
-        <div className={styles.loginBox}>
-          <h2><span className={styles.boldText}>LOG</span> IN</h2>
-          <div className={styles.inputContainer}>
-            <input
-              className={styles.input}
-              style={inputStyle}
-              type="text"
-              placeholder="Email"
-              value={email}
-              onChange={handleEmailChange}
-            />
-            <div className={styles.passwordInput}>
-              <input
-                className={styles.input}
-                style={inputStyle}
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-              <button
-                className={styles.showPasswordButton}
-                onClick={handlePasswordToggle}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
-
-            <div className={styles.forgotPassword}>
-              <a href="#">Forgot Password?</a>
-            </div>
-
-            {/* Using float isn't the best approach but until this is full refactored it's fine*/}
-            <button className="button accent mt-8 float-right" onClick={handleLogin}>Login</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+						{/* Using float isn't the best approach but until this is full refactored it's fine*/}
+						<button className="button accent mt-8 float-right" onClick={handleLogin}>Login</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }

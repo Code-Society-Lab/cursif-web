@@ -13,43 +13,79 @@
   --background-end-rgb: 255, 255, 255;
 
   --accent: #E83151;
+  --bg-color: rgb(42, 41, 41);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
+    --background-start-rgb: 42, 41, 41;
     --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 350px) {
+  body {
+      padding: 10px;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+@layer components {
+  .header {
+    @apply flex justify-between items-center w-full p-8 absolute top-0 left-0 max-w-full box-border;
+  }
+  .header-cursif {
+    @apply font-normal text-5xl leading-8;
+  }
+  .registerButton {
+    @apply buttonRegister w-full h-full font-normal text-2xl leading-7 text-center px-3 py-2 rounded-md transition duration-300;
+  }
+  .inputBox {
+    @apply bg-white dark:bg-gray-300 p-3 px-4 rounded-md my-3 transition duration-300;
+  }
+  .container {
+    @apply flex flex-col items-center justify-center min-h-screen w-full;
+  }
+  .passwordEyeButton {
+    @apply absolute top-9 right-1 transform -translate-y-1/2 border-none bg-transparent cursor-pointer;
+  }
 }
 
 /* This is here temporarily. For some reason doing this from the component folder doesn't work */
 .button {
-    padding: 10px 50px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 10px 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 
-    color: white;
-    background-color: black;
+  color: white;
+  background-color: black;
+}
+
+.buttonRegister {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  color: white;
+  background-color: var(--bg-color);
 }
 
 .button.accent {
-    color: white !important;
-    background-color: var(--accent) !important;
+  color: white !important;
+  background-color: var(--accent) !important;
 }
 
 .button.light {
-    color: black !important;
-    background-color: white !important;
+  color: black !important;
+  background-color: white !important;
 }
