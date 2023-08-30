@@ -101,7 +101,7 @@ export default function Page() {
 									<button
 										className="absolute w-auto input"
 										onClick={handlePasswordToggle}>
-										{showPassword ? "hide" : "show"}
+										<img className="w-8" src={showPassword ? "/eye.svg" : "/eye-slash.svg"} />
 									</button>
 								</div>
 
