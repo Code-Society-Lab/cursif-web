@@ -2,6 +2,7 @@
   This file is used to define global styles for the entire application. It is 
   applied to all routes and pages.
 */
+@import url('https://fonts.googleapis.com/css2?family=Montez&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -19,41 +20,34 @@
     --foreground-color: 255, 255, 255;
     --background-color: 0, 0, 0;
   }
-
-  .registerButton {
-    color: black;
-    background-color: white;
-  }
-
-  .passwordEyeButton {
-    color: black;
-  }
-
-  .inputBox {
-    color: black;
-  }
-}
-
-/* Media queries for responsiveness */
-@media (max-width: 350px) {
-  body {
-    padding: 10px;
-  }
 }
 
 body {
+  font-family: 'Montserrat', sans-serif;
+
   color: var(--foreground-color);
   background: var(--background-color)
 }
 
+.input {
+  background-color: #E9E9E9;
+  height: 50px;
+  padding: 10px;
+
+  @apply rounded
+}
+
+.font-montez {
+  font-family: 'Montez';
+}
+
 .button {
   padding: 10px 50px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 
   color: white;
   background-color: black;
+
+  @apply rounded cursor-pointer border-none
 }
 
 .button.accent {

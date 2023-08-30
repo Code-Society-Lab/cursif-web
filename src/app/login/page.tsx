@@ -62,65 +62,63 @@ export default function Page() {
 	};
 
 	return (
-		<div className="">
-			<div>
-				<span className="logo">Cursif</span>
+		<div className="flex flex-col h-screen">
+			<div className="grid grid-cols-2 p-5">
+				<div className="flex">
+					<p className="text-5xl font-montez">Cursif</p>
+				</div>
+				<div className="flex items-center justify-end">
+					<a href="/signin" className="button">Sign In</a>
+				</div>
 			</div>
 
-			<div>
-				<h1><b>Log</b> in</h1>
+			<div className="flex-1 p-5">
+				<div className="flex justify-center h-full">
+					<div className="w-[350px]">
+						<div className="text-center mt-40">
+							<h1 className="text-5xl"><b>LOG</b> IN</h1>
+						</div>
+
+						<div className="my-20">
+							<div className="my-5">
+								<input 
+									className="input w-full" 
+									type="text" 
+									placeholder="Email"
+									value={email}
+									onChange={handleEmailChange} 
+								/>
+							</div>
+							<div className="my-5">
+								<div className="flex justify-end items-center relative">
+									<input 
+										className="input w-full" 
+										type={showPassword ? 'text' : 'password'}
+										placeholder="Password"z
+										value={password}
+										onChange={handlePasswordChange}
+										/>
+									<button
+										className="absolute w-auto input"
+										onClick={handlePasswordToggle}>
+										{showPassword ? "hide" : "show"}
+									</button>
+								</div>
+
+								<div className="m-2">
+									<a href="#">Forgot Password?</a>
+								</div>
+							</div>
+						</div>
+
+						<button className="button accent float-right" onClick={handleLogin}>Login</button>
+					</div>
+				</div>
+			</div>
+
+			<div className="flex justify-center text-center p-5">
+				<span>Made by the <a className="font-bold hover:underline" href="https://codesociety.xyz/">Code Society</a> - &copy; 2023</span>
 			</div>
 		</div>
 	);
-	// return (
-	// 	<div className='dark'>
-	// 		<div className="container">
-	// 			<div className="header">
-	// 				<h1 className="header-cursif font-montez">Cursif</h1>
-
-	// 				<div className="relative">
-	// 					<button className="registerButton font-roboto">Register</button>
-	// 				</div>
-	// 			</div>
-
-	// 			<div className="relative">
-	// 				<h2 className="mb-24 text-5xl text-center">
-	// 					<b className="font-semibold">LOG</b> IN
-	// 				</h2>
-
-	// 				<div>
-	// 					<input
-	// 						className='inputBox'
-	// 						type="text"
-	// 						placeholder="Email"
-	// 						value={email}
-	// 						onChange={handleEmailChange}
-	// 					/>
-
-	// 					<div className="relative">
-	// 						<input
-	// 							className="inputBox"
-	// 							type={showPassword ? 'text' : 'password'}
-	// 							placeholder="Password"
-	// 							value={password}
-	// 							onChange={handlePasswordChange}
-	// 						/>
-	// 						<button
-	// 							className="passwordEyeButton"
-	// 							onClick={handlePasswordToggle}>
-	// 							{showPassword ? <FaEyeSlash /> : <FaEye />}
-	// 						</button>
-	// 					</div>
-
-	// 					<div className="float-left text-sm">
-	// 						<a href="#">Forgot Password?</a>
-	// 					</div>
-
-	// 					{/* Using float isn't the best approach but until this is full refactored it's fine*/}
-	// 					<button className="button accent mt-8 float-right" onClick={handleLogin}>Login</button>
-	// 				</div>
-	// 			</div>
-	// 		</div>
-	// 	</div>
-	// );
 }
