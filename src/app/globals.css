@@ -38,11 +38,12 @@ body {
   @apply rounded
 }
 
-button.input {
-  @apply absolute w-auto
+.input-button {
+  @apply absolute w-auto mx-2 border-none
 }
 
-.input:invalid:focus, .input:invalid:focus + button {
+form:invalid .input:not(:focus):not(:placeholder-shown),
+form:invalid .input:not(:focus):not(:placeholder-shown) + .input-button {
   background-color: #FDD;
   outline: none;
 }

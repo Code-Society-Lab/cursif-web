@@ -111,7 +111,7 @@ export default function Page() {
 										onChange={onPasswordChange}
 										required="required"
 										/>
-									<button className="input" onClick={toggleShowPassword} type="button">
+									<button className="input-button" onClick={toggleShowPassword} type="button">
 										<img className="w-8" src={showPassword ? "/eye.svg" : "/eye-slash.svg"} />
 									</button>
 								</div>
