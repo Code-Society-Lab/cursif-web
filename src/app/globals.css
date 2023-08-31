@@ -13,6 +13,7 @@
   --background-color: 255, 255, 255;
 
   --accent: #E83151;
+  --accent-hover: #FF3E5F;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,6 +38,15 @@ body {
   @apply rounded
 }
 
+button.input {
+  @apply absolute w-auto
+}
+
+.input:invalid:focus, .input:invalid:focus + button {
+  background-color: #FDD;
+  outline: none;
+}
+
 .font-montez {
   font-family: 'Montez';
 }
@@ -55,7 +65,7 @@ body {
   white-space: nowrap;
 
   color: white;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 1);
 
   @apply 
     rounded 
@@ -66,12 +76,12 @@ body {
     disabled:cursor-default;
 }
 
-.button .spinner {
-  @apply hidden justify-center items-center
+.button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
-.button.loading {
-  pointer-events: none;
+.button .spinner {
+  @apply hidden justify-center items-center
 }
 
 .button.loading .spinner {
@@ -85,6 +95,10 @@ body {
 .button.accent {
   color: white;
   background-color: var(--accent);
+}
+
+.button.accent:hover {
+  background-color: var(--accent-hover) !important;
 }
 
 .button.light {
