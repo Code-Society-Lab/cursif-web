@@ -41,21 +41,53 @@ body {
   font-family: 'Montez';
 }
 
+.text-accent {
+  color: var(--accent);
+}
+
+.fill-accent {
+  fill: var(--accent);
+}
+
 .button {
-  padding: 10px 50px;
+  padding: 10px 40px;
+  position: relative;
+  white-space: nowrap;
 
   color: white;
   background-color: black;
 
-  @apply rounded cursor-pointer border-none
+  @apply 
+    rounded 
+    cursor-pointer 
+    border-none 
+    overflow-hidden 
+    disabled:opacity-75 
+    disabled:cursor-default;
+}
+
+.button .spinner {
+  @apply hidden justify-center items-center
+}
+
+.button.loading {
+  pointer-events: none;
+}
+
+.button.loading .spinner {
+  @apply flex absolute inset-0
+}
+
+.button.loading .label {
+  @apply invisible
 }
 
 .button.accent {
-  color: white !important;
-  background-color: var(--accent) !important;
+  color: white;
+  background-color: var(--accent);
 }
 
 .button.light {
-  color: black !important;
-  background-color: white !important;
+  color: black;
+  background-color: white;
 }

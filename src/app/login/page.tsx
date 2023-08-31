@@ -1,65 +1,75 @@
 "use client"
 
-import React, { useState } from 'react';
-import { FaEyeSlash } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
 import { useMutation, gql } from '@apollo/client';
-import EyeIcon from '../eye-icone';
+import Spinner from '@components/spinner';
+import { useRouter } from 'next/navigation'
 
 const LOGIN_MUTATION = gql`
 	mutation Login($email: String!, $password: String!) {
 		login(email: $email, password: $password) {
 			token
 			user {
+				id
+				username
 				email
 				firstName
-				id
 				lastName
-				username
 			}
 		}
 	}
 `;
 
-export default function Page() {
-	const [loginMutation] = useMutation(LOGIN_MUTATION);
+export default function Page() {	
+	const router = useRouter()
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
 
-	const handlePasswordToggle = () => {
+	const toggleShowPassword = () => {
 		setShowPassword(!showPassword);
 	};
 
-	const handleEmailChange = (event) => {
+	const onEmailChange = (event) => {
 		setEmail(event.target.value);
 	};
 
-	const handlePasswordChange = (event) => {
+	const onPasswordChange = (event) => {
 		setPassword(event.target.value);
 	};
 
-	const handleLogin = async () => {
-		try {
-			const { data } = await loginMutation({
-				variables: {
-					email: email,
-					password: password,
-				},
-			});
+	const onSubmit = (event) => {
+		event.preventDefault();
 
-			if (data && data.login && data.login.user) {
-				const username = data.login.user.username;
-				console.log('Login successful. Username:', username);
-
-				// Redirect to home screen
-				window.location.href = '/';
-			} else {
-				console.log('Login failed. Please check your credentials.');
-			}
-		} catch (error) {
-			console.error('Error logging in:', error);
-		}
+		if (email && password)
+			login();
 	};
+
+	const toggleLoader = (state) => {
+		var button = document.getElementById("login-button");
+		button.classList.toggle("loading", state);
+	};
+
+	const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION, {
+		variables: {
+			email: email,
+			password: password,
+		},
+		onCompleted: ({ login }) => {
+			localStorage.setItem('TOKEN', login.token);
+			localStorage.setItem('USER', login.user);
+
+			toggleLoader(false);
+			router.push('/')
+		},
+		onError: (error) => {
+			toggleLoader(false);
+		}
+	});
+
+	if (loading)
+		toggleLoader(true);
 
 	return (
 		<div className="flex flex-col h-screen">
@@ -68,14 +78,14 @@ export default function Page() {
 					<p className="text-5xl font-montez">Cursif</p>
 				</div>
 				<div className="flex items-center justify-end">
-					<a href="/signin" className="button">Sign In</a>
+					<a href="/signin" className="button"><span className="label">Sign In</span></a>
 				</div>
 			</div>
 
 			<div className="flex-1 p-5">
 				<div className="flex justify-center h-full">
-					<div className="w-[350px]">
-						<div className="text-center mt-40">
+					<form className="w-[350px]" onSubmit={onSubmit}>
+						<div className="text-center mt-20">
 							<h1 className="text-5xl"><b>LOG</b> IN</h1>
 						</div>
 
@@ -86,7 +96,9 @@ export default function Page() {
 									type="text" 
 									placeholder="Email"
 									value={email}
-									onChange={handleEmailChange} 
+									onChange={onEmailChange}
+									required="required"
+									pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
 								/>
 							</div>
 							<div className="my-5">
@@ -94,13 +106,15 @@ export default function Page() {
 									<input 
 										className="input w-full" 
 										type={showPassword ? 'text' : 'password'}
-										placeholder="Password"z
+										placeholder="Password"
 										value={password}
-										onChange={handlePasswordChange}
+										onChange={onPasswordChange}
+										required="required"
 										/>
 									<button
 										className="absolute w-auto input"
-										onClick={handlePasswordToggle}>
+										onClick={toggleShowPassword}
+										type="button">
 										<img className="w-8" src={showPassword ? "/eye.svg" : "/eye-slash.svg"} />
 									</button>
 								</div>
@@ -111,13 +125,16 @@ export default function Page() {
 							</div>
 						</div>
 
-						<button className="button accent float-right" onClick={handleLogin}>Login</button>
-					</div>
+					  <button id="login-button" className="button accent float-right" type="submit">
+					  	<span className="spinner"><Spinner /></span>
+					    <span className="label">Login</span>  	   
+					  </button>
+					</form>
 				</div>
 			</div>
 
 			<div className="flex justify-center text-center p-5">
-				<span>Made by the <a className="font-bold hover:underline" href="https://codesociety.xyz/">Code Society</a> - &copy; 2023</span>
+				<span>Made by the <a className="font-bold hover:underline" href="https://codesociety.xyz/">Code Society</a></span>
 			</div>
 		</div>
 	);

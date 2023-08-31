@@ -1,6 +1,6 @@
 import './globals.css'
 
-import { ApolloWrapper } from "./graphql/apollo-wrapper";
+import { ApolloWrapper } from "@/components/graphql/apollo-wrapper";
 
 import type { Metadata } from 'next'
 
