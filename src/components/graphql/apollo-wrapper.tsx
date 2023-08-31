@@ -9,19 +9,19 @@ import {
 } from "@apollo/experimental-nextjs-app-support/ssr";
 import { setContext } from '@apollo/client/link/context';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
-import Config from '@/config';
+import Config from '@config';
 
 
 loadDevMessages();
 loadErrorMessages();
 
 
-// for now set the token manually with `window.localStorage.setItem('user_token', token) 
+// for now set the token manually with `window.localStorage.setItem('TOKEN', token) 
 // in the dev console.
 
 function makeClient() {
   const authLink = setContext((_, { headers }) => {
-    const token = window.localStorage.getItem('user_token');
+    const token = window.localStorage.getItem('TOKEN');
 
     return {
       headers: {
