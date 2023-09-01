@@ -12,8 +12,8 @@
 :root {
   --accent: #E83151;
 
-  --foreground-color: black;
   --background-color: white;
+  --foreground-color: black;
 
   --button-background-color: black;
   --button-foreground-color: white;

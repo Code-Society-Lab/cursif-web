@@ -20,7 +20,7 @@ const LOGIN_MUTATION = gql`
 	}
 `;
 
-export default function Page() {	
+export default function Page() {
 	const router = useRouter()
 
 	const [email, setEmail] = useState('');

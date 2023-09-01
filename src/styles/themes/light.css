@@ -1,0 +1,17 @@
+.light {
+  --foreground-color: black;
+  --background-color: white;
+
+  --button-background-color: black;
+  --button-foreground-color: white;
+
+  --input-background-color: #E9E9E9;
+  --input-foreground-color: black;
+
+  --input-error-background-color: #FDD;
+  --input-error-foreground-color: inherit;
+}
+
+.light .svg {
+  filter: invert(0);
+}

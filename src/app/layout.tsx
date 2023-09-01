@@ -1,5 +1,6 @@
 import '@styles/globals.css'
 import '@styles/themes/dark.css'
+import '@styles/themes/light.css'
 
 import { ApolloWrapper } from "@/components/graphql/apollo-wrapper";
 import type { Metadata } from 'next'

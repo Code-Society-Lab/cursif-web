@@ -1,6 +1,6 @@
 .dark {
-  --foreground-color: white;
   --background-color: #212121;
+  --foreground-color: white;
 
   --button-background-color: white;
   --button-foreground-color: black;
@@ -17,10 +17,10 @@
 }
 
 /* Do we want that or handle differently? */
-/*@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
-    --foreground-color: white;
     --background-color: #212121;
+    --foreground-color: white;
 
     --button-background-color: white;
     --button-foreground-color: black;
@@ -32,4 +32,4 @@
   .svg {
     filter: invert(1);
   }
-}*/
+}
