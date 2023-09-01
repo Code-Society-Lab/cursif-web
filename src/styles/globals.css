@@ -1,0 +1,118 @@
+/*
+  This file is used to define global styles for the entire application. It is 
+  applied to all routes and pages.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Montez&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --accent: #E83151;
+
+  --foreground-color: black;
+  --background-color: white;
+
+  --button-background-color: black;
+  --button-foreground-color: white;
+
+  --input-background-color: #E9E9E9;
+  --input-foreground-color: black;
+
+  --input-error-background-color: #FDD;
+  --input-error-foreground-color: inherit;
+}
+
+@layer base {
+  .bg-accent {
+    background-color: var(--accent);
+  }
+
+  .font-montez {
+    font-family: 'Montez';
+  }
+
+  .text-accent {
+    color: var(--accent);
+  }
+
+  .fill-accent {
+    fill: var(--accent);
+  }
+}
+
+/* Generals */
+body {
+  font-family: 'Montserrat', sans-serif;
+
+  color: var(--foreground-color);
+  background: var(--background-color);
+}
+
+/* Inputs */
+.input {
+  color: var(--input-foreground-color);
+  background-color: var(--input-background-color);
+
+  height: 50px;
+  padding: 10px;
+
+  @apply rounded
+}
+
+.input-group {
+  background-color: var(--input-background-color);
+
+  @apply 
+    h-full 
+    flex 
+    justify-center 
+    items-center
+    absolute 
+    w-auto 
+    mx-2 
+    border-none
+}
+
+.input:not(:focus):not(:placeholder-shown):invalid,
+.input:not(:focus):not(:placeholder-shown):invalid + .input-group {
+  color: var(--input-error-foreground-color);
+  background-color: var(--input-error-background-color);
+  outline: none;
+}
+
+/* Buttons  */
+.button {
+  padding: 10px 40px;
+  position: relative;
+  white-space: nowrap;
+
+  color: var(--button-foreground-color);
+  background-color: var(--button-background-color);
+
+  @apply 
+    rounded 
+    cursor-pointer 
+    border-none 
+    overflow-hidden 
+    disabled:opacity-75 
+    disabled:cursor-default
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button .spinner {
+  @apply hidden justify-center items-center
+}
+
+.button.loading .spinner {
+  @apply flex absolute inset-0
+}
+
+.button.loading .label {
+  @apply invisible
+}

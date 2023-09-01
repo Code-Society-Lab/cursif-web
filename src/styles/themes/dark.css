@@ -1,0 +1,35 @@
+.dark {
+  --foreground-color: white;
+  --background-color: #212121;
+
+  --button-background-color: white;
+  --button-foreground-color: black;
+
+  --input-background-color: #161616;
+  --input-foreground-color: white;
+
+  --input-error-background-color: #F66;
+  --input-error-foreground-color: inherit;
+}
+
+.dark .svg {
+  filter: invert(1);
+}
+
+/* Do we want that or handle differently? */
+/*@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-color: white;
+    --background-color: #212121;
+
+    --button-background-color: white;
+    --button-foreground-color: black;
+
+    --input-background-color: #161616;
+    --input-foreground-color: white;
+  }
+
+  .svg {
+    filter: invert(1);
+  }
+}*/

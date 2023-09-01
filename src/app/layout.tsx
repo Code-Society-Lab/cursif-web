@@ -1,7 +1,7 @@
-import './globals.css'
+import '@styles/globals.css'
+import '@styles/themes/dark.css'
 
 import { ApolloWrapper } from "@/components/graphql/apollo-wrapper";
-
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

@@ -99,7 +99,7 @@ export default function Page() {
 									onChange={onEmailChange}
 									required="required"
 									pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-									title="Enter a valid email address"
+									title="Enter a valid email address."
 								/>
 							</div>
 							<div className="my-5">
@@ -112,9 +112,11 @@ export default function Page() {
 										onChange={onPasswordChange}
 										required="required"
 										/>
-									<button className="input-button" onClick={toggleShowPassword} type="button">
-										<img className="w-8" src={showPassword ? "/eye.svg" : "/eye-slash.svg"} />
-									</button>
+									<div className="input-group">
+										<button className="svg" onClick={toggleShowPassword} type="button">
+											<img className="w-8" src={showPassword ? "/eye.svg" : "/eye-slash.svg"} />
+										</button>
+									</div>
 								</div>
 
 								<div className="m-2">
@@ -123,7 +125,7 @@ export default function Page() {
 							</div>
 						</div>
 
-					  <button id="login-button" className="button accent float-right" type="submit">
+					  <button id="login-button" className="button !bg-accent !text-white float-right" type="submit">
 					  	<span className="spinner"><Spinner /></span>
 					    <span className="label">Login</span>  	   
 					  </button>
