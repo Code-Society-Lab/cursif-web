@@ -2,29 +2,22 @@
 
 import type { RootState } from '@stores/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from '@stores/slice'
+import { login } from '@stores/authentication-slice'
+import { useRouter } from 'next/navigation'
+
 
 export default function Page() {
-  const count = useSelector((state: RootState) => state.counter.value)
+  const token = useSelector((state: RootState) => state.token)
   const dispatch = useDispatch()
+  const router = useRouter()
+
+  if (!token) {
+    router.push('/login')
+  }
 
   return (
     <div>
-      <div>
-        <button
-          aria-label="Increment value"
-          onClick={() => dispatch(increment())}
-        >
-          Increment
-        </button>
-        <span>{count}</span>
-        <button
-          aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
-        >
-          Decrement
-        </button>
-      </div>
+      <span>TOKEN: {token}</span>
     </div>
   )
 }

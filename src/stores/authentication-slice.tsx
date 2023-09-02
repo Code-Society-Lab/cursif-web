@@ -1,9 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
+export interface User {
+  id: string,
+  username: string
+  email: string
+  first_name: string
+  last_name: string
+}
+
 export interface AuthenticationState {
-  token: string | null,
-  user: any | null
+  token?: string,
+  user?: User
 }
 
 const initialState: AuthenticationState = {
@@ -22,6 +30,10 @@ export const authenticationSlice = createSlice({
       // immutable state based off those changes
       state.token = "token"
     },
+    logout: (state) => {
+      state.token = null;
+      state.user = null;
+    }
   },
 })
 
