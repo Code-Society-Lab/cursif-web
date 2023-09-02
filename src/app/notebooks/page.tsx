@@ -1,10 +1,30 @@
+"use client"
+
+import type { RootState } from '@stores/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from '@stores/slice'
+
 export default function Page() {
+  const count = useSelector((state: RootState) => state.counter.value)
+  const dispatch = useDispatch()
 
   return (
-    <span className="h-screen flex items-center justify-center">
-      <div className="text-center">
-        <p className="text-4xl font-bold">Notebook/Index</p>
+    <div>
+      <div>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
+        >
+          Increment
+        </button>
+        <span>{count}</span>
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
       </div>
-    </span>
-  );
+    </div>
+  )
 }

@@ -31,24 +31,26 @@ export default function Page() {
 		setShowPassword(!showPassword);
 	};
 
-	const onEmailChange = (event) => {
+	const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(event.target.value);
 	};
 
-	const onPasswordChange = (event) => {
+	const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(event.target.value);
 	};
 
-	const onSubmit = (event) => {
+	const onSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
 
 		if (email && password)
 			login();
 	};
 
-	const toggleLoader = (state) => {
-		var button = document.getElementById("login-button");
-		button.classList.toggle("loading", state);
+	const toggleLoader = (state: boolean) => {
+		const button: HTMLElement | null = document.getElementById("login-button");
+
+		if (button)
+			button.classList.toggle("loading", state);
 	};
 
 	const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION, {
@@ -57,8 +59,8 @@ export default function Page() {
 			password: password,
 		},
 		onCompleted: ({ login }) => {
-			localStorage.setItem('TOKEN', login.token);
-			localStorage.setItem('USER', login.user);
+			localStorage.setItem('token', login.token);
+			localStorage.setItem('user', login.user);
 
 			toggleLoader(false);
 			router.push('/')
@@ -97,7 +99,7 @@ export default function Page() {
 									placeholder="Email"
 									value={email}
 									onChange={onEmailChange}
-									required="required"
+									required={true}
 									pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
 									title="Enter a valid email address."
 								/>
@@ -110,7 +112,7 @@ export default function Page() {
 										placeholder="Password"
 										value={password}
 										onChange={onPasswordChange}
-										required="required"
+										required={true}
 										/>
 									<div className="input-group">
 										<button className="svg" onClick={toggleShowPassword} type="button">
