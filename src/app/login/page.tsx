@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import Spinner from '@components/spinner';
 import { useRouter } from 'next/navigation'
+import Notify from '../../config/notiflix-config';
 
 const LOGIN_MUTATION = gql`
 	mutation Login($email: String!, $password: String!) {
@@ -63,10 +64,12 @@ export default function Page() {
 			localStorage.setItem('user', login.user);
 
 			toggleLoader(false);
+			Notify.success('Welcome back, ' + login.user.username + '!');
 			router.push('/')
 		},
 		onError: (error) => {
 			toggleLoader(false);
+			Notify.failure(error.message + '!');
 		}
 	});
 
