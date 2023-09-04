@@ -1,6 +1,6 @@
 "use client";
 
-import { HttpLink, ApolloLink } from "@apollo/client";
+import { from, HttpLink, ApolloLink } from "@apollo/client";
 import {
   NextSSRApolloClient,
   ApolloNextAppProvider,
@@ -9,19 +9,20 @@ import {
 } from "@apollo/experimental-nextjs-app-support/ssr";
 import { setContext } from '@apollo/client/link/context';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
+import { onError } from "@apollo/client/link/error";
+import { useRouter } from 'next/navigation';
 import Config from '@/config';
 
-
-loadDevMessages();
-loadErrorMessages();
-
-
-// for now set the token manually with `window.localStorage.setItem('TOKEN', token) 
-// in the dev console.
+if (Config.development) {
+  loadDevMessages();
+  loadErrorMessages();
+}
 
 function makeClient() {
+  const router = useRouter();
+
   const authLink = setContext((_, { headers }) => {
-    const token = window.localStorage.getItem('TOKEN');
+    const token = window.localStorage.token;
 
     return {
       headers: {
@@ -31,21 +32,34 @@ function makeClient() {
     }
   });
 
-  const httpLink = authLink.concat(new HttpLink(
-    { uri: Config.graphql.endpoint }
-  ));
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      graphQLErrors.forEach(({ message, status_code, path }) => {
+        if (Config.development)
+          console.log(`[GraphQL error]: Message: ${message}, Status Code: ${status_code}, Path: ${path}`);
+        
+        switch (status_code) {
+          case 401:
+            window.localStorage.removeItem('token');
+            router.push("/login")
+            break;
+        }
+      });
+    }
+
+    if (networkError) {
+      console.log(`[Network error]: ${networkError}`);
+    }
+  });
+
+  const httpLink = new HttpLink({ 
+    uri: Config.graphql.endpoint 
+  });
 
   return new NextSSRApolloClient({
     cache: new NextSSRInMemoryCache(),
-    link:
-      typeof window === "undefined"
-        ? ApolloLink.from([
-          new SSRMultipartLink({
-            stripDefer: true,
-          }),
-          httpLink,
-        ])
-        : httpLink,
+    credentials: "includes",
+    link: from([authLink, errorLink, httpLink])
   });
 }
 

@@ -60,10 +60,9 @@ export default function Page() {
 		},
 		onCompleted: ({ login }) => {
 			localStorage.setItem('token', login.token);
-			localStorage.setItem('user', login.user);
 
 			toggleLoader(false);
-			router.push('/')
+			router.push('/notebooks')
 		},
 		onError: (error) => {
 			toggleLoader(false);
