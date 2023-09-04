@@ -13,9 +13,6 @@ const LOGIN_MUTATION = gql`
 			user {
 				id
 				username
-				email
-				firstName
-				lastName
 			}
 		}
 	}
@@ -64,7 +61,7 @@ export default function Page() {
 
 			toggleLoader(false);
 			Notify.success(`Welcome back ${login.user.username}!`);
-			router.push('/')
+			router.push('/notebooks')
 		},
 		onError: (error) => {
 			toggleLoader(false);
