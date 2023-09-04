@@ -14,14 +14,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <StoreProvider>
-      <ApolloWrapper>
-        <html lang="en">
-          <body className="min-w-[350px]">
-            {children}
-          </body>
-        </html>
-      </ApolloWrapper>
-    </StoreProvider>
+    <ApolloWrapper>
+      <html lang="en">
+        <body className="min-w-[350px]">
+          {children}
+        </body>
+      </html>
+    </ApolloWrapper>
   )
 }
