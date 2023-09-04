@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import Spinner from '@components/spinner';
 import { useRouter } from 'next/navigation'
-import Notify from '../../config/notiflix-config';
+import Notify from '@config/notiflix-config';
 
 const LOGIN_MUTATION = gql`
 	mutation Login($email: String!, $password: String!) {
