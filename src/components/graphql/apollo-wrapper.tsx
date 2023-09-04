@@ -11,6 +11,7 @@ import { setContext } from '@apollo/client/link/context';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { onError } from "@apollo/client/link/error";
 import { useRouter } from 'next/navigation';
+import { Notify } from 'notiflix';
 import Config from '@/config';
 
 if (Config.development) {
@@ -41,7 +42,10 @@ function makeClient() {
         switch (status_code) {
           case 401:
             window.localStorage.removeItem('token');
+
+            Notify.failure(`${message}!`);
             router.push("/login")
+
             break;
         }
       });
