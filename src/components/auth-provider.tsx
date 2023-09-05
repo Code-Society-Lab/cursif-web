@@ -26,7 +26,6 @@ export function AuthProvider({ children }) {
       setUser(me);
     },
     onError: (error) => {
-      // TODO: Add translation
       Notify.failure(`${error.message}!`);
       router.push("/login");
     }

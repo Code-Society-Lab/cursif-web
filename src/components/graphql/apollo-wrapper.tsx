@@ -10,8 +10,6 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { onError } from "@apollo/client/link/error";
-import { useRouter } from 'next/navigation';
-import { Notify } from 'notiflix';
 import Config from '@/config';
 
 if (Config.development) {
@@ -20,8 +18,6 @@ if (Config.development) {
 }
 
 function makeClient() {
-  const router = useRouter();
-
   const authLink = setContext((_, { headers }) => {
     const token = window.localStorage.token;
 
