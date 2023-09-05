@@ -3,9 +3,7 @@ import '@styles/themes/dark.css'
 import '@styles/themes/light.css'
 
 import { ApolloWrapper } from "@/components/graphql/apollo-wrapper";
-import { StoreProvider } from "@/stores/store-provider";
 import type { Metadata } from 'next'
-
 
 export const metadata: Metadata = {
   title: 'Cursif',

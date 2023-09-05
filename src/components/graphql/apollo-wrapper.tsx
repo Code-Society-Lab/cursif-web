@@ -12,7 +12,7 @@ import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { onError } from "@apollo/client/link/error";
 import Config from '@/config';
 
-if (Config.development) {
+if (Config.development()) {
   loadDevMessages();
   loadErrorMessages();
 }
@@ -31,9 +31,9 @@ function makeClient() {
 
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
-      graphQLErrors.forEach(({ message, status_code, path }) => {
-        if (Config.development)
-          console.log(`[GraphQL error]: Message: ${message}, Status Code: ${status_code}, Path: ${path}`);
+      graphQLErrors.forEach((error) => {
+        if (Config.development())
+          console.log(`[GraphQL error]: ${error}`);
       });
     }
 
