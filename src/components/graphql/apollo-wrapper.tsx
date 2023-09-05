@@ -38,16 +38,6 @@ function makeClient() {
       graphQLErrors.forEach(({ message, status_code, path }) => {
         if (Config.development)
           console.log(`[GraphQL error]: Message: ${message}, Status Code: ${status_code}, Path: ${path}`);
-        
-        switch (status_code) {
-          case 401:
-            window.localStorage.removeItem('token');
-
-            Notify.failure(`${message}!`);
-            router.push("/login")
-
-            break;
-        }
       });
     }
 

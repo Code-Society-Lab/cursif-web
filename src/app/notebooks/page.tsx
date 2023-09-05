@@ -11,8 +11,7 @@ export default function Page() {
 
   return (
     <div>
-      {/*<div>USERNAME: {data.me.username}</div>*/}
-      <div>USERNAME: {user}</div>
+      <div>USERNAME: {user?.username}</div>
     </div>
   );
 }

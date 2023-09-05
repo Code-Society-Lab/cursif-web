@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useQuery, gql, useSuspenseQuery } from '@apollo/client';
+import { useRouter } from 'next/navigation';
+import { Notify } from 'notiflix';
 import Loader from '@components/loader';
 
 export const AuthContext = createContext({});
@@ -17,15 +19,18 @@ const GET_ME = gql`
 `;
 
 export function AuthProvider({ children }) {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const { data, loading, error } = useQuery(GET_ME, {
     onCompleted: ({ me }) => {
-      console.log(me)
-      // transform this into an object
-      setUser(me.username);
+      setUser(me);
+    },
+    onError: (error) => {
+      // TODO: Add translation
+      Notify.failure(`${error.message}!`);
+      router.push("/login");
     }
   });
-
 
   if (loading)
     return <Loader />;
