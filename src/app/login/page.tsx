@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation, gql } from '@apollo/client';
-import Spinner from '@components/spinner';
+import { Spinner } from '@components/loader';
 import { useRouter } from 'next/navigation'
 import Notify from '@config/notiflix-config';
 
@@ -69,8 +69,16 @@ export default function Page() {
 		}
 	});
 
+	useEffect(() => {
+		if (localStorage.token)
+			router.push('/notebooks')
+	}, []);
+
 	if (loading)
 		toggleLoader(true);
+
+	if (localStorage.token)
+		return <></>;
 
 	return (
 		<div className="flex flex-col h-screen">

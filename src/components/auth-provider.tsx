@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useQuery, gql, useSuspenseQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { Notify } from 'notiflix';
-import Loader from '@components/loader';
+import { Loader } from '@components/loader';
 
 export const AuthContext = createContext({});
 
