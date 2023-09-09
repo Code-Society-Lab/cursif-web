@@ -34,6 +34,7 @@ function makeClient() {
       graphQLErrors.forEach((error) => {
         if (Config.development())
           console.log(`[GraphQL error]: ${error}`);
+        localStorage.removeItem("token")
       });
     }
 
