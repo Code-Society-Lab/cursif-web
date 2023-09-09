@@ -15,6 +15,10 @@
   --background-color: white;
   --foreground-color: black;
 
+  --background-color-darker: #E3E3E3;
+  --highlight-background-color: #D3D3D3;
+  --highlight-foreground-color: black;
+
   --button-background-color: black;
   --button-foreground-color: white;
 
@@ -51,6 +55,22 @@ body {
   background: var(--background-color);
 }
 
+.sidebar {
+  flex: 1;
+  padding: 10px;
+  background-color: var(--background-color-darker);
+  box-shadow: inset 0 -4px 10px 0 rgb(0 0 0 / 0.25);
+}
+
+.highlighted {
+  background-color: var(--highlight-background-color);
+  color: var(--highlight-foreground-color);
+}
+
+.editor {
+  flex: 4;
+}
+
 /* Inputs */
 .input {
   color: var(--input-foreground-color);
@@ -81,6 +101,10 @@ body {
   color: var(--input-error-foreground-color);
   background-color: var(--input-error-background-color);
   outline: none;
+}
+
+[contenteditable] {
+  outline: 0px;
 }
 
 /* Buttons  */

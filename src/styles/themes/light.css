@@ -2,6 +2,10 @@
   --foreground-color: black;
   --background-color: white;
 
+  --background-color-darker: #E3E3E3;
+  --highlight-background-color: #D3D3D3;
+  --highlight-foreground-color: black;
+
   --button-background-color: black;
   --button-foreground-color: white;
 

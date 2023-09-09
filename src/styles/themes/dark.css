@@ -2,13 +2,17 @@
   --background-color: #212121;
   --foreground-color: white;
 
+  --background-color-darker: #1a1a1a;
+  --highlight-background-color: white;
+  --highlight-foreground-color: black;
+
   --button-background-color: white;
   --button-foreground-color: black;
 
   --input-background-color: #161616;
   --input-foreground-color: white;
 
-  --input-error-background-color: #F66;
+  --input-error-background-color: #f66;
   --input-error-foreground-color: inherit;
 }
 
@@ -21,6 +25,9 @@
   :root {
     --background-color: #212121;
     --foreground-color: white;
+
+    --background-color-darker: #1A1A1A;
+    --highlight: white;
 
     --button-background-color: white;
     --button-foreground-color: black;
