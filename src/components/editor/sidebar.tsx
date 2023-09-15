@@ -11,7 +11,7 @@ function PageSelect({
 
   return (
     <div
-      className={`p-2 m-2 cursor-pointer roundeed-md ${isSelected && "highlighted"}`}
+      className={`p-2 m-2 cursor-pointer rounded-md ${isSelected && "highlighted"}`}
       onClick={() => {
         setSelectedPage(page.id);
       }}
