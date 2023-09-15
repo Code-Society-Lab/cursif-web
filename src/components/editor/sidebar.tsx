@@ -11,7 +11,7 @@ function PageSelect({
 
   return (
     <div
-      className={isSelected ? "p-2 m-2 rounded-md highlighted" : "p-2 m-2"}
+      className={`p-2 m-2 cursor-pointer ${isSelected && "highlighted"}`}
       onClick={() => {
         setSelectedPage(page.id);
       }}
