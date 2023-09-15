@@ -11,7 +11,7 @@ function PageSelect({
 
   return (
     <div
-      className={isSelected ? "p-2 rounded-md highlighted" : "p-2"}
+      className={isSelected ? "p-2 m-2 rounded-md highlighted" : "p-2 m-2"}
       onClick={() => {
         setSelectedPage(page.id);
       }}
@@ -32,7 +32,7 @@ export function Sidebar({
 }) {
   return (
     <div className="sidebar">
-      <p className="text-xl pb-5 font-bold">{notebook.title}</p>
+      <p className="text-xl pt-3 pb-6 font-bold">{notebook.title}</p>
       {notebook.pages.map((page: any) => (
         <PageSelect
           page={page}
