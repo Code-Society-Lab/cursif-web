@@ -8,13 +8,7 @@ import Notify from '@config/notiflix-config';
 
 const CONFIRM_EMAIL_MUTATION = gql`
   mutation Confirm($token: String!) {
-    confirm(token: $token) {
-        email
-        firstName
-        id
-        lastName
-        username
-    }
+    confirm(token: $token)
   }
 `;
 
