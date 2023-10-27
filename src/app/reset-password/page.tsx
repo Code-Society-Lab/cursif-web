@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -27,6 +27,8 @@ export default function Page() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -35,6 +37,11 @@ export default function Page() {
   const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
+
+  const onConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(event.target.value);
+  };
+  
 
   const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -76,14 +83,24 @@ export default function Page() {
   if (token) {
     const onSubmit = (event: React.FormEvent) => {
       event.preventDefault();
-
-      if (password)
-        reset_password();
+    
+      if (password && confirmPassword) {
+        if (password !== confirmPassword) {
+          // Passwords do not match, display an error message.
+          Notify.failure("Passwords do not match!");
+        } else {
+          reset_password();
+        }
+      } else {
+        // Handle the case where either the password or confirmation password is missing.
+        Notify.failure("Please enter both password and confirmation password!");
+      }
     };
+    
     // Extract the token from the URL query parameter.
     const [reset_password, { data, loading, error }] = useMutation(RESET_PASSWORD_MUTATION, {
       variables: {
-        password: password,
+        password: confirmPassword,
         token: token
       },
       onCompleted: (data) => {
@@ -140,6 +157,23 @@ export default function Page() {
                     </button>
                   </div>
                 </div>
+
+                <div className="flex justify-end items-center relative">
+                  <input
+                    className="input w-full"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={onConfirmPasswordChange}
+                    required={true}
+                  />
+                  <div className="input-group">
+                    <button className="svg" onClick={toggleShowPassword} type="button">
+                      <img className="w-8" src={showPassword ? "/eye.svg" : "/eye-slash.svg"} />
+                    </button>
+                  </div>
+                </div>
+                
               </div>
 
               <button id="login-button" className="button !bg-accent !text-white float-right" type="submit">
