@@ -20,7 +20,7 @@ const CONFIRM_EMAIL_MUTATION = gql`
 
 export default function Page() {
 	const searchParams = useSearchParams()
-  const token  = searchParams.get("token");
+	const token = searchParams.get("token");
 
 	const router = useRouter()
 
@@ -34,7 +34,7 @@ export default function Page() {
 		event.preventDefault();
 
 		if (email)
-    send_confirmation_email();
+			send_confirmation_email();
 	};
 
 	const toggleLoader = (state: boolean) => {
@@ -62,8 +62,7 @@ export default function Page() {
 	if (loading)
 		toggleLoader(true);
 
-	if (token)
-	{
+	if (token) {
 		// Extract the token from the URL query parameter.
 		const [confirm_email, { data, loading, error }] = useMutation(CONFIRM_EMAIL_MUTATION, {
 			variables: {
@@ -82,7 +81,7 @@ export default function Page() {
 		});
 
 		if (loading)
-		toggleLoader(true);
+			toggleLoader(true);
 
 		useEffect(() => {
 			confirm_email();
@@ -105,7 +104,7 @@ export default function Page() {
 					<form className="w-[350px]" onSubmit={onSubmit}>
 						<div className="text-center mt-20">
 							<h1 className="text-5xl"><b>Confirmation</b></h1>
-							
+
 						</div>
 
 						<div className="text-center mt-5">
@@ -114,9 +113,9 @@ export default function Page() {
 
 						<div className="my-20">
 							<div className="my-5">
-								<input 
-									className="input w-full" 
-									type="text" 
+								<input
+									className="input w-full"
+									type="text"
 									placeholder="Current Email"
 									value={email}
 									onChange={onEmailChange}
@@ -127,10 +126,10 @@ export default function Page() {
 							</div>
 						</div>
 
-					  <button id="login-button" className="button !bg-accent !text-white float-right" type="submit">
-					  	<span className="spinner"><Spinner /></span>
-					    <span className="label">Send</span>  	   
-					  </button>
+						<button id="login-button" className="button !bg-accent !text-white float-right" type="submit">
+							<span className="spinner"><Spinner /></span>
+							<span className="label">Send</span>
+						</button>
 					</form>
 				</div>
 			</div>
