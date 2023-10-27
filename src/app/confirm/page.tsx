@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -83,6 +83,10 @@ export default function Page() {
 
 		if (loading)
 		toggleLoader(true);
+
+		useEffect(() => {
+			confirm_email();
+		}, []);
 	}
 
 	return (
