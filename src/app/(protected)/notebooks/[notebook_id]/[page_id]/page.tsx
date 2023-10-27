@@ -38,7 +38,7 @@ export default function Page({
 
   const router = useRouter();
   function goToPage(page_id: String) {
-    router.push(`/notebooks/${notebook_id}/pages/${page_id}`);
+    router.push(`/notebooks/${notebook_id}/${page_id}`);
   }
 
   return (
