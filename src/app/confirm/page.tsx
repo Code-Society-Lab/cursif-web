@@ -1,24 +1,27 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Notify from '@config/notiflix-config';
 
 const SEND_CONFIRMATION_EMAIL_MUTATION = gql`
   mutation ResendConfirmationEmail($email: String!) {
-    resendConfirmationEmail(email: $email) {
-        email
-        firstName
-        id
-        lastName
-        username
-    }
+    resendConfirmationEmail(email: $email) 
   }
 `;
 
+const CONFIRM_EMAIL_MUTATION = gql`
+   mutation Confirm($token: String!) {
+     confirm(token: $token)
+   }
+ `;
+
 export default function Page() {
+	const searchParams = useSearchParams()
+  const token  = searchParams.get("token");
+
 	const router = useRouter()
 
 	const [email, setEmail] = useState('');
@@ -56,12 +59,31 @@ export default function Page() {
 		}
 	});
 
-	useEffect(() => {
-		send_confirmation_email();
-	}, []);
-
 	if (loading)
 		toggleLoader(true);
+
+	if (token)
+	{
+		// Extract the token from the URL query parameter.
+		const [confirm_email, { data, loading, error }] = useMutation(CONFIRM_EMAIL_MUTATION, {
+			variables: {
+				token: token
+			},
+			onCompleted: (data) => {
+				toggleLoader(false);
+				Notify.success(`Email Address Confirmed Successfully!`);
+				router.push('/login');
+			},
+			onError: (error) => {
+				toggleLoader(false);
+				console.log('onError error:', error);
+				Notify.failure(`${error.message}!`);
+			}
+		});
+
+		if (loading)
+		toggleLoader(true);
+	}
 
 	return (
 		<div className="flex flex-col h-screen">
@@ -78,7 +100,12 @@ export default function Page() {
 				<div className="flex justify-center h-full">
 					<form className="w-[350px]" onSubmit={onSubmit}>
 						<div className="text-center mt-20">
-							<h1 className="text-5xl">Resend <b>Confirmation</b> Email!</h1>
+							<h1 className="text-5xl"><b>Confirmation</b></h1>
+							
+						</div>
+
+						<div className="text-center mt-5">
+							<h2 className="text-s text-gray-300">Submit your email to get a new confirmation code by email!</h2>
 						</div>
 
 						<div className="my-20">
