@@ -3,7 +3,7 @@ import '@styles/themes/dark.css'
 import '@styles/themes/light.css'
 
 import { ApolloWrapper } from "@/components/graphql/apollo-wrapper";
-import WarningBanner from '@/components/disclaimer';
+import WarningBanner from '@/components/warning-banner';
 import type { Metadata } from 'next'
 import Config from '../config';
 
