@@ -3,7 +3,7 @@ import '@styles/themes/dark.css'
 import '@styles/themes/light.css'
 
 import { ApolloWrapper } from "@/components/graphql/apollo-wrapper";
-import DisclamerBanner from '@components/disclamer';
+import DisclaimerBanner from '@/components/disclaimer';
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ApolloWrapper>
       <html lang="en">
         <body className="min-w-[350px]">
-          <DisclamerBanner />
+          <DisclaimerBanner />
           {children}
         </body>
       </html>

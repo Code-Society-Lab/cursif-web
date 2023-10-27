@@ -1,4 +1,4 @@
-export default function DisclamerBanner() {
+export default function DisclaimerBanner() {
   return (
     <div className="fixed top-0 w-full bg-yellow-400 p-0 text-center">
       <p className="text-sm text-gray-800">
