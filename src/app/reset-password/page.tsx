@@ -129,7 +129,7 @@ export default function Page() {
             </div>
 
             <div className="my-16">
-              <PasswordResetProvider if={token}
+              <PasswordResetProvider if={token != null}
                 showPassword={showPassword} password={password}
                 confirmPassword={confirmPassword} onPasswordChange={onPasswordChange}
                 onConfirmPasswordChange={onConfirmPasswordChange}
