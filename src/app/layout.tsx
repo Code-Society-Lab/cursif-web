@@ -5,7 +5,7 @@ import '@styles/themes/light.css'
 import { ApolloWrapper } from "@/components/graphql/apollo-wrapper";
 import WarningBanner from '@/components/warning-banner';
 import type { Metadata } from 'next'
-import Config from '../config';
+import Config from '@/config';
 
 export const metadata: Metadata = {
   title: 'Cursif',
