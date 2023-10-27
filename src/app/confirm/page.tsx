@@ -21,7 +21,6 @@ const CONFIRM_EMAIL_MUTATION = gql`
 export default function Page() {
 	const searchParams = useSearchParams()
 	const token = searchParams.get("token");
-
 	const router = useRouter()
 
 	const [email, setEmail] = useState('');
@@ -44,7 +43,8 @@ export default function Page() {
 			button.classList.toggle("loading", state);
 	};
 
-	const [send_confirmation_email, { data, loading, error }] = useMutation(SEND_CONFIRMATION_EMAIL_MUTATION, {
+	// Send Confirmation Email to user
+	const [send_confirmation_email, { loading: sendLoading, error: sendError }] = useMutation(SEND_CONFIRMATION_EMAIL_MUTATION, {
 		variables: {
 			email: email
 		},
@@ -59,34 +59,31 @@ export default function Page() {
 		}
 	});
 
-	if (loading)
-		toggleLoader(true);
+	// Confirm User Email Address
+	const [confirm_email, { loading: confirmLoading, error: confirmError }] = useMutation(CONFIRM_EMAIL_MUTATION, {
+		variables: {
+			token: token
+		},
+		onCompleted: (data) => {
+			toggleLoader(false);
+			Notify.success(`Email Address Confirmed Successfully!`);
+			router.push('/login');
+		},
+		onError: (error) => {
+			toggleLoader(false);
+			Notify.failure(`${error.message}!`);
+		}
+	});
 
+	// If a token is fond in the url params, confirm the email.
 	if (token) {
-		// Extract the token from the URL query parameter.
-		const [confirm_email, { data, loading, error }] = useMutation(CONFIRM_EMAIL_MUTATION, {
-			variables: {
-				token: token
-			},
-			onCompleted: (data) => {
-				toggleLoader(false);
-				Notify.success(`Email Address Confirmed Successfully!`);
-				router.push('/login');
-			},
-			onError: (error) => {
-				toggleLoader(false);
-				console.log('onError error:', error);
-				Notify.failure(`${error.message}!`);
-			}
-		});
-
-		if (loading)
-			toggleLoader(true);
-
 		useEffect(() => {
 			confirm_email();
 		}, []);
 	}
+
+	if (confirmLoading || sendLoading)
+		toggleLoader(true);
 
 	return (
 		<div className="flex flex-col h-screen">
@@ -108,7 +105,7 @@ export default function Page() {
 						</div>
 
 						<div className="text-center mt-5">
-							<h2 className="text-s text-gray-300">Submit your email to get a new confirmation code by email!</h2>
+							<h2 className="text-s text-gray-300">Submit your email to get a new confirmation code!</h2>
 						</div>
 
 						<div className="my-20">
