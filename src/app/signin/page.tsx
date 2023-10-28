@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter } from 'next/navigation'
