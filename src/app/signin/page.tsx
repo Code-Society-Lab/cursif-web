@@ -7,13 +7,25 @@ import { useRouter } from 'next/navigation'
 import Notify from '@config/notiflix-config';
 
 const REGISTER_MUTATION = gql`
-	mutation Register($email: String!, $password: String!, $username: String!, $firstName: String!, $lastName: String!) {
-		register(email: $email, password: $password, username: $username, firstName: $firstName, lastName: $lastName) {
-			email
-      firstName
-      id
-      lastName
-      username
+	mutation Register(
+						$email: String!, 
+						$password: String!,
+						$username: String!,
+						$firstName: String!,
+						$lastName: String!
+					) {
+			register(
+				email: $email,
+				password: $password,
+				username: $username,
+				firstName: $firstName,
+				lastName: $lastName
+			) {
+				email
+				firstName
+				id
+				lastName
+				username
 		}
 	}
 `;
