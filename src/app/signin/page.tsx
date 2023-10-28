@@ -19,14 +19,14 @@ const REGISTER_MUTATION = gql`
 `;
 
 export default function Page() {
-	const router = useRouter();
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const router 																= useRouter();
+	const [email, setEmail] 										= useState('');
+	const [password, setPassword] 							= useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
-	const [showPassword, setShowPassword] = useState(false);
-	const [username, setUsername] = useState('');
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
+	const [showPassword, setShowPassword] 			= useState(false);
+	const [username, setUsername] 							= useState('');
+	const [firstName, setFirstName] 						= useState('');
+	const [lastName, setLastName] 							= useState('');
 
 	const toggleShowPassword = () => {
 		setShowPassword(!showPassword);
@@ -77,7 +77,7 @@ export default function Page() {
 			button.classList.toggle("loading", state);
 	};
 
-	const [register, { data, loading, error }] = useMutation(REGISTER_MUTATION, {
+	const [register, { loading: registerLoading, error: registerError }] = useMutation(REGISTER_MUTATION, {
 		variables: {
 			email: email,
 			password: confirmPassword,
@@ -85,11 +85,9 @@ export default function Page() {
 			firstName: firstName,
 			lastName: lastName,
 		},
-		onCompleted: ({ register }) => {
-			localStorage.setItem('token', register.token);
-
+		onCompleted: () => {
 			toggleLoader(false);
-			Notify.success(`Thanks for signin in. Please, confirm your email address!`);
+			Notify.success(`Thanks for register. Please, confirm your email address!`);
 			router.push('/')
 		},
 		onError: (error) => {
@@ -98,13 +96,9 @@ export default function Page() {
 		}
 	});
 
-	useEffect(() => {
-		if (localStorage.token)
-			router.push('/login')
-	}, []);
-
-	if (loading)
+	if (registerLoading) {
 		toggleLoader(true);
+	}
 
 	return (
 		<div className="flex flex-col h-screen">
@@ -132,7 +126,7 @@ export default function Page() {
 									placeholder="First Name"
 									value={firstName}
 									onChange={onFirstNameChange}
-									required={true}
+									required={false}
 								/>
 
 								<input
@@ -141,7 +135,7 @@ export default function Page() {
 									placeholder="Last Name"
 									value={lastName}
 									onChange={onLastNameChange}
-									required={true}
+									required={false}
 								/>
 							</div>
 
