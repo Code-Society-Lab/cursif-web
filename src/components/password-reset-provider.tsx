@@ -1,4 +1,4 @@
-export default function PasswordResetProvider({
+export function PasswordResetProvider({
   if: condition,
   showPassword: showPassword,
   password: password,
