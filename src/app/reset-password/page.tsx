@@ -5,7 +5,7 @@ import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Notify from '@config/notiflix-config';
-import PasswordResetProvider from '@/components/password-reset-provider';
+import { PasswordResetProvider } from '@/components/password-reset-provider';
 
 const SEND_RESET_PASSWORD_MUTATION = gql`
   mutation SendResetPasswordToken($email: String!) {
