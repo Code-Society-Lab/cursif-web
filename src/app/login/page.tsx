@@ -129,7 +129,7 @@ export default function Page() {
 								</div>
 
 								<div className="m-2">
-									<a href="#">Forgot Password?</a>
+									<a href="/reset-password">Forgot Password?</a>
 								</div>
 							</div>
 						</div>
