@@ -33,6 +33,7 @@ export default function Page() {
 	const [passwordError, setPasswordError] = useState('');
 	const [confirmPasswordError, setConfirmPasswordError] = useState('');
 	const [usernameError, setUsernameError] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
 
 	const toggleShowPassword = () => {
 		setShowPassword(!showPassword);
@@ -122,11 +123,16 @@ export default function Page() {
 		onError: (error) => {
 			toggleLoader(false);
 			Notify.failure(`${error.message}!`);
+			setErrorMsg(error.message);
 		}
 	});
 
 	if (registerLoading) {
 		toggleLoader(true);
+	}
+	if (registerError) {
+		toggleLoader(false);
+		errorMsg;
 	}
 
 	return (
@@ -227,6 +233,7 @@ export default function Page() {
 										</button>
 									</div>
 								</div>
+								{errorMsg && <div className="invalid">{errorMsg}</div>}
 								{confirmPasswordError && <div className="invalid">{confirmPasswordError}</div>}
 							</div>
 						</div>
