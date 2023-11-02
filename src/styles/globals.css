@@ -116,3 +116,9 @@ body {
 .button.loading .label {
   @apply invisible
 }
+
+.invalid {
+  padding: 6px 0 4px;
+  color: red;
+  display: block
+}
