@@ -118,7 +118,7 @@ export default function Page() {
 		onCompleted: () => {
 			toggleLoader(false);
 			Notify.success(`Thanks for register. Please, confirm your email address!`);
-			router.push('/')
+			router.push('/login')
 		},
 		onError: (error) => {
 			toggleLoader(false);
