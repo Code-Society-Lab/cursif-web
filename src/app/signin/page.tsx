@@ -7,38 +7,32 @@ import { useRouter } from 'next/navigation'
 import Notify from '@config/notiflix-config';
 
 const REGISTER_MUTATION = gql`
-	mutation Register(
-						$email: String!, 
-						$password: String!,
-						$username: String!,
-						$firstName: String!,
-						$lastName: String!
-					) {
-			register(
-				email: $email,
-				password: $password,
-				username: $username,
-				firstName: $firstName,
-				lastName: $lastName
-			) {
-				email
-				firstName
-				id
-				lastName
-				username
+	mutation Register($email: String!, $password: String!, $username: String!, $firstName: String!, $lastName: String!) {
+		register(email: $email, password: $password, username: $username, firstName: $firstName, lastName: $lastName) {
+			email
+      firstName
+      id
+      lastName
+      username
 		}
 	}
 `;
 
 export default function Page() {
-	const router 																= useRouter();
-	const [email, setEmail] 										= useState('');
-	const [password, setPassword] 							= useState('');
+	const router = useRouter();
+
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
-	const [showPassword, setShowPassword] 			= useState(false);
-	const [username, setUsername] 							= useState('');
-	const [firstName, setFirstName] 						= useState('');
-	const [lastName, setLastName] 							= useState('');
+	const [showPassword, setShowPassword] = useState(false);
+	const [username, setUsername] = useState('');
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+
+	const [emailError, setEmailError] = useState('');
+	const [passwordError, setPasswordError] = useState('');
+	const [confirmPasswordError, setConfirmPasswordError] = useState('');
+	const [usernameError, setUsernameError] = useState('');
 
 	const toggleShowPassword = () => {
 		setShowPassword(!showPassword);
@@ -46,18 +40,22 @@ export default function Page() {
 
 	const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(event.target.value);
+		setEmailError('');
 	};
 
 	const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(event.target.value);
+		setPasswordError('');
 	};
 
 	const onConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setConfirmPassword(event.target.value);
+		setConfirmPasswordError('');
 	};
 
 	const onUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setUsername(event.target.value);
+		setUsernameError('');
 	};
 
 	const onFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,22 +66,41 @@ export default function Page() {
 		setLastName(event.target.value);
 	};
 
+	const validateForm = () => {
+		let isValid = true;
+
+		if (!username) {
+			setUsernameError('Please enter a username.');
+			isValid = false;
+		}
+
+		if (!email) {
+			setEmailError('Please enter an email address.');
+			isValid = false;
+		}
+
+		if (!password) {
+			setPasswordError('Please enter a password.');
+			isValid = false;
+		}
+
+		if (password !== confirmPassword) {
+			setConfirmPasswordError('Passwords do not match.');
+			isValid = false;
+		}
+
+		return isValid;
+	};
+
 	const onSubmit = (event: React.FormEvent) => {
 		event.preventDefault();
-
-		if (email && password && confirmPassword) {
-			if (password !== confirmPassword) {
-				Notify.failure("Passwords do not match!");
-			} else {
-				register();
-			}
-		} else {
-			Notify.failure("Please enter email, password and confirm your password!");
+		if (validateForm()) {
+			register();
 		}
 	};
 
 	const toggleLoader = (state: boolean) => {
-		const button: HTMLElement | null = document.getElementById("login-button");
+		const button: HTMLElement | null = document.getElementById("signin-button");
 
 		if (button)
 			button.classList.toggle("loading", state);
@@ -160,6 +177,7 @@ export default function Page() {
 									onChange={onUsernameChange}
 									required={true}
 								/>
+								{usernameError && <div className="invalid">{usernameError}</div>}
 							</div>
 
 							<div className="my-5">
@@ -173,6 +191,7 @@ export default function Page() {
 									pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
 									title="Enter a valid email address."
 								/>
+								{emailError && <div className="invalid">{emailError}</div>}
 							</div>
 
 							<div className="my-5">
@@ -191,6 +210,7 @@ export default function Page() {
 										</button>
 									</div>
 								</div>
+								{passwordError && <div className="invalid">{passwordError}</div>}
 
 								<div className="flex justify-end items-center relative">
 									<input
@@ -207,12 +227,11 @@ export default function Page() {
 										</button>
 									</div>
 								</div>
-
-
+								{confirmPasswordError && <div className="invalid">{confirmPasswordError}</div>}
 							</div>
 						</div>
 
-						<button id="login-button" className="button !bg-accent !text-white float-right" type="submit">
+						<button id="signin-button" className="button !bg-accent !text-white float-right" type="submit">
 							<span className="spinner"><Spinner /></span>
 							<span className="label">Sign in</span>
 						</button>
