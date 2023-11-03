@@ -135,6 +135,10 @@ export default function Page() {
 		errorMsg;
 	}
 
+	// Check mark and X mark for password validation
+	const checkMark = <span className="text-green-600">&#10004;</span>;
+	const xMark = <span className="text-red-600">&#x2717;</span>;
+
 	return (
 		<div className="flex flex-col h-screen">
 			<div className="grid grid-cols-2 p-5">
@@ -235,6 +239,28 @@ export default function Page() {
 								</div>
 								{errorMsg && <div className="invalid">{errorMsg}</div>}
 								{confirmPasswordError && <div className="invalid">{confirmPasswordError}</div>}
+
+								<div className='text-sm'>
+									<br />
+									<span>Passwords Must:</span>
+									<ul>
+										<li>
+											{password.length > 8 ? checkMark : xMark} Be at least 8 characters long
+										</li>
+										<li>
+											{(/\d/.test(password)) ? checkMark : xMark} Contain at least one number
+										</li>
+										<li>
+											{(/[A-Z]/.test(password)) ? checkMark : xMark} Contain at least one uppercase letter
+										</li>
+										<li>
+											{/[a-z]/.test(password) ? checkMark : xMark} Contain at least one lowercase letter
+										</li>
+									</ul>
+									<br />
+									<span>By creating an account, you agree to Cursif <a href="#" className="underline text-blue-400">Terms & Conditions</a>.</span>
+								</div>
+								
 							</div>
 						</div>
 
