@@ -127,13 +127,24 @@ export default function Page() {
 								/>
 							</div>
 
-							<Username username={username} setUsername={setUsername} />
-							<Email email={email} setEmail={setEmail} isValidEmail={isValidEmail} setIsValidEmail={setIsValidEmail} />
+							<Username
+								username={username}
+								setUsername={setUsername}
+							/>
+							<Email
+								email={email}
+								setEmail={setEmail}
+								isValidEmail={isValidEmail}
+								setIsValidEmail={setIsValidEmail}
+							/>
 							<Password
-								password={password} setPassword={setPassword}
+								password={password}
+								setPassword={setPassword}
 								confirmPassword={confirmPassword}
 								setConfirmPassword={setConfirmPassword}
 							/>
+
+							<span className='text-sm'>By creating an account, you agree to Cursif <a href="#" className="underline text-blue-400">Terms & Conditions</a>.</span>
 
 							{errorMsg && <div className="invalid">{errorMsg}</div>}
 						</div>

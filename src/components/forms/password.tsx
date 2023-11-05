@@ -78,8 +78,6 @@ export function Password({
             {(password !== "" && password === confirmPassword) ? checkMark : xMark} Password must match Confirm Password
           </li>
         </ul>
-        <br />
-        <span>By creating an account, you agree to Cursif <a href="#" className="underline text-blue-400">Terms & Conditions</a>.</span>
       </div>
     </div>
   );
