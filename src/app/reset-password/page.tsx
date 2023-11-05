@@ -27,23 +27,7 @@ export default function Page() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const onConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(event.target.value);
-  };
-
-  const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
+  const [isValidEmail, setIsValidEmail] = useState(true);
 
   const toggleLoader = (state: boolean) => {
     const button: HTMLElement | null = document.getElementById("login-button");
@@ -65,7 +49,7 @@ export default function Page() {
       } else {
         Notify.failure("Please enter both password and confirmation password!");
       }
-    } else if (email) {
+    } else if (email && isValidEmail) {
       sendResetPassword();
     }
   };
@@ -130,11 +114,14 @@ export default function Page() {
 
             <div className="my-16">
               <PasswordResetProvider if={token != null}
-                showPassword={showPassword} password={password}
-                confirmPassword={confirmPassword} onPasswordChange={onPasswordChange}
-                onConfirmPasswordChange={onConfirmPasswordChange}
-                toggleShowPassword={toggleShowPassword} email={email}
-                onEmailChange={onEmailChange}
+                password={password}
+								setPassword={setPassword}
+								confirmPassword={confirmPassword}
+								setConfirmPassword={setConfirmPassword}
+                email={email}
+								setEmail={setEmail}
+								isValidEmail={isValidEmail}
+								setIsValidEmail={setIsValidEmail}
               />
             </div>
 
