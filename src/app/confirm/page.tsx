@@ -5,6 +5,7 @@ import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter, useSearchParams } from 'next/navigation'
 import Notify from '@config/notiflix-config';
+import Navigation from '@components/navigation'
 
 const SEND_CONFIRMATION_EMAIL_MUTATION = gql`
   mutation ResendConfirmationEmail($email: String!) {
@@ -87,14 +88,7 @@ export default function Page() {
 
 	return (
 		<div className="flex flex-col h-screen">
-			<div className="grid grid-cols-2 p-5">
-				<div className="flex">
-					<p className="text-5xl font-montez">Cursif</p>
-				</div>
-				<div className="flex items-center justify-end">
-					<a href="/signin" className="button"><span className="label">Sign In</span></a>
-				</div>
-			</div>
+			<Navigation />
 
 			<div className="flex-1 p-5">
 				<div className="flex justify-center h-full">
