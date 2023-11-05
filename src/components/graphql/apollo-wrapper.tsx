@@ -33,7 +33,7 @@ function makeClient() {
     if (graphQLErrors) {
       graphQLErrors.forEach((error) => {
         if (Config.development())
-          console.log(`[GraphQL error]: ${error}`);
+          console.log(`[GraphQL error]: ${error.message}`);
         localStorage.removeItem("token")
       });
     }
