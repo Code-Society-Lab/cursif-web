@@ -13,11 +13,9 @@ import Notify from '@config/notiflix-config';
 const REGISTER_MUTATION = gql`
 	mutation Register($email: String!, $password: String!, $username: String!) {
 		register(email: $email, password: $password, username: $username) {
+			id
 			email
-      firstName
-      id
-      lastName
-      username
+			username
 		}
 	}
 `;
