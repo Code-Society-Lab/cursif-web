@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { CheckCircleIcon } from '@heroicons/react/24/solid'
+import { XCircleIcon } from '@heroicons/react/24/solid'
 
 export function Password({
   password, setPassword, confirmPassword, setConfirmPassword
@@ -7,6 +9,7 @@ export function Password({
   confirmPassword: string, setConfirmPassword: (confirmPassword: string) => void
 }) {
   const [showPassword, setShowPassword] = useState(false);
+  const [isBlurred, setIsBlurred] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -20,19 +23,23 @@ export function Password({
     setConfirmPassword(event.target.value);
   };
 
+  const onBlur = () => {
+    setIsBlurred(true);
+  };
   // Check mark and X mark for password validation
-  const checkMark = <span className="text-green-600">&#10004;</span>;
-  const xMark = <span className="text-red-600">&#x2717;</span>;
+  const checkMark = <CheckCircleIcon className="h-4 w-4 text-green-500" />;
+  const xMark = <XCircleIcon className="h-4 w-4 text-red-500" />;
 
   return (
     <div className="my-5">
       <div className="flex justify-end items-center relative my-5">
         <input
-          className="input w-full"
+          className={`input w-full ${isBlurred && password == '' ? 'invalid' : ''}`}
           type={showPassword ? 'text' : 'password'}
-          placeholder="Password"
+          placeholder="Password (required)"
           value={password}
           onChange={onPasswordChange}
+          onBlur={onBlur}
           required={true}
         />
         <div className="input-group">
@@ -44,11 +51,12 @@ export function Password({
 
       <div className="flex justify-end items-center relative">
         <input
-          className="input w-full"
+          className={`input w-full ${isBlurred && confirmPassword == '' ? 'invalid' : ''}`}
           type={showPassword ? 'text' : 'password'}
-          placeholder="Confirm Password"
+          placeholder="Confirm Password (required)"
           value={confirmPassword}
           onChange={onConfirmPasswordChange}
+          onBlur={onBlur}
           required={true}
         />
         <div className="input-group">
@@ -63,20 +71,36 @@ export function Password({
         <span>Passwords Must:</span>
         <ul>
           <li>
-            {password.length > 8 ? checkMark : xMark} Be at least 8 characters long
+            <span className="icon-mark">
+              {password.length > 8 ? checkMark : xMark}
+              <span className="ml-2">Be at least 8 characters long</span>
+            </span>
           </li>
           <li>
-            {(/\d/.test(password)) ? checkMark : xMark} Contain at least one number or punctuation character
+            <span className="icon-mark">
+              {/\d/.test(password) ? checkMark : xMark}
+              <span className="ml-2">Contain at least one number or punctuation character</span>
+            </span>
           </li>
           <li>
-            {(/[A-Z]/.test(password)) ? checkMark : xMark} Contain at least one uppercase letter
+            <span className="icon-mark">
+              {(/[A-Z]/.test(password)) ? checkMark : xMark}
+              <span className="ml-2">Contain at least one uppercase letter</span>
+            </span>
           </li>
           <li>
-            {/[a-z]/.test(password) ? checkMark : xMark} Contain at least one lowercase letter
+            <span className="icon-mark">
+              {/[a-z]/.test(password) ? checkMark : xMark}
+              <span className="ml-2">Contain at least one lowercase letter</span>
+            </span>
           </li>
           <li>
-            {(password !== "" && password === confirmPassword) ? checkMark : xMark} Password must match Confirm Password
+            <span className="icon-mark">
+              {(password !== "" && password === confirmPassword) ? checkMark : xMark}
+              <span className="ml-2">Password must match Confirm Password</span>
+            </span>
           </li>
+
         </ul>
       </div>
     </div>
