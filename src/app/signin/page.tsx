@@ -5,6 +5,9 @@ import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter } from 'next/navigation'
 import Notify from '@config/notiflix-config';
+import { Email } from '@/components/forms/email';
+import { Password } from '@/components/forms/password';
+import { Username } from '@/components/forms/username';
 
 const REGISTER_MUTATION = gql`
 	mutation Register($email: String!, $password: String!, $username: String!, $firstName: String!, $lastName: String!) {
@@ -24,40 +27,11 @@ export default function Page() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
-	const [showPassword, setShowPassword] = useState(false);
 	const [username, setUsername] = useState('');
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 
-	const [emailError, setEmailError] = useState('');
-	const [passwordError, setPasswordError] = useState('');
-	const [confirmPasswordError, setConfirmPasswordError] = useState('');
-	const [usernameError, setUsernameError] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
-
-	const toggleShowPassword = () => {
-		setShowPassword(!showPassword);
-	};
-
-	const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setEmail(event.target.value);
-		setEmailError('');
-	};
-
-	const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setPassword(event.target.value);
-		setPasswordError('');
-	};
-
-	const onConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setConfirmPassword(event.target.value);
-		setConfirmPasswordError('');
-	};
-
-	const onUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setUsername(event.target.value);
-		setUsernameError('');
-	};
 
 	const onFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setFirstName(event.target.value);
@@ -70,23 +44,7 @@ export default function Page() {
 	const validateForm = () => {
 		let isValid = true;
 
-		if (!username) {
-			setUsernameError('Please enter a username.');
-			isValid = false;
-		}
-
-		if (!email) {
-			setEmailError('Please enter an email address.');
-			isValid = false;
-		}
-
-		if (!password) {
-			setPasswordError('Please enter a password.');
-			isValid = false;
-		}
-
-		if (password !== confirmPassword) {
-			setConfirmPasswordError('Passwords do not match.');
+		if (!username || !email || !password || password !== confirmPassword) {
 			isValid = false;
 		}
 
@@ -135,10 +93,6 @@ export default function Page() {
 		errorMsg;
 	}
 
-	// Check mark and X mark for password validation
-	const checkMark = <span className="text-green-600">&#10004;</span>;
-	const xMark = <span className="text-red-600">&#x2717;</span>;
-
 	return (
 		<div className="flex flex-col h-screen">
 			<div className="grid grid-cols-2 p-5">
@@ -178,90 +132,15 @@ export default function Page() {
 								/>
 							</div>
 
-							<div className="my-5">
-								<input
-									className="input w-full"
-									type="text"
-									placeholder="Username"
-									value={username}
-									onChange={onUsernameChange}
-									required={true}
-								/>
-								{usernameError && <div className="invalid">{usernameError}</div>}
-							</div>
+							<Username username={username} setUsername={setUsername} />
+							<Email email={email} setEmail={setEmail} />
+							<Password
+								password={password} setPassword={setPassword}
+								confirmPassword={confirmPassword}
+								setConfirmPassword={setConfirmPassword}
+							/>
 
-							<div className="my-5">
-								<input
-									className="input w-full"
-									type="text"
-									placeholder="Email"
-									value={email}
-									onChange={onEmailChange}
-									required={true}
-									pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-									title="Enter a valid email address."
-								/>
-								{emailError && <div className="invalid">{emailError}</div>}
-							</div>
-
-							<div className="my-5">
-								<div className="flex justify-end items-center relative my-5">
-									<input
-										className="input w-full"
-										type={showPassword ? 'text' : 'password'}
-										placeholder="Password"
-										value={password}
-										onChange={onPasswordChange}
-										required={true}
-									/>
-									<div className="input-group">
-										<button className="svg" onClick={toggleShowPassword} type="button">
-											<img className="w-8" src={showPassword ? "/eye.svg" : "/eye-slash.svg"} />
-										</button>
-									</div>
-								</div>
-								{passwordError && <div className="invalid">{passwordError}</div>}
-
-								<div className="flex justify-end items-center relative">
-									<input
-										className="input w-full"
-										type={showPassword ? 'text' : 'password'}
-										placeholder="Confirm Password"
-										value={confirmPassword}
-										onChange={onConfirmPasswordChange}
-										required={true}
-									/>
-									<div className="input-group">
-										<button className="svg" onClick={toggleShowPassword} type="button">
-											<img className="w-8" src={showPassword ? "/eye.svg" : "/eye-slash.svg"} />
-										</button>
-									</div>
-								</div>
-								{errorMsg && <div className="invalid">{errorMsg}</div>}
-								{confirmPasswordError && <div className="invalid">{confirmPasswordError}</div>}
-
-								<div className='text-sm'>
-									<br />
-									<span>Passwords Must:</span>
-									<ul>
-										<li>
-											{password.length > 8 ? checkMark : xMark} Be at least 8 characters long
-										</li>
-										<li>
-											{(/\d/.test(password)) ? checkMark : xMark} Contain at least one number
-										</li>
-										<li>
-											{(/[A-Z]/.test(password)) ? checkMark : xMark} Contain at least one uppercase letter
-										</li>
-										<li>
-											{/[a-z]/.test(password) ? checkMark : xMark} Contain at least one lowercase letter
-										</li>
-									</ul>
-									<br />
-									<span>By creating an account, you agree to Cursif <a href="#" className="underline text-blue-400">Terms & Conditions</a>.</span>
-								</div>
-								
-							</div>
+							{errorMsg && <div className="invalid">{errorMsg}</div>}
 						</div>
 
 						<button id="signin-button" className="button !bg-accent !text-white float-right" type="submit">
