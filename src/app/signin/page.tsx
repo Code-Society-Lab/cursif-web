@@ -11,8 +11,8 @@ import { useRouter } from 'next/navigation'
 import Notify from '@config/notiflix-config';
 
 const REGISTER_MUTATION = gql`
-	mutation Register($email: String!, $password: String!, $username: String!, $firstName: String!, $lastName: String!) {
-		register(email: $email, password: $password, username: $username, firstName: $firstName, lastName: $lastName) {
+	mutation Register($email: String!, $password: String!, $username: String!) {
+		register(email: $email, password: $password, username: $username) {
 			email
       firstName
       id
@@ -30,18 +30,8 @@ export default function Page() {
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [username, setUsername] = useState('');
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-
 	const [errorMsg, setErrorMsg] = useState('');
 
-	const onFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setFirstName(event.target.value);
-	};
-
-	const onLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setLastName(event.target.value);
-	};
 
 	const validateForm = () => {
 		let isValid = true;
@@ -72,8 +62,6 @@ export default function Page() {
 			email: email,
 			password: confirmPassword,
 			username: username,
-			firstName: firstName,
-			lastName: lastName,
 		},
 		onCompleted: () => {
 			toggleLoader(false);
@@ -107,26 +95,6 @@ export default function Page() {
 						</div>
 
 						<div className="my-8">
-							<div className="flex row my-5">
-								<input
-									className="input w-full mr-3"
-									type="text"
-									placeholder="First Name"
-									value={firstName}
-									onChange={onFirstNameChange}
-									required={false}
-								/>
-
-								<input
-									className="input w-full"
-									type="text"
-									placeholder="Last Name"
-									value={lastName}
-									onChange={onLastNameChange}
-									required={false}
-								/>
-							</div>
-
 							<Username
 								username={username}
 								setUsername={setUsername}
