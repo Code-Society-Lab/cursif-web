@@ -63,7 +63,7 @@ export default function Page() {
 		},
 		onCompleted: () => {
 			toggleLoader(false);
-			Notify.success(`Thanks for register. Please, confirm your email address!`);
+			Notify.success(`Thanks for register. You will receive a confirmation email soon!`);
 			router.push('/login')
 		},
 		onError: (error) => {
@@ -111,8 +111,6 @@ export default function Page() {
 							/>
 
 							<span className='text-sm'>By creating an account, you agree to Cursif <a href="#" className="underline text-blue-400">Terms & Conditions</a>.</span>
-
-							{errorMsg && <div className="invalid">{errorMsg}</div>}
 						</div>
 
 						<button id="signin-button" className="button !bg-accent !text-white float-right" type="submit">

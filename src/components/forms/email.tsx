@@ -23,7 +23,7 @@ export function Email({
       <input
         className={`input w-full ${isBlurred && !isValidEmail ? 'invalid' : ''}`}
         type="text"
-        placeholder="Email (required)"
+        placeholder="Email"
         value={email}
         onChange={onEmailChange}
         onBlur={onEmailBlur}

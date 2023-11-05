@@ -16,7 +16,7 @@ export function Username({ username, setUsername }: { username: string, setUsern
       <input
         className={`input w-full ${isBlurred && username.trim() === '' ? 'invalid' : ''}`}
         type="text"
-        placeholder="Username (required)"
+        placeholder="Username"
         value={username}
         onChange={onUsernameChange}
         onBlur={onUsernameBlur}

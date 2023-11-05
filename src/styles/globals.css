@@ -116,11 +116,6 @@ body {
   @apply invisible
 }
 
-.invalid {
-  color: red;
-  display: block
-}
-
 input.invalid {
   @apply border-2 border-red-500
 }

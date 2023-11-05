@@ -36,7 +36,7 @@ export function Password({
         <input
           className={`input w-full ${isBlurred && password == '' ? 'invalid' : ''}`}
           type={showPassword ? 'text' : 'password'}
-          placeholder="Password (required)"
+          placeholder="Password"
           value={password}
           onChange={onPasswordChange}
           onBlur={onBlur}
@@ -53,7 +53,7 @@ export function Password({
         <input
           className={`input w-full ${isBlurred && confirmPassword == '' ? 'invalid' : ''}`}
           type={showPassword ? 'text' : 'password'}
-          placeholder="Confirm Password (required)"
+          placeholder="Confirm Password"
           value={confirmPassword}
           onChange={onConfirmPasswordChange}
           onBlur={onBlur}
@@ -79,7 +79,7 @@ export function Password({
           <li>
             <span className="icon-mark">
               {/\d/.test(password) ? checkMark : xMark}
-              <span className="ml-2">Contain at least one number or punctuation character</span>
+              <span className="ml-2">Contain at least one number</span>
             </span>
           </li>
           <li>
