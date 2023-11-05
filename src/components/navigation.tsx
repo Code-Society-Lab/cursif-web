@@ -18,7 +18,7 @@ export default function Navigation() {
 	return (
 		<div className="grid grid-cols-2 p-5">
 			<div className="flex">
-				<p className="text-5xl font-montez">Cursif</p>
+				<a href="/" className="text-5xl font-montez">Cursif</a>
 			</div>
 			<div className="flex items-center justify-end">
 				{ 
