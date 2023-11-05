@@ -115,3 +115,11 @@ body {
 .button.loading .label {
   @apply invisible
 }
+
+input.invalid {
+  @apply border-2 border-red-500
+}
+
+.icon-mark {
+  @apply flex inline-block items-center pr-4
+}
