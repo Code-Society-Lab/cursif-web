@@ -26,6 +26,7 @@ export default function Page() {
 	const router = useRouter();
 
 	const [email, setEmail] = useState('');
+	const [isValidEmail, setIsValidEmail] = useState(true);
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [username, setUsername] = useState('');
@@ -45,7 +46,7 @@ export default function Page() {
 	const validateForm = () => {
 		let isValid = true;
 
-		if (!username || !email || !password || password !== confirmPassword) {
+		if (!username || !email || !password || password !== confirmPassword || isValidEmail === false) {
 			isValid = false;
 		}
 
@@ -127,7 +128,7 @@ export default function Page() {
 							</div>
 
 							<Username username={username} setUsername={setUsername} />
-							<Email email={email} setEmail={setEmail} />
+							<Email email={email} setEmail={setEmail} isValidEmail={isValidEmail} setIsValidEmail={setIsValidEmail} />
 							<Password
 								password={password} setPassword={setPassword}
 								confirmPassword={confirmPassword}

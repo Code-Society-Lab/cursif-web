@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
-export function Email({ email, setEmail }: { email: string, setEmail: (email: string) => void }) {
-  const [isValidEmail, setIsValidEmail] = useState(true);
+export function Email({
+  email, setEmail, isValidEmail, setIsValidEmail
+}: {
+  email: string, setEmail: (email: string) => void,
+  isValidEmail: boolean, setIsValidEmail: (isValidEmail: boolean) => void
+}) {
   const [isBlurred, setIsBlurred] = useState(false);
 
   const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
