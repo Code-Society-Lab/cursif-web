@@ -14,16 +14,16 @@ export function Username({ username, setUsername }: { username: string, setUsern
   return (
     <div className="my-5">
       <input
-        className={`input w-full ${isBlurred && username.trim() === '' ? 'border-red-500' : ''}`}
+        className={`input w-full ${isBlurred && username.trim() === '' ? 'invalid' : ''}`}
         type="text"
-        placeholder="Username"
+        placeholder="Username (required)"
         value={username}
         onChange={onUsernameChange}
         onBlur={onUsernameBlur}
         required={true}
       />
       {isBlurred && username.trim() === '' && (
-        <div className="text-red-500 mt-2">
+        <div className="border-red-400 text-red-500 mt-2">
           Please enter a username.
         </div>
       )}

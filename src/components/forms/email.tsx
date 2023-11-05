@@ -21,9 +21,9 @@ export function Email({
   return (
     <div className="my-5">
       <input
-        className={`input w-full ${isBlurred && !isValidEmail ? 'border-red-500 text-red-500' : ''}`}
+        className={`input w-full ${isBlurred && !isValidEmail ? 'invalid' : ''}`}
         type="text"
-        placeholder="Email"
+        placeholder="Email (required)"
         value={email}
         onChange={onEmailChange}
         onBlur={onEmailBlur}
