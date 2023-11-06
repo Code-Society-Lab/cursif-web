@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { PasswordResetProvider } from '@/components/password-reset-provider';
 import { Spinner } from '@components/loader';
+import { Password } from "@/components/forms/password";
+import { Email } from "@/components/forms/email";
 import Navigation from '@/components/navigation';
 import Notify from '@config/notiflix-config';
 
@@ -106,18 +107,20 @@ export default function Page() {
               </h2>
             </div>
 
-            <div className="my-16">
-              <PasswordResetProvider if={token != null}
+            {token ?
+              <Password
                 password={password}
-								setPassword={setPassword}
-								confirmPassword={confirmPassword}
-								setConfirmPassword={setConfirmPassword}
+                setPassword={setPassword}
+                confirmPassword={confirmPassword}
+                setConfirmPassword={setConfirmPassword}
+              /> :
+              <Email
                 email={email}
-								setEmail={setEmail}
-								isValidEmail={isValidEmail}
-								setIsValidEmail={setIsValidEmail}
+                setEmail={setEmail}
+                isValidEmail={isValidEmail}
+                setIsValidEmail={setIsValidEmail}
               />
-            </div>
+            }
 
             <button id="login-button" className="button !bg-accent !text-white float-right" type="submit">
               <span className="spinner"><Spinner /></span>
