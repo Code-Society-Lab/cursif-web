@@ -25,17 +25,16 @@ function PageSelect({
       </div>
     </div>
   );
-  
 }
 
 export function Sidebar({
   notebook,
   selectedPage,
-  setSelectedPage,
+  if: setSelectedPage,
 }: {
   notebook: any;
   selectedPage: string;
-  setSelectedPage: any;
+  if: any;
 }) {
   return (
     <div className="sidebar">
@@ -43,14 +42,15 @@ export function Sidebar({
         <p className="text-xl pt-3 pb-6 font-bold">{notebook.title}</p>
         <a href="#" className="text-right"><Cog8ToothIcon className="h-5 w-5" /></a>
       </div>
-      
+
       {notebook.pages.map((page: any) => (
         <PageSelect
           page={page}
           selectedPage={selectedPage}
           setSelectedPage={setSelectedPage}
         />
-      ))}
+      ))
+      }
     </div>
   );
 }
