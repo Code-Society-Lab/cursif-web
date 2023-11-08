@@ -1,6 +1,6 @@
 "use client";
 
-import { Sidebar } from "@/components/editor/sidebar";
+import { Sidebar } from "@/components/notebooks/sidebar";
 import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
 import { useRouter } from "next/navigation";
@@ -21,10 +21,10 @@ const NOTEBOOK_QUERY = gql`
 export default function Page({
   params,
 }: {
-  params: { notebook_id: string; page_id: string };
+  params: { notebook_id: Notebook["id"]; page_id: Page["id"] };
 }) {
-  const notebook_id: string = params.notebook_id;
-  const page_id: string = params.page_id;
+  const notebook_id: Notebook["id"] = params.notebook_id;
+  const page_id: Page["id"] = params.page_id;
 
   const { data, loading, error } = useQuery(NOTEBOOK_QUERY, {
     variables: {
@@ -37,7 +37,7 @@ export default function Page({
   const notebook = data.notebook;
 
   const router = useRouter();
-  function goToPage(page_id: String) {
+  function goToPage(page_id: Page["id"]) {
     router.push(`/notebooks/${notebook_id}/${page_id}`);
   }
 
@@ -46,9 +46,9 @@ export default function Page({
       <Sidebar
         notebook={notebook}
         selectedPage={page_id}
-        if={goToPage}
+        setSelectedPage={goToPage}
       />
-      <div className="editor" />
+      <div className="flex-[4]" />
     </div>
   );
 }
