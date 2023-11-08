@@ -3,7 +3,7 @@
 import { Loader } from "@/components/loader";
 import { useQuery, useMutation ,gql } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { BasicEditor } from "@/components/editor/editor";
+import { BasicEditor } from "@/components/notebooks/editor";
 import React from "react";
 
 const PAGE_QUERY = gql`
