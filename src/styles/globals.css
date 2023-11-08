@@ -15,7 +15,7 @@
   --background-color: white;
   --foreground-color: black;
 
-  --background-color-darker: #E3E3E3;
+  --sidebar-background-color: #E3E3E3;
   --highlight-background-color: #D3D3D3;
   --highlight-foreground-color: black;
 
@@ -59,17 +59,13 @@ body {
   flex: 1;
   padding: 10px;
   min-width: 300px;
-  background-color: var(--background-color-darker);
+  background-color: var(--sidebar-background-color);
   box-shadow: inset 0 -4px 10px 0 rgb(0 0 0 / 0.25);
 }
 
 .highlighted {
   background-color: var(--highlight-background-color);
   color: var(--highlight-foreground-color);
-}
-
-.editor {
-  flex: 4;
 }
 
 /* Inputs */
@@ -101,10 +97,6 @@ body {
   color: var(--input-error-foreground-color);
   background-color: var(--input-error-background-color);
   outline: none;
-}
-
-[contenteditable] {
-  outline: 0px;
 }
 
 /* Buttons  */
