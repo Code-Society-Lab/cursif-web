@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
-import Navigation from '@components/navigation'
 import { useRouter } from 'next/navigation'
+import Navigation from '@components/navigation'
 import Notify from '@config/notiflix-config';
 
 const LOGIN_MUTATION = gql`
@@ -123,7 +123,7 @@ export default function Page() {
 								</div>
 
 								<div className="m-2">
-									<a href="#">Forgot Password?</a>
+									<a href="/reset-password">Forgot Password?</a>
 								</div>
 							</div>
 						</div>
