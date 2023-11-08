@@ -1,17 +1,15 @@
 import { Cog8ToothIcon } from "@heroicons/react/24/solid";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 
-function PageSelect({
+function PageTab({
   page,
-  selectedPage,
+  isSelected,
   setSelectedPage,
 }: {
-  page: any;
-  selectedPage: string;
+  page: Page;
+  isSelected: boolean;
   setSelectedPage: any;
 }) {
-  const isSelected = selectedPage === page.id;
-
   return (
     <div
       className={`p-2 m-2 cursor-pointer rounded-md ${isSelected && "highlighted"}`}
@@ -30,11 +28,11 @@ function PageSelect({
 export function Sidebar({
   notebook,
   selectedPage,
-  if: setSelectedPage,
+  setSelectedPage: setSelectedPage,
 }: {
-  notebook: any;
-  selectedPage: string;
-  if: any;
+  notebook: Notebook;
+  selectedPage: Page["id"];
+  setSelectedPage: any;
 }) {
   return (
     <div className="sidebar">
@@ -43,10 +41,11 @@ export function Sidebar({
         <a href="#" className="text-right"><Cog8ToothIcon className="h-5 w-5" /></a>
       </div>
 
-      {notebook.pages.map((page: any) => (
-        <PageSelect
+      {notebook.pages.map((page: Page) => (
+        <PageTab
+          key={page.id}
           page={page}
-          selectedPage={selectedPage}
+          isSelected={selectedPage === page.id}
           setSelectedPage={setSelectedPage}
         />
       ))
