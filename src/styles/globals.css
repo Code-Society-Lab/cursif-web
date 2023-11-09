@@ -90,7 +90,6 @@ body {
   background-color: var(--input-background-color);
 
   @apply 
-    h-full 
     flex 
     justify-center 
     items-center
@@ -139,4 +138,12 @@ body {
 
 .button.loading .label {
   @apply invisible
+}
+
+input.invalid {
+  @apply border-2 border-red-500
+}
+
+.icon-mark {
+  @apply flex inline-block items-center pr-4
 }
