@@ -1,3 +1,4 @@
+import NotebookAddCard from "./notebookadd";
 import NotebookCard from "./notebookcard";
 import WideNotebookCard from "./widenotebookcard";
 import { NotebookData } from "@/app/schemes/Notebook";
@@ -12,6 +13,7 @@ export default function NotebookList(props: NotebookListInterface) {
             {
                 props.notebooks?.map((nb) => (<NotebookCard key={nb.id} title={nb.title} description={nb.description}/>))
             }
+            <NotebookAddCard/>
         </div>
     )
 }

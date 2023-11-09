@@ -147,3 +147,10 @@ input.invalid {
 .icon-mark {
   @apply flex inline-block items-center pr-4
 }
+
+.paragraph-wrap-3 {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
