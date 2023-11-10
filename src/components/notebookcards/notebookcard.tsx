@@ -1,9 +1,12 @@
 export interface NotebookCardInterface {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     lastupdated?: string;
 }
 export default function NotebookCard(props: NotebookCardInterface) {
+    const title = (props.title) ? props.title : '';
+    const description = (props.description) ? props.description : '';
+
     const lastUpdated = "Last Updated : " + (props.lastupdated ? props.lastupdated : 'Unknown');
 
     return (
@@ -12,15 +15,15 @@ export default function NotebookCard(props: NotebookCardInterface) {
 
             <div className="flex flex-col pl-2 pt-2 min-h-[100px] max-h-[150px]">
                 <span>
-                    <h1 title={props.title}
+                    <h1 title={title}
                         className="text-lg font-bold tracking-tight whitespace-nowrap 
-                overflow-hidden text-ellipsis w-min max-w-[95%]">{props.title}</h1>
+                overflow-hidden text-ellipsis w-min max-w-[95%]">{title}</h1>
                 </span>
 
                 <span className="basis-16">
-                    <p title={props.description}
+                    <p title={description}
                         className="font-normal text-sm text-secondary overflow-hidden break-all paragraph-wrap-3 max-w-[95%]">
-                        {props.description}
+                        {description}
                     </p>
                 </span>
 

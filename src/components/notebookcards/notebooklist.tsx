@@ -1,8 +1,7 @@
 import NotebookAddCard from "./notebookadd";
 import NotebookCard from "./notebookcard";
-import { NotebookData } from "@/app/schemes/Notebook";
 interface NotebookListInterface {
-    notebooks: NotebookData[];
+    notebooks: Notebook[];
 }
 
 export default function NotebookList(props: NotebookListInterface) {

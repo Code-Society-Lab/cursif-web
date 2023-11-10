@@ -6,11 +6,9 @@ import { useRouter } from 'next/navigation'
 import { Spinner } from '@/components/loader'
 import NotebookList from '@/components/notebookcards/notebooklist'
 import Notify from '@config/notiflix-config';
-import { NotebookData } from '../schemes/Notebook';
 import Fuse from 'fuse.js'
 import SearchBar from '@/components/searchbar';
 import Navigation from '@/components/navigation';
-
 const GET_NOTEBOOKS = gql`
 query GetNotebooks {
     notebooks {
@@ -31,8 +29,8 @@ const fuseOptions = {
 export default function Page() {
     const router = useRouter();
     const [error, setError] = useState<boolean>(false);
-    const [notebookData, setNBData] = useState<NotebookData[] | null>(null);
-    const [searchData, setSearchData] = useState<NotebookData[] | null>(notebookData);
+    const [notebookData, setNBData] = useState<Notebook[] | null>(null);
+    const [searchData, setSearchData] = useState<Notebook[] | null>(notebookData);
 
     let { loading: nbLoading, error: nbError, data: nbData } = useQuery(GET_NOTEBOOKS, {
         onCompleted: () => {
@@ -86,12 +84,12 @@ export default function Page() {
 }
 
 // Filter notebook data based on query
-function searchFilter(notebookData: NotebookData[] | null, query: string) {
+function searchFilter(notebookData: Notebook[] | null, query: string) {
     if (!query || !notebookData) {
         return [];
     }
     const fuse = new Fuse(notebookData, fuseOptions);
-    const finalResult: NotebookData[] = [];
+    const finalResult: Notebook[] = [];
     const result = fuse.search(query);
     result.forEach((r) => finalResult.push(r.item));
     return finalResult;
