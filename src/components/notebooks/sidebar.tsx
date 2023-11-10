@@ -14,7 +14,7 @@ export function Sidebar({
   return (
     <nav className="w-[300px] p-2 whitespace-nowrap">
       <div className="flex justify-between">
-        <p className="pt-3 pb-6 font-bold text-xl text-ellipsis overflow-hidden">{notebook.title}</p>
+        <p className="pt-3 pb-6 font-bold text-xl text-ellipsis overflow-hidden" title={notebook.title}>{notebook.title}</p>
         <span>
           <a href="settings" className="text-right"><Cog8ToothIcon className="h-5 w-5" /></a>
         </span>
@@ -28,7 +28,7 @@ export function Sidebar({
             onClick={() => router.push(`/notebooks/${notebook.id}/${page.id}`)}
           >
             <div className="flex justify-between items-center">
-              <p className="text-ellipsis overflow-hidden">{page.title}</p>
+              <p className="text-ellipsis overflow-hidden" title={page.title}>{page.title}</p>
               <a href="#" className="text-right"><EllipsisVerticalIcon className="h-5 w-5" /></a>
             </div>
           </li>
