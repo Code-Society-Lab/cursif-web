@@ -1,44 +1,43 @@
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import 'react-quill/dist/quill.bubble.css';
+import 'react-quill/dist/quill.snow.css'
 import { useState } from "react";
-
-const modules = {
-  toolbar: [
-    [{ font: [] }],
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ["bold", "italic", "underline", "strike"],
-    [{ color: [] }, { background: [] }],
-    [{ script: "sub" }, { script: "super" }],
-    ["blockquote", "code-block"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-}
+import EditorToolbar, { modules, formats } from "./editor-toolbar";
 
 export function BasicEditor({
-  page_id,
-  initialContent,
+  page,
   updatePage
 }: {
-  page_id: string,
-  initialContent: string,
+  page: any,
   updatePage: any
 }) {
-  const [value, setValue] = useState(initialContent);
+  const [value, setValue] = useState(page?.content);
 
   const handleContentChange = (content: string) => {
     setValue(content);
     updatePage({
       variables: {
-        id: page_id,
-        content,
+        id: page.id,
+        content: content,
       },
     });
   };
 
   return (
-    <ReactQuill modules={modules} theme="snow" value={value} onChange={handleContentChange} placeholder={value} />
+    <div className='mt-6 ml-5'>
+      <div className="font-bold text-xl mb-4 ml-8 ">
+        <p>{page?.title}</p>
+      </div>
+      <div className="relative">
+      <EditorToolbar />
+      <ReactQuill 
+        modules={modules}
+        formats={formats}
+        theme="bubble"
+        value={value}
+        onChange={handleContentChange}
+        placeholder={"Start typing..."}
+      /></div>
+    </div>
   );
 }
