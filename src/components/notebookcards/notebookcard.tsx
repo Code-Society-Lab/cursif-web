@@ -1,4 +1,5 @@
 export interface NotebookCardInterface {
+    id: string;
     title?: string;
     description?: string;
     lastupdated?: string;
@@ -6,11 +7,11 @@ export interface NotebookCardInterface {
 export default function NotebookCard(props: NotebookCardInterface) {
     const title = (props.title) ? props.title : '';
     const description = (props.description) ? props.description : '';
-
     const lastUpdated = "Last Updated : " + (props.lastupdated ? props.lastupdated : 'Unknown');
+    const href = `notebooks/${props.id}/`
 
     return (
-        <a href="#" className="flex flex-col min-w-[120px] max-w-[380px] p-2 rounded-md 
+        <a href={href} className="flex flex-col min-w-[120px] max-w-[380px] p-2 rounded-md 
                                 bg-component hover:shadow-xl transition-shadow duration-300 ease-in-out">
 
             <div className="flex flex-col pl-2 pt-2 min-h-[100px] max-h-[150px]">
