@@ -1,55 +1,39 @@
 import { Cog8ToothIcon } from "@heroicons/react/24/solid";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
-
-function PageTab({
-  page,
-  isSelected,
-  setSelectedPage,
-}: {
-  page: Page;
-  isSelected: boolean;
-  setSelectedPage: any;
-}) {
-  return (
-    <div
-      className={`p-2 m-2 cursor-pointer rounded-md ${isSelected && "highlighted"}`}
-      onClick={() => {
-        setSelectedPage(page.id);
-      }}
-    >
-      <div className="flex justify-between items-center">
-        <p className="text-lg">{page.title}</p>
-        <a href="#" className="text-right"><EllipsisVerticalIcon className="h-5 w-5" /></a>
-      </div>
-    </div>
-  );
-}
+import { useRouter } from "next/navigation";
 
 export function Sidebar({
   notebook,
-  selectedPage,
-  setSelectedPage: setSelectedPage,
+  currentPageId,
 }: {
   notebook: Notebook;
-  selectedPage: Page["id"];
-  setSelectedPage: any;
+  currentPageId: string;
 }) {
+  const router = useRouter();
+
   return (
-    <div className="sidebar">
+    <nav className="w-[300px] p-2 whitespace-nowrap">
       <div className="flex justify-between">
-        <p className="text-xl pt-3 pb-6 font-bold">{notebook.title}</p>
-        <a href="#" className="text-right"><Cog8ToothIcon className="h-5 w-5" /></a>
+        <p className="pt-3 pb-6 font-bold text-xl text-ellipsis overflow-hidden">{notebook.title}</p>
+        <span>
+          <a href="settings" className="text-right"><Cog8ToothIcon className="h-5 w-5" /></a>
+        </span>
       </div>
 
-      {notebook.pages.map((page: Page) => (
-        <PageTab
-          key={page.id}
-          page={page}
-          isSelected={selectedPage === page.id}
-          setSelectedPage={setSelectedPage}
-        />
-      ))
-      }
-    </div>
+      <ul>
+        {notebook.pages.map((page: Page) => (
+          <li
+            key={page.id}
+            className={`p-1 my-2 cursor-pointer rounded-md ${page.id == currentPageId && "selected"}`}
+            onClick={() => router.push(`/notebooks/${notebook.id}/${page.id}`)}
+          >
+            <div className="flex justify-between items-center">
+              <p className="text-ellipsis overflow-hidden">{page.title}</p>
+              <a href="#" className="text-right"><EllipsisVerticalIcon className="h-5 w-5" /></a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }
