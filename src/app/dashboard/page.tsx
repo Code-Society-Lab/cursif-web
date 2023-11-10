@@ -27,6 +27,7 @@ const fuseOptions = {
     ]
 }
 
+
 export default function Page() {
     const router = useRouter();
     const [error, setError] = useState<boolean>(false);
@@ -36,7 +37,6 @@ export default function Page() {
     let { loading: nbLoading, error: nbError, data: nbData } = useQuery(GET_NOTEBOOKS, {
         onCompleted: () => {
             setNBData(nbData.notebooks);
-            console.log("Data Received");
         },
         onError: (error) => {
             Notify.failure(`${error.message}!`);
@@ -46,28 +46,19 @@ export default function Page() {
 
     if (!searchData && notebookData) { setSearchData(notebookData); }
 
-    const searchFilter = (query: string) => {
-        console.log(`Query: ${query}`);
-        if (!query || !notebookData) {
-            setSearchData(notebookData);
-            return;
-        }
-        const fuse = new Fuse(notebookData, fuseOptions);
-        const finalResult: NotebookData[] = [];
-        const result = fuse.search(query);
-        result.forEach((r) => finalResult.push(r.item));
-        setSearchData(finalResult);
+    const doFilter = (query: string) => {
+        setSearchData(searchFilter(notebookData, query));
     }
 
-    let nbList = null;
-    if (error) { nbList = <h1 className='self-center'>Error Loading Notebooks</h1> }
+    let nbList = <Spinner className='self-center pt-8 w-[35px] h-[35px]' />;
+    if (error) { 
+        nbList = <h1 className='self-center'>Error Loading Notebooks</h1> 
+    }
     else if (searchData) {
         nbList = <NotebookList notebooks={searchData} />
-    } else {
-        nbList = <Spinner className='self-center pt-8 w-[35px] h-[35px]' />
     }
 
-    const searchBar = <SearchBar onChange={(e) => searchFilter(e.currentTarget.value)} />
+    const searchBar = <SearchBar onChange={(e) => doFilter(e.currentTarget.value)} />
 
     return (
         <div className="flex flex-col h-screen content-center">
@@ -89,9 +80,19 @@ export default function Page() {
                         {nbList}
                         <div className='pb-16'/> {/* for mobile we need some extra space on the bottom to show all cards*/}
                 </div>
-
-
             </div>
         </div>
     )
+}
+
+// Filter notebook data based on query
+function searchFilter(notebookData: NotebookData[] | null, query: string) {
+    if (!query || !notebookData) {
+        return [];
+    }
+    const fuse = new Fuse(notebookData, fuseOptions);
+    const finalResult: NotebookData[] = [];
+    const result = fuse.search(query);
+    result.forEach((r) => finalResult.push(r.item));
+    return finalResult;
 }
