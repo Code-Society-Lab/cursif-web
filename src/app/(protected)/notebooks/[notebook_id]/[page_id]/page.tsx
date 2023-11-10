@@ -1,10 +1,22 @@
 "use client";
 
+import { Sidebar } from "@/components/notebooks/sidebar";
 import { Loader } from "@/components/loader";
-import { useQuery, useMutation ,gql } from "@apollo/client";
-import { useRouter } from "next/navigation";
+import { useQuery, gql } from "@apollo/client";
 import { BasicEditor } from "@/components/notebooks/editor";
-import React from "react";
+
+const NOTEBOOK_QUERY = gql`
+  query GetNotebook($id: ID!) {
+    notebook(id: $id) {
+      id
+      title
+      pages {
+        id
+        title
+      }
+    }
+  }
+`;
 
 const PAGE_QUERY = gql`
   query GetPage($id: ID!) {
@@ -31,9 +43,11 @@ export default function Page({
 }: {
   params: { notebook_id: string; page_id: string };
 }) {
-  const notebook_id: string = params.notebook_id;
-  const page_id: string = params.page_id;
-
+  const { data, loading, error } = useQuery(NOTEBOOK_QUERY, {
+    variables: {
+      id: params.notebook_id,
+    },
+  });
 
   const { data: pageData, loading: pageLoading, error: pageError } = useQuery(PAGE_QUERY, {
     variables: {
@@ -55,16 +69,18 @@ export default function Page({
     {updateError?.message})
   </p>;
 
-
-  const router = useRouter();
-  function goToPage(page_id: String) {
-    router.push(`/notebooks/${notebook_id}/${page_id}`);
-  }
+  if (loading) 
+    return <Loader />;
 
   return (
-    <div className="h-screen flex h-screen items-stretch">
+    <div className="flex h-screen items-stretch">
+      <Sidebar
+        notebook={data.notebook}
+        currentPageId={params.page_id}
+      />
       <BasicEditor page_id={page_id} initialContent={pageData?.page?.content} updatePage={updatePage} />
-      <div className="editor" />
+
+      <div className="flex-[4]" />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Cursif - Notebooks',
-  description: 'Your notebooks!',
+  description: 'My notebooks!',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
