@@ -23,6 +23,13 @@
 
   --input-error-background-color: #FDD;
   --input-error-foreground-color: inherit;
+
+
+  --component-background-color: #E9E9E9;
+  --component-faded-background-color: #F3F3F3;
+  --secondary-text-color: #666666;
+  --text-faded: #A5A5A5;
+
 }
 
 @layer base {
@@ -153,4 +160,26 @@ input.invalid {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+
+
+
+.bg-component {
+  background-color: var(--component-background-color);
+}
+
+.bg-component-faded {
+  background-color: var(--component-faded-background-color);
+}
+
+.text-secondary {
+  color: var(--secondary-text-color);
+}
+
+.text-faded {
+  color: var(--text-faded)
+}
+
+.bg-component::placeholder {
+  color: var(--secondary-text-color)
 }

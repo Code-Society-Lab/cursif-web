@@ -9,6 +9,7 @@ import Notify from '@config/notiflix-config';
 import { NotebookData } from '../schemes/Notebook';
 import Fuse from 'fuse.js'
 import SearchBar from '@/components/searchbar';
+import Navigation from '@/components/navigation';
 
 const GET_NOTEBOOKS = gql`
 query GetNotebooks {
@@ -68,35 +69,24 @@ export default function Page() {
 
     return (
         <div className="flex flex-col h-screen content-center">
-            <div className="grid grid-cols-2 p-5">
-                <div className="flex flex-row align-items-center">
-                    <p className="text-5xl font-montez">Cursif</p>
-                </div>
-                <div className='text-right self-end text-xl pr-32'>Sign Out</div>
-            </div>
+            <Navigation/>
             <div className='self-center flex flex-col w-10/12'>
                 <div className='min-h-[20px]'></div>
                 <div className="grid grid-cols-7 grid-rows-1 min-h-[300px] gap-4">
                     <span />
-
                     <div className="col-span-5 flex flex-col gap-10">
-                        <div className='flex flex-col gap-12'>
                             <div>
                                 <h1 className='pl-2 pb-2 font-bold'>Notebooks</h1>
                                 <div className='flex flex-row grow'>
                                     <SearchBar onChange={(e) => searchFilter(e.currentTarget.value)} />
                                     <div className='flex flex-row grow justify-end'>
-                                        <div className='pr-4'>
-                                            <button type="button" className="text-white bg-[#309600] hover:bg-green-800 font-medium rounded-lg text-sm px-10 py-2.5">New</button>
-                                        </div>
+                                        <button type="button" className="text-white bg-[#309600] hover:bg-green-800 font-medium rounded-lg text-sm px-10 py-2.5">New</button>
                                     </div>
                                 </div>
                             </div>
 
                             {nbList}
 
-
-                        </div>
                     </div>
 
 
