@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { useRouter } from 'next/navigation'
 import { Spinner } from '@/components/loader'
@@ -59,7 +59,7 @@ export default function Page() {
         setSearchData(finalResult);
     }
 
-    let nbList = null
+    let nbList = null;
     if (error) { nbList = <h1 className='self-center'>Error Loading Notebooks</h1> }
     else if (searchData) {
         nbList = <NotebookList notebooks={searchData} />
@@ -67,32 +67,29 @@ export default function Page() {
         nbList = <Spinner className='self-center pt-8 w-[35px] h-[35px]' />
     }
 
+    const searchBar = <SearchBar onChange={(e) => searchFilter(e.currentTarget.value)} />
+
     return (
         <div className="flex flex-col h-screen content-center">
-            <Navigation/>
-            <div className='self-center flex flex-col w-10/12'>
+            <Navigation />
+            <div className='self-center flex flex-col w-10/12 lg:w-6/12 h-screen'>
                 <div className='min-h-[20px]'></div>
-                <div className="grid grid-cols-7 grid-rows-1 min-h-[300px] gap-4">
-                    <span />
-                    <div className="col-span-5 flex flex-col gap-10">
-                            <div>
-                                <h1 className='pl-2 pb-2 font-bold'>Notebooks</h1>
-                                <div className='flex flex-row grow'>
-                                    <SearchBar onChange={(e) => searchFilter(e.currentTarget.value)} />
-                                    <div className='flex flex-row grow justify-end'>
-                                        <button type="button" className="text-white bg-[#309600] hover:bg-green-800 font-medium rounded-lg text-sm px-10 py-2.5">New</button>
-                                    </div>
+                    <div className="flex flex-col gap-10">
+
+                        <div>
+                            <h1 className='text-2xl pl-2 pb-8 font-bold'>My Notebooks</h1>
+                            <div className='flex flex-row grow'>
+                                {searchBar}
+                                <div className='flex flex-row grow justify-end'>
+                                    <button type="button" className="text-white bg-[#309600] font-medium rounded-lg text-sm px-10 py-2.5">New</button>
                                 </div>
                             </div>
+                        </div>
 
-                            {nbList}
-
-                    </div>
-
-
-                    <div className="col-start-5" />
+                        {nbList}
+                        <div className='pb-16'/> {/* for mobile we need some extra space on the bottom to show all cards*/}
                 </div>
-            
+
 
             </div>
         </div>
