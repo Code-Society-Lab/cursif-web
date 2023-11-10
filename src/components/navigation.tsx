@@ -5,11 +5,13 @@ export default function Navigation() {
 
 	var showLoginAction = !localStorage.token && pathname != '/login'
 	var showSigninAction = !localStorage.token && pathname != '/signin'
+	var showLogoutAction = localStorage.token && pathname != '/logout'
 
 	const actions = []
 
 	if (localStorage.token) {
 		// Add authenticated actions
+		actions.push({"href": "/logout", "label": "Log Out", "isButton": true})
 	} else {
 		actions.push({"href": "/login", "label": "Log In", "isButton": false})
 		actions.push({"href": "/signin", "label": "Sign In", "isButton": true})
