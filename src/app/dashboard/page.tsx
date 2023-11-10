@@ -70,7 +70,7 @@ export default function Page() {
                         <div className='flex flex-row grow'>
                             {searchBar}
                             <div className='flex flex-row grow justify-end'>
-                                <button type="button" className="text-white bg-[#309600] font-medium rounded-lg text-sm px-10 py-2">New</button>
+                                <button type="button" className="green-button font-medium rounded-lg text-sm px-10 py-2">New</button>
                             </div>
                         </div>
                     </div>

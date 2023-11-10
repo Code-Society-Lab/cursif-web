@@ -161,3 +161,8 @@ input.invalid {
 .bg-component::placeholder {
   color: var(--secondary-text-color)
 }
+
+.green-button {
+  background-color: var(--new-button-background-color);
+  color: var(--new-button-text-color);
+}
