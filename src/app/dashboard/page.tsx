@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { useRouter } from 'next/navigation'
 import { Spinner } from '@/components/loader'
@@ -81,7 +81,7 @@ export default function Page() {
                             <div className='flex flex-row grow'>
                                 {searchBar}
                                 <div className='flex flex-row grow justify-end'>
-                                    <button type="button" className="text-white bg-[#309600] font-medium rounded-lg text-sm px-10 py-2.5">New</button>
+                                    <button type="button" className="text-white bg-[#309600] font-medium rounded-lg text-sm px-10 py-2">New</button>
                                 </div>
                             </div>
                         </div>

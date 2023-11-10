@@ -1,6 +1,5 @@
 import NotebookAddCard from "./notebookadd";
 import NotebookCard from "./notebookcard";
-import WideNotebookCard from "./widenotebookcard";
 import { NotebookData } from "@/app/schemes/Notebook";
 interface NotebookListInterface {
     notebooks: NotebookData[];

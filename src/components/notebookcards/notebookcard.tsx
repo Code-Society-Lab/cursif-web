@@ -1,16 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-
 export interface NotebookCardInterface {
     title: string;
     description: string;
     lastupdated?: string;
 }
 export default function NotebookCard(props: NotebookCardInterface) {
-
-
     const lastUpdated = "Last Updated : " + (props.lastupdated ? props.lastupdated : 'Unknown');
-
-
 
     return (
         <a href="#" className="flex flex-col min-w-[120px] max-w-[380px] p-2 rounded-md 
