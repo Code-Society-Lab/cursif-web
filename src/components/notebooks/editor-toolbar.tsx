@@ -1,15 +1,14 @@
 import React from "react";
 import { Quill } from "react-quill";
 
-import "react-quill/dist/quill.bubble.css";
-
+// Custom bubble theme for Quill editor
 const BubbleTheme = Quill.import("themes/bubble");
 
 class ExtendBubbleTheme extends BubbleTheme {
-  constructor(quill, options) {
+  constructor(quill: any, options: any) {
     super(quill, options);
 
-    quill.on("selection-change", (range) => {
+    quill.on("selection-change", (range: any) => {
       if (range) {
         quill.theme.tooltip.show();
         quill.theme.tooltip.position(quill.getBounds(range));
@@ -45,16 +44,16 @@ const CustomRedo = () => (
 );
 
 // Undo and redo functions for Custom Toolbar
-function undoChange() {
+function undoChange(this: any) {
   this.quill.history.undo();
 }
-function redoChange() {
+function redoChange(this: any) {
   this.quill.history.redo();
 }
 
 // Add sizes to whitelist and register them
 const Size = Quill.import("formats/size");
-Size.whitelist = ["extra-small", "small", "medium", "large"];
+Size.whitelist = ["small", "medium", "large", "huge"];
 Quill.register(Size, true);
 
 // Add fonts to whitelist and register them
@@ -120,10 +119,10 @@ export const QuillToolbar = () => (
         <option value="lucida">Lucida</option>
       </select>
       <select className="ql-size" defaultValue="medium">
-        <option value="extra-small">Size 1</option>
-        <option value="small">Size 2</option>
-        <option value="medium">Size 3</option>
-        <option value="large">Size 4</option>
+        <option value="small">Size 1</option>
+        <option value="medium">Size 2</option>
+        <option value="large">Size 3</option>
+        <option value="huge">Size 4</option>
       </select>
       <select className="ql-header" defaultValue="3">
         <option value="1">Heading</option>
