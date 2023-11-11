@@ -29,8 +29,8 @@ const PAGE_QUERY = gql`
 `;
 
 const UPDATE_PAGE_MUTATION = gql`
-  mutation UpdatePage($id: ID!, $content: String!) {
-    updatePage(id: $id, content: $content) {
+  mutation UpdatePage($id: ID!, $content: String!, $title: String) {
+    updatePage(id: $id, content: $content, title: $title) {
       id
       title
       content
@@ -58,6 +58,7 @@ export default function Page({
   const [updatePage, { data: updateData, loading: updateLoading, error: updateError }] = useMutation(UPDATE_PAGE_MUTATION, {
     variables: {
       id: params.page_id,
+      title: pageData?.page.title,
       content: pageData?.page.content,
     },
   });
