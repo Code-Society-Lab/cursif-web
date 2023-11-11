@@ -1,9 +1,9 @@
 "use client";
 
+import { BasicEditor } from "@/components/notebooks/editor";
 import { Sidebar } from "@/components/notebooks/sidebar";
 import { Loader } from "@/components/loader";
 import { useQuery, useMutation, gql } from "@apollo/client";
-import { BasicEditor } from "@/components/notebooks/editor";
 
 const NOTEBOOK_QUERY = gql`
   query GetNotebook($id: ID!) {
