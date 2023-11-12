@@ -57,7 +57,7 @@ export function BasicEditor({
             placeholder={"Start typing..."}
           />
         </div>
-        <button id="save-button" className="button !bg-accent !text-white float-right" type="submit">
+        <button id="save-button" className="button !bg-accent !text-white float-right mt-6" type="submit">
           <span className="spinner"><Spinner /></span>
           <span className="label">Save</span>
         </button>
