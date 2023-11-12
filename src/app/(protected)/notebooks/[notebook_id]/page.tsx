@@ -20,7 +20,7 @@ const NOTEBOOK_QUERY = gql`
 export default function Page({
   params,
 }: {
-  params: { notebook_id: Notebook["id"]; page_id: Page["id"] };
+  params: { notebook_id: string; page_id: string };
 }) {
   const { data, loading, error } = useQuery(NOTEBOOK_QUERY, {
     variables: {
@@ -33,7 +33,10 @@ export default function Page({
 
   return (
     <div className="flex h-screen items-stretch">
-      <Sidebar notebook={data.notebook} />
+      <Sidebar
+        notebook={data.notebook}
+        currentPageId={params.page_id}
+      />
       <div className="flex-[4]" />
     </div>
   );
