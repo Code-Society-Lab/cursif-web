@@ -1,10 +1,13 @@
+"use client";
+
 import EditorToolbar, { modules, formats } from "./editor-toolbar";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.snow.css';
 import { useState, useEffect } from "react";
 import { PageTitle } from "./edit-title";
-import { Loader } from "@components/loader";
+import { Spinner } from '@components/loader';
+import Notify from '@config/notiflix-config';
 
 export function BasicEditor({
   page,
@@ -13,26 +16,27 @@ export function BasicEditor({
   page: Page,
   updatePage: any
 }) {
-  const [value, setValue] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [value, setValue] = useState('');
 
-  const handleContentChange = (content: string) => {
-    setValue(content);
+  const onSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     updatePage({
       variables: {
         id: page.id,
-        content: content,
+        content: value,
       },
     });
+    Notify.success('Note saved!');
+  };
+
+  const handleContentChange = (content: string) => {
+    setValue(content);
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      if (page?.content) {
-        setValue(page.content);
-        setLoading(false);
-      }
-    }, 500);
+    if (page?.content) {
+      setValue(page.content);
+    }
   }, [page]);
 
   return (
@@ -41,11 +45,9 @@ export function BasicEditor({
         page={page}
         updatePage={updatePage}
       />
-      <div className="relative w-96">
-        <EditorToolbar />
-        {loading ? (
-          <Loader />
-        ) : (
+      <form onSubmit={onSubmit}>
+        <div className="relative">
+          <EditorToolbar />
           <ReactQuill
             modules={modules}
             formats={formats}
@@ -54,8 +56,12 @@ export function BasicEditor({
             onChange={handleContentChange}
             placeholder={"Start typing..."}
           />
-        )}
-      </div>
+        </div>
+        <button id="save-button" className="button !bg-accent !text-white float-right" type="submit">
+          <span className="spinner"><Spinner /></span>
+          <span className="label">Save</span>
+        </button>
+      </form>
     </div>
   );
 }
