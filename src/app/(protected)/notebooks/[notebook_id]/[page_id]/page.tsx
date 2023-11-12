@@ -60,13 +60,14 @@ export default function Page({
       id: params.page_id,
       title: pageData?.page.title,
       content: pageData?.page.content,
-    },
+    }
   });
 
-  if (pageLoading && updateLoading) return <Loader />;
+  if (pageLoading || notebookLoading) return <Loader />;
 
-  if (notebookLoading) 
-    return <Loader />;
+  if (notebookError || pageError) {
+    return <div>Error: {notebookError?.message || pageError?.message}</div>;
+  }
 
   return (
     <div className="flex h-screen items-stretch">
@@ -78,7 +79,6 @@ export default function Page({
         page={pageData?.page}
         updatePage={updatePage}
       />
-
       <div className="flex-[4]" />
     </div>
   );
