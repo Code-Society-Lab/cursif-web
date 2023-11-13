@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { useRouter } from 'next/navigation'
 import { Spinner } from '@/components/loader'
-import NotebookList from '@/components/notebookcards/notebooklist'
+import NotebookList from '@/components/notebooks/cards/notebooklist'
 import Notify from '@config/notiflix-config';
 import Fuse from 'fuse.js'
 import SearchBar from '@/components/searchbar';
@@ -85,8 +85,11 @@ export default function Page() {
 
 // Filter notebook data based on query
 function searchFilter(notebookData: Notebook[] | null, query: string) {
-    if (!query || !notebookData) {
+    if (!notebookData) {
         return [];
+    }
+    if (!query) {
+        return notebookData;
     }
     const fuse = new Fuse(notebookData, fuseOptions);
     const finalResult: Notebook[] = [];
