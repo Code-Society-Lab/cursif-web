@@ -2,13 +2,18 @@
   --background-color: #212121;
   --foreground-color: white;
 
+  --nav-background-color: #1a1a1a;
+  --nav-tab-hover-background-color: #222;
+  --nav-selected-background-color: #2a2a2a;
+  --nav-selected-foreground-color: white;
+
   --button-background-color: white;
   --button-foreground-color: black;
 
   --input-background-color: #161616;
   --input-foreground-color: white;
 
-  --input-error-background-color: #F66;
+  --input-error-background-color: #f66;
   --input-error-foreground-color: inherit;
 
 
@@ -29,6 +34,11 @@
   :root {
     --background-color: #212121;
     --foreground-color: white;
+
+    --nav-background-color: #1a1a1a;
+    --nav-tab-hover-background-color: #222;
+    --nav-selected-background-color: #2a2a2a;
+    --nav-selected-foreground-color: white;
 
     --button-background-color: white;
     --button-foreground-color: black;
