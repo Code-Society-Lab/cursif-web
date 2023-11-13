@@ -25,4 +25,7 @@ declare global {
     pages: Page[]
     notebooks: Notebook[]
   }
+  interface NotebookList {
+    notebooks: Notebook[];
+  }  
 }

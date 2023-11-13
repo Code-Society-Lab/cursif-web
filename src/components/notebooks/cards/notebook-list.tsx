@@ -1,14 +1,13 @@
 import NotebookAddCard from "./notebook-plus";
 import NotebookCard from "./notebook-card";
-interface NotebookListInterface {
-  notebooks: Notebook[];
-}
 
-export default function NotebookList({ notebooks }: NotebookListInterface) {
+export default function NotebookList({ notebooks }: NotebookList) {
   return (
     <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 lg:gap-8 gap-2 overflow-auto">
       {
-        notebooks?.map((nb) => (<NotebookCard key={nb.id} id={nb.id} title={nb.title} description={nb.description} />))
+        notebooks?.map((notebook) => (
+          <NotebookCard key={notebook.id} id={notebook.id} title={notebook.title} description={notebook.description} />
+          ))
       }
       <NotebookAddCard />
     </div>
