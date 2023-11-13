@@ -1,13 +1,8 @@
-export interface NotebookCardInterface {
-  id: string;
-  title?: string;
-  description?: string;
-  lastUpdated?: string;
-}
-export default function NotebookCard(props: NotebookCardInterface) {
+
+export default function NotebookCard(props: Notebook) {
   const title = (props.title) ? props.title : '';
   const description = (props.description) ? props.description : '';
-  const lastUpdated = "Last Updated : " + (props.lastUpdated ? props.lastUpdated : 'Unknown');
+  const lastUpdated = "Last Updated : Unknown";
   const href = `notebooks/${props.id}/`
 
   return (
