@@ -1,5 +1,6 @@
 import React from "react";
 import { Quill } from "react-quill";
+import MarkdownShortcuts from 'quill-markdown-shortcuts';
 
 // Custom bubble theme for Quill editor
 const BubbleTheme = Quill.import("themes/bubble");
@@ -81,7 +82,8 @@ export const modules = {
     delay: 500,
     maxStack: 100,
     userOnly: true
-  }
+  },
+  markdownShortcuts: {}
 };
 
 // Formats objects for setting up the Quill editor
@@ -105,6 +107,8 @@ export const formats = [
   "color",
   "code-block"
 ];
+
+Quill.register("modules/markdownShortcuts", MarkdownShortcuts);
 
 // Quill Toolbar component
 export const QuillToolbar = () => (
