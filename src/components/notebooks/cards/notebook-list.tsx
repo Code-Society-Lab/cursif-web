@@ -1,4 +1,4 @@
-import NotebookAddCard from "./notebook-plus";
+import NotebookAddCard from "./notebook-add";
 import NotebookCard from "./notebook-card";
 
 export default function NotebookList({ notebooks }: NotebookList) {

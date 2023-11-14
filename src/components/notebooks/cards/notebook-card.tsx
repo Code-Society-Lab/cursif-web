@@ -2,6 +2,7 @@
 export default function NotebookCard(props: Notebook) {
   const title = (props.title) ? props.title : '';
   const description = (props.description) ? props.description : '';
+  // TODO: Fetch notebook 'Last Updated' when implemented on backend
   const lastUpdated = "Last Updated : Unknown";
   const href = `notebooks/${props.id}/`
 
