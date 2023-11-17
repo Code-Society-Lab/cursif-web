@@ -33,7 +33,6 @@ const CustomUndo = () => (
   </svg>
 );
 
-// Redo button icon component for Quill editor
 const CustomRedo = () => (
   <svg viewBox="0 0 18 18">
     <polygon className="ql-fill ql-stroke" points="12 10 14 12 16 10 12 10" />
@@ -44,7 +43,6 @@ const CustomRedo = () => (
   </svg>
 );
 
-// Undo and redo functions for Custom Toolbar
 function undoChange(this: any) {
   this.quill.history.undo();
 }
@@ -52,12 +50,10 @@ function redoChange(this: any) {
   this.quill.history.redo();
 }
 
-// Add sizes to whitelist and register them
 const Size = Quill.import("formats/size");
 Size.whitelist = ["small", "medium", "large", "huge"];
 Quill.register(Size, true);
 
-// Add fonts to whitelist and register them
 const Font = Quill.import("formats/font");
 Font.whitelist = [
   "arial",
@@ -69,7 +65,6 @@ Font.whitelist = [
 ];
 Quill.register(Font, true);
 
-// Modules object for setting up the Quill editor
 export const modules = {
   toolbar: {
     container: "#toolbar",
@@ -86,7 +81,6 @@ export const modules = {
   markdownShortcuts: {}
 };
 
-// Formats objects for setting up the Quill editor
 export const formats = [
   "header",
   "font",
@@ -110,7 +104,6 @@ export const formats = [
 
 Quill.register("modules/markdownShortcuts", MarkdownShortcuts);
 
-// Quill Toolbar component
 export const QuillToolbar = () => (
   <div id="toolbar">
     <span className="ql-formats">
