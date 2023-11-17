@@ -3,7 +3,6 @@
 import EditorToolbar, { modules, formats } from "./editor-toolbar";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
-import 'react-quill/dist/quill.snow.css';
 import { useState, useEffect } from "react";
 import { PageTitle } from "./edit-title";
 import { Spinner } from '@components/loader';
@@ -49,6 +48,7 @@ export function BasicEditor({
         <div className="relative">
           <EditorToolbar />
           <ReactQuill
+            className="w-screen h-96"
             modules={modules}
             formats={formats}
             theme="bubble"
