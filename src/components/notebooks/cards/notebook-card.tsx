@@ -7,7 +7,7 @@ export default function NotebookCard(props: Notebook) {
   const href = `notebooks/${props.id}/`
 
   return (
-    <a href={href} className="min-w-[120px] max-w-[380px] bg-component rounded-notebook-card">
+    <a href={href} className="min-w-[120px] max-w-[380px] rounded-notebook-card">
 
       <div className="flex flex-col pl-2 pt-2 min-h-[100px] max-h-[150px]">
         <span>
@@ -23,8 +23,7 @@ export default function NotebookCard(props: Notebook) {
           </p>
         </span>
 
-        <p className="basis-2"></p>
-        <p className="basis-2 font-thin text-xs text-faded tracking-tight text-gray-400">{lastUpdated}</p>
+        <p className="basis-4 font-thin text-xs text-faded tracking-tight text-gray-400">{lastUpdated}</p>
 
       </div>
 
