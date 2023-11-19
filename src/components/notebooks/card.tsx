@@ -1,5 +1,5 @@
 
-export default function NotebookCard(props: Notebook) {
+export default function Card(props: Notebook) {
   const title = props.title || '';
   const description = props.description || '';
   // TODO: Fetch notebook 'Last Updated' when implemented on backend

@@ -9,7 +9,7 @@ import Fuse from 'fuse.js'
 import SearchBar from '@/components/search-bar';
 import Navigation from '@/components/navigation';
 import { Loader } from '@/components/loader'
-import NotebookCard from '@/components/notebooks/cards/notebook-card';
+import Card from '@/components/notebooks/card';
 
 const GET_NOTEBOOKS_QUERY = gql`
 query GetNotebooks {
