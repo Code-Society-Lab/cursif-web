@@ -62,7 +62,7 @@ export default function Page() {
             <div className='flex flex-row grow'>
             <SearchBar onChange={(e) => doFilter(e.currentTarget.value)} />              
             <div className='flex flex-row grow justify-end'>
-                <button type="button" className="green-button font-medium rounded-lg text-sm px-10 py-2">New</button>
+                <button type="button" className="button bg-new font-medium rounded-lg text-sm px-10 py-2">New</button>
               </div>
             </div>
           </div>

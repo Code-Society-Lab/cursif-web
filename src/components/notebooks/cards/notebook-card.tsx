@@ -1,9 +1,9 @@
 
 export default function NotebookCard(props: Notebook) {
-  const title = (props.title) ? props.title : '';
-  const description = (props.description) ? props.description : '';
+  const title = props.title || '';
+  const description = props.description || '';
   // TODO: Fetch notebook 'Last Updated' when implemented on backend
-  const lastUpdated = "Last Updated : Unknown";
+  const lastUpdated = '';
   const href = `notebooks/${props.id}/`
 
   return (
@@ -24,7 +24,7 @@ export default function NotebookCard(props: Notebook) {
         </span>
 
         <p className="basis-2"></p>
-        <p className="font-thin text-xs text-faded tracking-tight text-gray-400">{lastUpdated}</p>
+        <p className="basis-2 font-thin text-xs text-faded tracking-tight text-gray-400">{lastUpdated}</p>
 
       </div>
 
