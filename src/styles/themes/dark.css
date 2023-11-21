@@ -15,6 +15,16 @@
 
   --input-error-background-color: #f66;
   --input-error-foreground-color: inherit;
+
+  --component-background-color: #161616;
+  --component-faded-background-color: #1C1C1C;
+
+  --secondary-text-color: #999;
+  --text-faded: #6B6B6B;
+
+  --new-background-color: #309600;
+  --new-text-color: white;
+
 }
 
 .dark .svg {
@@ -37,6 +47,15 @@
 
     --input-background-color: #161616;
     --input-foreground-color: white;
+
+    --component-background-color: #161616;
+    --component-faded-background-color: #1C1C1C;
+
+    --secondary-text-color: #999;
+    --text-faded: #6B6B6B;
+
+    --new-background-color: #309600;
+    --new-text-color: white;
   }
 
   .svg {
