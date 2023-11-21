@@ -49,7 +49,7 @@ export default function Page() {
   }
 
   if (loading)
-    return (<Loader/>)
+    return <Loader/>
   
   return (
     <div className="flex flex-col h-screen content-center">
@@ -73,7 +73,7 @@ export default function Page() {
                 <Card key={notebook.id} id={notebook.id} title={notebook.title} description={notebook.description} />
                 ))
             }
-            <a href="#/" className="rounded-notebook-card justify-center min-w-[120px] max-w-[380px] bg-component-faded">
+            <a href="#/" className="card justify-center min-w-[120px] max-w-[380px] bg-component-faded">
               <h1 className="text-5xl text-center self-center text-faded" >+</h1>
             </a>          
           </div>

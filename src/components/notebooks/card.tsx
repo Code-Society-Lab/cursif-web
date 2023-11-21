@@ -7,7 +7,7 @@ export default function Card(props: Notebook) {
   const href = `notebooks/${props.id}/`
 
   return (
-    <a href={href} className="min-w-[120px] max-w-[380px] rounded-notebook-card">
+    <a href={href} className="card min-w-[120px] max-w-[380px]">
 
       <div className="flex flex-col pl-2 pt-2 min-h-[100px] max-h-[150px]">
         <span>
