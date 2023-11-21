@@ -79,8 +79,9 @@ export default function Page() {
 	if (loading)
 		toggleLoader(true);
 
-	if (localStorage.token)
+	if (typeof window !== 'undefined' && localStorage.token) {
 		return <></>;
+	}
 
 	return (
 		<div className="flex flex-col h-screen">
