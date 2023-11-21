@@ -9,9 +9,9 @@ export default function Navigation() {
 	const actions: any = []
 
 	useEffect(() => {
-		var showLoginAction = !localStorage.token && pathname != '/login'
-		var showSigninAction = !localStorage.token && pathname != '/signin'
-		var showLogoutAction = localStorage.token && pathname != '/logout'
+		const showLoginAction = !localStorage.token && pathname != '/login'
+		const showSigninAction = !localStorage.token && pathname != '/signin'
+		const showLogoutAction = localStorage.token && pathname != '/logout'
 
 		if (localStorage.token) {
 			// Add authenticated actions
@@ -22,7 +22,6 @@ export default function Navigation() {
 		}
 	}
 		, [pathname])
-
 
 	return (
 		<div className="grid grid-cols-2 p-5">
