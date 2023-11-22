@@ -48,7 +48,7 @@ export function BasicEditor({
         <div className="relative">
           <EditorToolbar />
           <ReactQuill
-            className="w-screen h-96"
+            className="min-w-[350px]"
             modules={modules}
             formats={formats}
             theme="bubble"
