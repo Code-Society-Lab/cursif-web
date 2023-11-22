@@ -31,9 +31,9 @@ export function Sidebar({
         ))}
       </ul>
       <span>
-        <a href="notebooks" className="fixed bottom-5 left-0 p-4 icon-mark text-xs">
-          <BookOpenIcon className="h-5 w-5" />
-          <span className="ml-2">My Notebooks</span>
+        <a href="/notebooks" className="fixed bottom-5 left-0 p-4 icon-mark text-xs">
+          <BookOpenIcon className="h-5 w-5 mb-2" />
+          <span className="ml-2 mb-2">My Notebooks</span>
         </a>
         <a href="settings" className="fixed bottom-0 left-0 p-4 icon-mark text-xs">
           <Cog8ToothIcon className="h-5 w-5" />
