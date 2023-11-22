@@ -70,7 +70,7 @@ export default function Page({
   }
 
   return (
-    <div className="flex min-w-[350px] items-stretch">
+    <div className="flex min-h-screen min-w-[350px] items-stretch">
       <Sidebar
         notebook={notebookData.notebook}
         currentPageId={params.page_id}
