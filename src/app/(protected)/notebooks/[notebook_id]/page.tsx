@@ -33,6 +33,8 @@ export default function Page({
   if (loading)
     return <Loader />;
 
+  // TO-DO: Remove this once we have a proper pages dashboard
+  // For now, redirect to the first page if no page is selected.
   if (!params.page_id) {
     const firstPageId = data.notebook.pages[0].id;
     if (firstPageId) {
