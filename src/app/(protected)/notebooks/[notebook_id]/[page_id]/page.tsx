@@ -75,11 +75,12 @@ export default function Page({
         notebook={notebookData.notebook}
         currentPageId={params.page_id}
       />
-      <div className="flex-[4]" />
-      <BasicEditor
-        page={pageData?.page}
-        updatePage={updatePage}
-      />
+      <div className="flex-[4]" >
+        <BasicEditor
+          page={pageData?.page}
+          updatePage={updatePage}
+        />
+      </div>
     </div>
   );
 }
