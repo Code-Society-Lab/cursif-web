@@ -35,7 +35,7 @@ export function PageTitle({
   }, [page]);
 
   return (
-    <div className='mt-6 ml-5'>
+    <div className='w-full p-5'>
       <div className="font-bold text-xl mb-4 ml-8 ">
         {isBlurred ? (
           <label onClick={handleTitleClick}>{title}</label>
