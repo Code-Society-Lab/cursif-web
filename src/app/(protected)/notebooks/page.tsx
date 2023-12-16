@@ -98,7 +98,7 @@ export default function Page() {
               <SearchBar onChange={(e) => doFilter(e.currentTarget.value)} />
               <div className='flex flex-row grow justify-end'>
                 <CreateNotebookCard
-                  option="New"
+                  buttonTitle="New"
                   setTitle={setTitle}
                   setDescription={setDescription}
                   onSubmit={() => createNotebook()}
@@ -115,7 +115,7 @@ export default function Page() {
             }
             <span className="card justify-center min-w-[120px] max-w-[380px] bg-component-faded">
               <CreateNotebookCard
-                  option="+"
+                  buttonTitle="+"
                   setTitle={setTitle}
                   setDescription={setDescription}
                   onSubmit={() => createNotebook()}
