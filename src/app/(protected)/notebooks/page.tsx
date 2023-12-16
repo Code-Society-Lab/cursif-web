@@ -115,11 +115,11 @@ export default function Page() {
             }
             <span className="card justify-center min-w-[120px] max-w-[380px] bg-component-faded">
               <CreateNotebookCard
-                  buttonTitle="+"
-                  setTitle={setTitle}
-                  setDescription={setDescription}
-                  onSubmit={() => createNotebook()}
-                />
+                buttonTitle="+"
+                setTitle={setTitle}
+                setDescription={setDescription}
+                onSubmit={() => createNotebook()}
+              />
             </span>
           </div>
 
