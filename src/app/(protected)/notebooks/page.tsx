@@ -25,7 +25,7 @@ query GetNotebooks {
 `
 
 const CREATE_NOTEBOOK_MUTATION = gql`
-mutation CreateNotebook($title: String!, $description: String!, $ownerId: ID!, $ownerType: String!) {
+mutation CreateNotebook($title: String!, $description: String, $ownerId: ID!, $ownerType: String!) {
   createNotebook(title: $title, description: $description, ownerId: $ownerId, ownerType: $ownerType) {
     description
     id
