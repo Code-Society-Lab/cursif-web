@@ -183,6 +183,12 @@ input.invalid {
   color: var(--new-text-color);
 }
 
+.bg-modal {
+  color: var(--foreground-color);
+  background: var(--background-color);
+
+}
+
 @layer component {
   .card {
     @apply flex flex-col p-2 rounded-md bg-component;

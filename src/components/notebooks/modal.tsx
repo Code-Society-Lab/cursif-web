@@ -37,10 +37,10 @@ export default function Modal({
         >
           <div className="relative p-4 w-full max-w-md max-h-full">
             {/* Modal content */}
-            <div className="relative bg-white rounded-lg shadow  border border-gray-400">
+            <div className="relative card rounded-lg shadow  border border-gray-400">
               {/* Modal header */}
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                <h3 className="text-xl font-semibold text-gray-900">
+                <h3 className="text-xl font-semibold">
                   {modalTitle}
                 </h3>
                 <button
