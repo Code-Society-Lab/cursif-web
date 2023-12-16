@@ -16,8 +16,8 @@ declare global {
     id: string
     title?: string
     description?: string
-    owner_id?: number
-    owner_type?: string
+    ownerId?: number
+    ownerType?: string
     pages?: Page[]
   }
 
