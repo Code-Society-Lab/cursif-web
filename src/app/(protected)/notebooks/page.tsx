@@ -59,6 +59,9 @@ export default function Page() {
     onCompleted: () => {
       Notify.success("Notebook created!");
     },
+    onError: (error) => {
+      Notify.failure(`${error.message}!`);
+    },
   });
 
   useEffect(() => {
