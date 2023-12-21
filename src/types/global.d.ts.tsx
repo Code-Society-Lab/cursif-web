@@ -14,11 +14,11 @@ declare global {
 
   interface Notebook {
     id: string
-    title: string
-    description: string
-    owner_id: number
-    owner_type: string
-    pages: Page[]
+    title?: string
+    description?: string
+    owner_id?: number
+    owner_type?: string
+    pages?: Page[]
   }
 
   interface Parent {

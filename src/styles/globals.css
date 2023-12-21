@@ -8,7 +8,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   --accent: #E83151;
 
@@ -28,6 +27,15 @@
 
   --input-error-background-color: #FDD;
   --input-error-foreground-color: inherit;
+
+  --component-background-color: #E9E9E9;
+  --component-faded-background-color: #F3F3F3;
+  --secondary-text-color: #666666;
+  --text-faded: #A5A5A5;
+
+  --new-background-color: #309600;
+  --new-text-color: white;
+
 }
 
 @layer base {
@@ -141,4 +149,49 @@ input.invalid {
 
 .icon-mark {
   @apply flex inline-block items-center pr-4
+}
+
+.paragraph-wrap-3 {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.bg-component {
+  background-color: var(--component-background-color);
+}
+
+.bg-component-faded {
+  background-color: var(--component-faded-background-color);
+}
+
+.text-secondary {
+  color: var(--secondary-text-color);
+}
+
+.text-faded {
+  color: var(--text-faded)
+}
+
+.bg-component::placeholder {
+  color: var(--secondary-text-color)
+}
+
+.bg-new {
+  background-color: var(--new-background-color);
+  color: var(--new-text-color);
+}
+
+@layer component {
+  .card {
+    @apply flex flex-col p-2 rounded-md bg-component;
+  }
+}
+
+.card:hover {
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
 }

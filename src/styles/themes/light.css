@@ -15,6 +15,15 @@
 
   --input-error-background-color: #FDD;
   --input-error-foreground-color: inherit;
+
+  --component-background-color: #E9E9E9;
+  --component-faded-background-color: #F3F3F3;
+
+  --secondary-text-color: #666666;
+  --text-faded: #A5A5A5;
+
+  --new-background-color: #309600;
+  --new-text-color: white;
 }
 
 .light .svg {
