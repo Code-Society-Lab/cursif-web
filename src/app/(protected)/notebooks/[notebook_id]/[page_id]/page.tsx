@@ -73,6 +73,7 @@ export default function Page({
         currentPageId={params.page_id}
         createPage={createPage}
       />
+      <p>Text Editor Goes Here</p>
       <div className="flex-[4]" />
     </div>
   );
