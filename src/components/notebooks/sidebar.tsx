@@ -17,7 +17,11 @@ export function Sidebar({
     <nav className="w-[300px] p-2 whitespace-nowrap">
       <div className="flex justify-between">
         <p className="pt-3 pb-6 font-bold text-xl text-ellipsis overflow-hidden" title={notebook.title}>{notebook.title}</p>
-        <PlusIcon className="w-6 h-6 text-gray-400" onClick={() => createPage()} />
+        <PlusIcon
+          className="w-6 h-6 text-gray-400"
+          onClick={() => createPage()}
+          title="Create New Page" 
+        />
       </div>
 
       <ul>
