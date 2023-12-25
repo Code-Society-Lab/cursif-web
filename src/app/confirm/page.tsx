@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter, useSearchParams } from 'next/navigation'
-import Notify from '@config/notiflix-config';
+import { Notify, useNotify } from '@config/notiflix-config';
 import Navigation from '@components/navigation'
 
 const SEND_CONFIRMATION_EMAIL_MUTATION = gql`
@@ -20,6 +20,7 @@ const CONFIRM_EMAIL_MUTATION = gql`
  `;
 
 export default function Page() {
+	useNotify();
 	const searchParams = useSearchParams()
 	const token = searchParams.get("token");
 	const router = useRouter()
