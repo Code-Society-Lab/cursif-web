@@ -1,7 +1,7 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { useEffect } from 'react';
 
-export function useNotify() {
+export default function useNotify() {
 	useEffect(() => {
 		Notify.init({
 			position: 'right-top',
