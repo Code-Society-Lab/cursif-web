@@ -24,15 +24,15 @@ export default function CreateNotebookCard({
     onSubmit();
   };
 
-  const plusButton = "text-5xl text-center self-center text-faded";
-  const newButton = "button bg-new font-medium rounded-lg text-sm px-10 py-2";
+  const plusButtonStyle = "text-5xl text-center self-center text-faded";
+  const newButtonStyle = "button bg-new font-medium rounded-lg text-sm px-10 py-2";
 
   return (
     <>
       <Modal
         modalTitle="Create a new Notebook"
         buttonTitle={buttonTitle}
-        buttonStyle={buttonTitle === "New" ? newButton : plusButton}
+        buttonStyle={buttonTitle === "New" ? newButtonStyle : plusButtonStyle}
       >
         <div className="p-4 md:p-5">
           <form onSubmit={handleSubmit} className="space-y-4">
