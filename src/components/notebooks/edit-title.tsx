@@ -10,7 +10,7 @@ export function PageTitle({
   const [title, setTitle] = useState('');
   const [isBlurred, setIsBlurred] = useState(true);
 
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
   };
 
@@ -23,6 +23,7 @@ export function PageTitle({
       variables: {
         id: page.id,
         title: title,
+        content: page.content || '',
       },
     });
     setIsBlurred(true);
@@ -40,7 +41,7 @@ export function PageTitle({
         {isBlurred ? (
           <label onClick={handleTitleClick}>{title}</label>
         ) : (
-          <input
+          <textarea
             className="text-2xl font-bold outline-none bg-transparent w-full"
             value={title}
             onChange={handleTitleChange}
