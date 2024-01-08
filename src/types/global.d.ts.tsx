@@ -19,6 +19,7 @@ declare global {
     owner_id?: number
     owner_type?: string
     pages?: Page[]
+    lastUpdated: string
   }
 
   interface Parent {
