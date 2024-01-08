@@ -10,7 +10,7 @@ export default function Card(props: Notebook) {
 
   // Converts the received date to Date object
   const lastUpdatedDate =
-    new Date(props.lastUpdated) || new Date().toDateString();
+    new Date(props.lastUpdated) || new Date();
 
   // Formats the date for UI
   const lastUpdated =
