@@ -36,7 +36,6 @@ export default function Page() {
 
   let { loading, error: notebookError, data: queryNotebookData } = useQuery(GET_NOTEBOOKS_QUERY, {
     onCompleted: () => {
-      console.log(queryNotebookData.notebooks);
       setNotebookData(queryNotebookData.notebooks);
     },
     onError: (error) => {
