@@ -10,8 +10,6 @@ const NOTEBOOK_QUERY = gql`
     notebook(id: $id) {
       id
       title
-      ownerId
-      ownerType
       pages {
         id
         title
