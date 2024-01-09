@@ -3,12 +3,12 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 
 export default function Modal({
   buttonTitle,
-  modalTitle,
+  title,
   buttonStyle,
   children,
 }: {
   buttonTitle: string;
-  modalTitle: string;
+  title: string;
   buttonStyle: string;
   children: React.ReactNode;
 }) {
@@ -41,7 +41,7 @@ export default function Modal({
               {/* Modal header */}
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-xl font-semibold">
-                  {modalTitle}
+                  {title}
                 </h3>
                 <button
                   type="button"
