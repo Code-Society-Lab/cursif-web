@@ -31,6 +31,7 @@ declare global {
     description?: string
     owner?: PartialUser
     pages?: Page[]
+    lastUpdated: string
   }
 
   interface Parent {

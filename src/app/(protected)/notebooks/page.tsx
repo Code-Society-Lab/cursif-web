@@ -17,6 +17,7 @@ query GetNotebooks {
       id
       title
       description
+      updated_at
     }
   }
 `
@@ -70,7 +71,7 @@ export default function Page() {
           <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 lg:gap-8 gap-2">
             {
               searchData?.map((notebook) => (
-                <Card key={notebook.id} id={notebook.id} title={notebook.title} description={notebook.description} />
+                <Card key={notebook.id} id={notebook.id} title={notebook.title} description={notebook.description} lastUpdated={notebook.updated_at} />
                 ))
             }
             <a href="#/" className="card justify-center min-w-[120px] max-w-[380px] bg-component-faded">
