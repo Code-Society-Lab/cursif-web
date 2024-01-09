@@ -1,8 +1,9 @@
 "use client";
 
-import { Sidebar } from "@/components/notebooks/sidebar";
+import { PagesNavigation } from "@/components/notebooks/pages-navigation";
 import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
+import _ from 'lodash';
 
 const NOTEBOOK_QUERY = gql`
   query GetNotebook($id: ID!) {
@@ -12,6 +13,7 @@ const NOTEBOOK_QUERY = gql`
       pages {
         id
         title
+        parentId
       }
     }
   }
@@ -25,16 +27,18 @@ export default function Page({
   const { data, loading, error } = useQuery(NOTEBOOK_QUERY, {
     variables: {
       id: params.notebook_id,
-    },
+    }
   });
 
-  if (loading) 
+  const mutableNotebook = _.cloneDeep(data?.notebook);
+
+  if (loading)
     return <Loader />;
 
   return (
     <div className="flex h-screen items-stretch">
-      <Sidebar
-        notebook={data.notebook}
+      <PagesNavigation
+        notebook={mutableNotebook}
         currentPageId={params.page_id}
       />
       <div className="flex-[4]" />
