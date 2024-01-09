@@ -30,7 +30,7 @@ export default function CreateNotebookCard({
   return (
     <>
       <Modal
-        modalTitle="Create a new Notebook"
+        title="New Notebook"
         buttonTitle={buttonTitle}
         buttonStyle={buttonTitle === "New" ? newButtonStyle : plusButtonStyle}
       >
@@ -47,13 +47,13 @@ export default function CreateNotebookCard({
               id="message"
               rows={4}
               className='block resize-none p-2 w-full bg-modal rounded-lg border'
-              placeholder="Write your notebook description here..."
+              placeholder="Write your notebook description here... (Optional)"
               onChange={onDescriptionChange}
               required={false}
             />
 
             <div className="flex justify-end">
-              <button type="submit" className="button bg-new !text-white">
+              <button type="submit" className="button bg-new">
                 <span className="label">Create</span>
               </button>
             </div>
