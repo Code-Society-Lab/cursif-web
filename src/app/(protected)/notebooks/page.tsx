@@ -18,8 +18,6 @@ query GetNotebooks {
       id
       title
       description
-      ownerId
-      ownerType
     }
   }
 `
@@ -53,8 +51,6 @@ export default function Page() {
     variables: {
       title: title,
       description: description,
-      ownerId: notebookData?.[0]?.ownerId,
-      ownerType: notebookData?.[0]?.ownerType,
     },
     onCompleted: () => {
       Notify.success("Notebook created!");
