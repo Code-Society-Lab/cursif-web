@@ -52,9 +52,9 @@ export function PagesNavigation({
       <div className="flex justify-between">
         <p className="pt-3 pb-6 font-bold text-xl text-ellipsis overflow-hidden" title={notebook.title}>{notebook.title}</p>
         <PlusIcon
-          className="w-6 h-6 text-gray-400"
+          className="w-6 h-6 text-gray-400 cursor-pointer"
           onClick={() => createPage()}
-          title="Create New Page"
+          title="New Page"
         />
       </div>
 
