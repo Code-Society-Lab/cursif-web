@@ -2,6 +2,19 @@
 export { };
 
 declare global {
+  interface User {
+    id: string
+    username: string
+    email: string
+    first_name: string
+    last_name: string
+  }
+
+  interface PartialUser {
+    id: string
+    username: string
+  }
+
   interface Page {
     id: string
     title: string
@@ -16,8 +29,7 @@ declare global {
     id: string
     title?: string
     description?: string
-    ownerId?: number
-    ownerType?: string
+    owner?: PartialUser
     pages?: Page[]
   }
 
