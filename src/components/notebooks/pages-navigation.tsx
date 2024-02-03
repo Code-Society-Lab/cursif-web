@@ -43,7 +43,8 @@ export function PagesNavigation({
   useEffect(() => {
     if (createPageData && createPageData.createPage) {
       setPages([...pages, createPageData.createPage]);
-      // router.push(`/notebooks/${notebook.id}/${createPageData.createPage.id}`);
+      location.reload();
+      router.push(`/notebooks/${notebook.id}/${createPageData.createPage.id}`);
     }
   }, [createPageData]);
 
