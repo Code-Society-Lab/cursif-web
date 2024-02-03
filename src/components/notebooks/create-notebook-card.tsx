@@ -37,7 +37,7 @@ export default function CreateNotebookCard({
         <div className="p-4 md:p-5">
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
-              className={`block p-2.5 w-full bg-modal rounded-lg border`}
+              className={`input w-full bg-modal border`}
               type="text"
               placeholder="Title"
               onChange={onTitleChange}
