@@ -41,9 +41,12 @@ export default function Page({
       <PagesNavigation
         notebook={data?.notebook}
         currentPageId={params.page_id}
-        onUpdate={() => refetch()}
+        onUpdate={() => refetch() }
       />
-      <div className="flex-[4]" />
+
+      <div className="flex-[4]">
+
+      </div>
     </div>
   );
 }

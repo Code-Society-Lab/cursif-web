@@ -1,3 +1,5 @@
+import './pages-navigation.css';
+
 import Link from 'next/link'
 import Notify from "@/config/notiflix-config";
 import { useRouter } from "next/navigation";
@@ -47,21 +49,21 @@ export function PagesNavigation({
     return <div>Error loading notebook: {error.message}</div>;
 
   return (
-    <nav className="w-[300px] p-2">
-      <div className="p-8 text-center text-ellipsis overflow-hidden" title={notebook.title}>
+    <nav className="pages-navigation">
+      <div className="title" title={notebook.title}>
         <b>{notebook.title}</b>
       </div>
 
       <ul>
         {notebook.pages.map((page: Page) => (
-          <li key={page.id} className={`flex items-center my-2 cursor-pointer rounded-md ${page.id == currentPageId && "selected"}`}>
+          <li key={page.id} className={page.id == currentPageId ? 'selected' : null}>
             <Link href={`/notebooks/${notebook.id}/${page.id}`} className="flex-1 p-2 text-ellipsis overflow-hidden" title={page.title}>
               {page.title}
             </Link>
             <a href="#"><EllipsisVerticalIcon className="h-5 w-5" /></a>
           </li>
         ))}
-        <li className="flex justify-center items-center p-2 cursor-pointer rounded-md text-gray-400" onClick={() => createPage()}>
+        <li className="p-2 text-gray-400" onClick={() => createPage()}>
           <PlusIcon className="w-5 h-5"/> New page
         </li>
       </ul>
