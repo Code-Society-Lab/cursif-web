@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Notify from "@/config/notiflix-config";
 import { useRouter } from "next/navigation";
 import { useMutation, gql } from "@apollo/client";
-import { EllipsisVerticalIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { EllipsisVerticalIcon, PlusIcon, Cog8ToothIcon, BookOpenIcon } from "@heroicons/react/24/solid";
 
 const CREATE_PAGE_MUTATION = gql`
   mutation CreatePage($title: String!, $parentId: ID!, $parentType: String!) {
@@ -55,8 +55,8 @@ export function PagesNavigation({
       </div>
 
       <ul>
-        {notebook.pages.map((page: Page) => (
-          <li key={page.id} className={page.id == currentPageId ? 'selected' : null}>
+        {notebook?.pages?.map((page: Page) => (
+          <li key={page.id} className={page.id == currentPageId ? 'selected' : ''}>
             <Link href={`/notebooks/${notebook.id}/${page.id}`} className="flex-1 p-2 text-ellipsis overflow-hidden" title={page.title}>
               {page.title}
             </Link>
@@ -66,7 +66,17 @@ export function PagesNavigation({
         <li className="p-2 text-gray-400" onClick={() => createPage()}>
           <PlusIcon className="w-5 h-5"/> New page
         </li>
+
+         <a href="/notebooks" className="bottom-5 left-0 icon-mark text-xs">
+           <BookOpenIcon className="ml-2 h-5 w-5 mb-2" />
+           <span className="ml-2 mb-2">My Notebooks</span>
+         </a>
+         <a href="/settings" className="bottom-0 left-0 icon-mark text-xs">
+           <Cog8ToothIcon className="ml-2 h-5 w-5" />
+           <span className="ml-2">Settings</span>
+         </a>
       </ul>
+      
     </nav>
   );
 }
