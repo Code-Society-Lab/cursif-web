@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Notify from "@/config/notiflix-config";
 import { useRouter } from "next/navigation";
 import { useMutation, gql } from "@apollo/client";
-import { EllipsisVerticalIcon, PlusIcon, Cog8ToothIcon, BookOpenIcon } from "@heroicons/react/24/solid";
+import { EllipsisVerticalIcon, PlusIcon, ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 
 const CREATE_PAGE_MUTATION = gql`
   mutation CreatePage($title: String!, $parentId: ID!, $parentType: String!) {
@@ -68,12 +68,8 @@ export function PagesNavigation({
         </li>
 
         <a href="/notebooks" className="icon-mark text-xs">
-          <BookOpenIcon className="ml-2 h-5 w-5 mb-2" />
-          <span className="ml-2 mb-2">My Notebooks</span>
-        </a>
-        <a href="#" className="icon-mark text-xs">
-          <Cog8ToothIcon className="ml-2 h-5 w-5" />
-          <span className="ml-2">Settings</span>
+          <ArrowUturnLeftIcon className="ml-2 h-5 w-5 mb-2" />
+          <span className="ml-2 mb-2">Back to Notebooks</span>
         </a>
       </ul>
 
