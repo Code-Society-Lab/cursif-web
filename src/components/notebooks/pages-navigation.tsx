@@ -67,11 +67,11 @@ export function PagesNavigation({
           <PlusIcon className="w-5 h-5"/> New page
         </li>
 
-         <a href="/notebooks" className="bottom-5 left-0 icon-mark text-xs">
+         <a href="/notebooks" className="icon-mark text-xs">
            <BookOpenIcon className="ml-2 h-5 w-5 mb-2" />
            <span className="ml-2 mb-2">My Notebooks</span>
          </a>
-         <a href="/settings" className="bottom-0 left-0 icon-mark text-xs">
+         <a href="/settings" className="icon-mark text-xs">
            <Cog8ToothIcon className="ml-2 h-5 w-5" />
            <span className="ml-2">Settings</span>
          </a>
