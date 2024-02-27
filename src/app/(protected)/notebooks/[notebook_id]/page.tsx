@@ -3,7 +3,6 @@
 import { PagesNavigation } from "@/components/notebooks/pages-navigation";
 import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
-import _ from 'lodash';
 
 const NOTEBOOK_QUERY = gql`
   query GetNotebook($id: ID!) {
@@ -24,13 +23,14 @@ export default function Page({
 }: {
   params: { notebook_id: string; page_id: string };
 }) {
-  const { data, loading, error } = useQuery(NOTEBOOK_QUERY, {
+  const { data, loading, error, refetch } = useQuery(NOTEBOOK_QUERY, {
     variables: {
       id: params.notebook_id,
-    }
+    },
   });
 
-  const mutableNotebook = _.cloneDeep(data?.notebook);
+  if (error)
+    return <div>Error loading notebook: {error.message}</div>;
 
   if (loading)
     return <Loader />;
@@ -38,10 +38,14 @@ export default function Page({
   return (
     <div className="flex h-screen items-stretch">
       <PagesNavigation
-        notebook={mutableNotebook}
+        notebook={data?.notebook}
         currentPageId={params.page_id}
+        onUpdate={() => refetch() }
       />
-      <div className="flex-[4]" />
+
+      <div className="flex-[4]">
+
+      </div>
     </div>
   );
 }
