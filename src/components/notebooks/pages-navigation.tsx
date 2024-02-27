@@ -73,8 +73,7 @@ export function PagesNavigation({
       <div className='back-action'>
         <span>
           <Link href={`/notebooks`} className="flex items-center">
-            <ArrowUturnLeftIcon className="ml-2 mb-2 h-5 w-5" />
-            <span className="ml-2 mb-2">Back to Notebooks</span>
+            <ArrowUturnLeftIcon className="ml-2 mr-2 h-4 w-4" /> Back to Notebooks
           </Link>
         </span>
       </div>
