@@ -54,26 +54,30 @@ export function PagesNavigation({
         <b>{notebook.title}</b>
       </div>
 
-      <ul>
-        {notebook?.pages?.map((page: Page) => (
-          <li key={page.id} className={page.id == currentPageId ? 'selected' : ''}>
-            <Link href={`/notebooks/${notebook.id}/${page.id}`} className="flex-1 p-2 text-ellipsis overflow-hidden" title={page.title}>
-              {page.title}
-            </Link>
-            <a href="#"><EllipsisVerticalIcon className="h-5 w-5" /></a>
+      <div className="tabs">
+        <ul>
+          {notebook?.pages?.map((page: Page) => (
+            <li key={page.id} className={page.id == currentPageId ? 'selected' : ''}>
+              <Link href={`/notebooks/${notebook.id}/${page.id}`} className="flex-1 p-2 text-ellipsis overflow-hidden" title={page.title}>
+                {page.title}
+              </Link>
+              <a href="#"><EllipsisVerticalIcon className="h-5 w-5" /></a>
+            </li>
+          ))}
+          <li className="p-2 text-gray-400" onClick={() => createPage()}>
+            <PlusIcon className="w-5 h-5" /> New page
           </li>
-        ))}
-        <li className="p-2 text-gray-400" onClick={() => createPage()}>
-          <PlusIcon className="w-5 h-5" /> New page
-        </li>
+        </ul>
+      </div>
 
-        <span className="text-s">
+      <div className='back-action'>
+        <span>
           <Link href={`/notebooks`} className="flex items-center">
             <ArrowUturnLeftIcon className="ml-2 mb-2 h-5 w-5" />
             <span className="ml-2 mb-2">Back to Notebooks</span>
           </Link>
         </span>
-      </ul>
+      </div>
     </nav>
   );
 }
