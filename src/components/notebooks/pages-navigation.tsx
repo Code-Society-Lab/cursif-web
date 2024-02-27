@@ -45,7 +45,7 @@ export function PagesNavigation({
     },
   });
 
-  if (error) 
+  if (error)
     return <div>Error loading notebook: {error.message}</div>;
 
   return (
@@ -64,19 +64,19 @@ export function PagesNavigation({
           </li>
         ))}
         <li className="p-2 text-gray-400" onClick={() => createPage()}>
-          <PlusIcon className="w-5 h-5"/> New page
+          <PlusIcon className="w-5 h-5" /> New page
         </li>
 
-         <a href="/notebooks" className="icon-mark text-xs">
-           <BookOpenIcon className="ml-2 h-5 w-5 mb-2" />
-           <span className="ml-2 mb-2">My Notebooks</span>
-         </a>
-         <a href="/settings" className="icon-mark text-xs">
-           <Cog8ToothIcon className="ml-2 h-5 w-5" />
-           <span className="ml-2">Settings</span>
-         </a>
+        <a href="/notebooks" className="icon-mark text-xs">
+          <BookOpenIcon className="ml-2 h-5 w-5 mb-2" />
+          <span className="ml-2 mb-2">My Notebooks</span>
+        </a>
+        <a href="/settings" className="icon-mark text-xs">
+          <Cog8ToothIcon className="ml-2 h-5 w-5" />
+          <span className="ml-2">Settings</span>
+        </a>
       </ul>
-      
+
     </nav>
   );
 }
