@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/auth-provider';
@@ -55,20 +55,14 @@ export default function Page() {
       ownerId: "68c8ae3b-24d3-4983-b706-41a46b7d5475",
       ownerType: "user",
     },
-    onCompleted: () => {
+    onCompleted: (data) => {
       Notify.success("Notebook created!");
+      router.push(`/notebooks/${data.createNotebook.id}`);
     },
     onError: (error) => {
       Notify.failure(`${error.message}!`);
     },
   });
-
-  useEffect(() => {
-    if (createNotebookData && createNotebookData.createNotebook) {
-      router.push(`/notebooks/${createNotebookData.createNotebook.id}`);
-    }
-  }, [createNotebookData]
-  );
 
   let { loading, error: notebookError, data: queryNotebookData } = useQuery(GET_NOTEBOOKS_QUERY, {
     onCompleted: () => {
@@ -101,7 +95,7 @@ export default function Page() {
               <div className='flex flex-row grow justify-end'>
                 <CreateNotebookCard
                   buttonTitle="New"
-                  onSubmit={(title, description) => createNotebook({ variables: { title, description, user } })}
+                  onSubmit={(title, description) => createNotebook({ variables: { title, description } })}
                 />
               </div>
             </div>
