@@ -15,11 +15,13 @@ export default function CreateNotebookCard({
   const handleSubmit = () => {
     onSubmit(title, description);
     setIsModalOpen(false);
+    document.body.style.overflow = "auto";
   };
 
   const handleCardClick = (event) => {
     if (!event.target.closest('#new-notebook-modal')) {
       setIsModalOpen(true);
+      document.body.style.overflow = "hidden";
     }
   };
 
@@ -36,12 +38,19 @@ export default function CreateNotebookCard({
       >
         {buttonTitle}
       </button>
+      {isModalOpen && (
+        <div className="fixed top-0 left-0 w-full h-full backdrop-filter backdrop-blur-lg"></div>
+      )}
 
       {isModalOpen && (
         <Modal
           id="new-notebook-modal"
           title="New Notebook"
-          onClose={() => setIsModalOpen(false)}
+          onClose={() => {
+            setIsModalOpen(false)
+            document.body.style.overflow = "auto"
+          }
+          }
         >
           <div className="p-4 md:p-5">
             <form onSubmit={handleSubmit} className="space-y-4">
