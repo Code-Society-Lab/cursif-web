@@ -17,8 +17,10 @@ export default function CreateNotebookCard({
     setIsModalOpen(false);
   };
 
-  const handleCardClick = () => {
-    setIsModalOpen(true);
+  const handleCardClick = (event) => {
+    if (!event.target.closest('#new-notebook-modal')) {
+      setIsModalOpen(true);
+    }
   };
 
   const plusButtonStyle = "text-5xl text-center self-center text-faded";
@@ -26,7 +28,7 @@ export default function CreateNotebookCard({
   const buttonStyle     = buttonTitle === "+" ? plusButtonStyle : newButtonStyle;
 
   return (
-    <div onClick={handleCardClick} className="cursor-pointer flex flex-col justify-center items-center h-full">
+    <div onClick={(event) => handleCardClick(event)} className="cursor-pointer flex flex-col justify-center items-center h-full">
       <button
         type="button"
         className={buttonStyle}
@@ -39,7 +41,7 @@ export default function CreateNotebookCard({
         <Modal
           id="new-notebook-modal"
           title="New Notebook"
-          onClose={() => setIsModalOpen(!isModalOpen)}
+          onClose={() => setIsModalOpen(false)}
         >
           <div className="p-4 md:p-5">
             <form onSubmit={handleSubmit} className="space-y-4">
