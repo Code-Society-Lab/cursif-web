@@ -23,8 +23,8 @@ query GetNotebooks {
 `
 
 const CREATE_NOTEBOOK_MUTATION = gql`
-mutation CreateNotebook($title: String!, $description: String, $ownerId: ID!, $ownerType: String!) {
-  createNotebook(title: $title, description: $description, ownerId: $ownerId, ownerType: $ownerType) {
+mutation CreateNotebook($title: String!, $description: String, $ownerId: ID!) {
+  createNotebook(title: $title, description: $description, ownerId: $ownerId) {
     description
     id
     title
@@ -51,6 +51,9 @@ export default function Page() {
     variables: {
       title: title,
       description: description,
+      // TO-DO: Current hardcoded userID for testing (need to fix this for dynamic user)
+      ownerId: "68c8ae3b-24d3-4983-b706-41a46b7d5475",
+      ownerType: "user",
     },
     onCompleted: () => {
       Notify.success("Notebook created!");
@@ -98,9 +101,7 @@ export default function Page() {
               <div className='flex flex-row grow justify-end'>
                 <CreateNotebookCard
                   buttonTitle="New"
-                  setTitle={setTitle}
-                  setDescription={setDescription}
-                  onSubmit={() => createNotebook()}
+                  onSubmit={(title, description) => createNotebook({ variables: { title, description, user } })}
                 />
               </div>
             </div>
@@ -115,9 +116,7 @@ export default function Page() {
             <span className="card justify-center min-w-[120px] max-w-[380px] bg-component-faded">
               <CreateNotebookCard
                 buttonTitle="+"
-                setTitle={setTitle}
-                setDescription={setDescription}
-                onSubmit={() => createNotebook()}
+                onSubmit={(title, description) => createNotebook({ variables: { title, description } })}
               />
             </span>
           </div>
