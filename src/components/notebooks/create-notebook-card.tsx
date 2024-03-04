@@ -1,66 +1,76 @@
+import { useState } from 'react';
 import Modal from '@/components/notebooks/modal';
 
 export default function CreateNotebookCard({
   buttonTitle,
-  setTitle,
-  setDescription,
   onSubmit,
 }: {
   buttonTitle: string;
-  setTitle: (title: string) => void;
-  setDescription: (description: string) => void;
-  onSubmit: () => void;
+  onSubmit: (title: string, description: string) => void;
 }) {
-  const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleSubmit = () => {
+    onSubmit(title, description);
+    setIsModalOpen(false);
   };
 
-  const onDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(event.target.value);
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    onSubmit();
+  const handleCardClick = () => {
+    setIsModalOpen(true);
   };
 
   const plusButtonStyle = "text-5xl text-center self-center text-faded";
-  const newButtonStyle = "button bg-new font-medium rounded-lg text-sm px-10 py-2";
+  const newButtonStyle  = "button bg-new font-medium rounded-lg text-sm px-10 py-2";
+  const buttonStyle     = buttonTitle === "+" ? plusButtonStyle : newButtonStyle;
 
   return (
-    <>
-      <Modal
-        title="New Notebook"
-        buttonTitle={buttonTitle}
-        buttonStyle={buttonTitle === "New" ? newButtonStyle : plusButtonStyle}
+    <div onClick={handleCardClick} className="cursor-pointer flex flex-col justify-center items-center h-full">
+      <button
+        type="button"
+        className={buttonStyle}
+        onClick={() => setIsModalOpen(true)}
       >
-        <div className="p-4 md:p-5">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              className={`input w-full bg-modal border`}
-              type="text"
-              placeholder="Title"
-              onChange={onTitleChange}
-              required={true}
-            />
-            <textarea
-              id="message"
-              rows={4}
-              className='block resize-none p-2 w-full bg-modal rounded-lg border'
-              placeholder="Write your notebook description here... (Optional)"
-              onChange={onDescriptionChange}
-              required={false}
-            />
+        {buttonTitle}
+      </button>
 
-            <div className="flex justify-end">
-              <button type="submit" className="button bg-new">
-                <span className="label">Create</span>
-              </button>
-            </div>
+      {isModalOpen && (
+        <Modal
+          id="new-notebook-modal"
+          title="New Notebook"
+          onClose={() => setIsModalOpen(!isModalOpen)}
+        >
+          <div className="p-4 md:p-5">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                className={`input w-full bg-modal border`}
+                type="text"
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required={true}
+              />
+              <textarea
+                id="message"
+                rows={4}
+                className='block resize-none p-2 w-full bg-modal rounded-lg border'
+                placeholder="Write your notebook description here... (Optional)"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required={false}
+              />
 
-          </form>
-        </div>
-      </Modal>
-    </>
+              <div className="flex justify-end">
+                <button type="submit" className="button bg-new">
+                  <span className="label">Create</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </Modal>
+      )}
+    </div>
   );
 }
