@@ -41,18 +41,13 @@ const fuseOptions = {
 
 export default function Page() {
   const router = useRouter();
-  const user = useAuth();
+  const { user } = useAuth();
   const [notebookData, setNotebookData] = useState<Notebook[] | null>(null);
   const [searchData, setSearchData] = useState<Notebook[] | null>(notebookData);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
 
   const [createNotebook, { data: createNotebookData, loading: createNotebookLoading, error: createNotebookError }] = useMutation(CREATE_NOTEBOOK_MUTATION, {
     variables: {
-      title: title,
-      description: description,
-      // TO-DO: Current hardcoded userID for testing (need to fix this for dynamic user)
-      ownerId: "68c8ae3b-24d3-4983-b706-41a46b7d5475",
+      ownerId: user?.id,
       ownerType: "user",
     },
     onCompleted: (data) => {
