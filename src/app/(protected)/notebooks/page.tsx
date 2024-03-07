@@ -10,7 +10,7 @@ import SearchBar from '@/components/search-bar';
 import Navigation from '@/components/navigation';
 import { Loader } from '@/components/loader'
 import Card from '@/components/notebooks/card';
-import CreateNotebookCard from '@/components/notebooks/create-notebook-card';
+import ModalForm from '@/components/notebooks/modal-form';
 
 const GET_NOTEBOOKS_QUERY = gql`
 query GetNotebooks {
@@ -42,6 +42,9 @@ const fuseOptions = {
 export default function Page() {
   const router = useRouter();
   const { user } = useAuth();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [notebookData, setNotebookData] = useState<Notebook[] | null>(null);
   const [searchData, setSearchData] = useState<Notebook[] | null>(notebookData);
 
@@ -74,6 +77,13 @@ export default function Page() {
     setSearchData(searchFilter(notebookData, query));
   }
 
+  const handleCardClick = (event: any) => {
+    if (!event.target.closest(`#new-notebook-modal`)) {
+      setIsModalOpen(true);
+      document.body.style.overflow = "hidden";
+    }
+  };
+
   if (loading)
     return <Loader />
 
@@ -87,11 +97,23 @@ export default function Page() {
             <h1 className='text-2xl pl-2 pb-8 font-bold'>My Notebooks</h1>
             <div className='flex flex-row grow'>
               <SearchBar onChange={(e) => doFilter(e.currentTarget.value)} />
-              <div className='flex flex-row grow justify-end'>
-                <CreateNotebookCard
-                  buttonTitle="New"
-                  onSubmit={(title, description) => createNotebook({ variables: { title, description } })}
-                />
+              <div onClick={(event) => handleCardClick(event)} className='flex flex-row grow justify-end'>
+                <button
+                  type="button"
+                  className="button bg-new font-medium rounded-lg text-sm px-10 py-2"
+                  onClick={() => setIsModalOpen(true)}
+                >New</button>
+
+                {isModalOpen && (
+                  <div className="fixed top-0 left-0 w-full h-full backdrop-filter backdrop-blur-lg"></div>
+                )}
+
+                {isModalOpen && (
+                  <ModalForm modalFormID='new-notebook-modal'
+                    modalFormTitle='New Notebook'
+                    onSubmit={(title, description) => createNotebook({ variables: { title, description } })}
+                    onClose={() => { setIsModalOpen(false); document.body.style.overflow = "auto"; }}
+                  />)}
               </div>
             </div>
           </div>
@@ -103,10 +125,26 @@ export default function Page() {
               ))
             }
             <span className="card justify-center min-w-[120px] max-w-[380px] bg-component-faded">
-              <CreateNotebookCard
-                buttonTitle="+"
-                onSubmit={(title, description) => createNotebook({ variables: { title, description } })}
-              />
+              <div onClick={(event) => handleCardClick(event)} className="cursor-pointer flex flex-col justify-center items-center h-full">
+                <button
+                  type="button"
+                  className="text-5xl text-center self-center text-faded"
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  +
+                </button>
+
+                {isModalOpen && (
+                  <div className="fixed top-0 left-0 w-full h-full backdrop-filter backdrop-blur-lg"></div>
+                )}
+
+                {isModalOpen && (
+                  <ModalForm modalFormID='new-notebook-modal'
+                    modalFormTitle='New Notebook'
+                    onSubmit={(title, description) => createNotebook({ variables: { title, description } })}
+                    onClose={() => { setIsModalOpen(false); document.body.style.overflow = "auto"; }}
+                  />)}
+              </div>
             </span>
           </div>
 
