@@ -35,10 +35,108 @@
 
   --new-background-color: #309600;
   --new-text-color: white;
-
 }
 
 @layer base {
+  /* Generals */
+  body {
+    font-family: 'Montserrat', sans-serif;
+
+    color: var(--foreground-color);
+    background: var(--background-color);
+  }
+
+  nav {
+    background-color: var(--nav-background-color);
+    box-shadow: inset 0 -4px 10px 0 rgb(0 0 0 / 0.25);
+  }
+
+  ul li:hover {
+    background-color: var(--nav-tab-hover-background-color) !important;
+  }
+
+  ul li.selected {
+    background-color: var(--nav-selected-background-color);
+    color: var(--nav-selected-foreground-color);
+  }
+
+  /* Inputs */
+  .input {
+    color: var(--input-foreground-color);
+    background-color: var(--input-background-color);
+
+    height: 50px;
+    padding: 10px;
+
+    @apply rounded
+  }
+
+  textarea.input {
+    height: auto;
+
+    @apply p-2
+  }
+
+  .input-group {
+    background-color: var(--input-background-color);
+
+    @apply 
+      flex 
+      justify-center 
+      items-center
+      absolute 
+      w-auto 
+      mx-2 
+      border-none
+  }
+
+  .input:not(:focus):not(:placeholder-shown):invalid,
+  .input:not(:focus):not(:placeholder-shown):invalid + .input-group {
+    color: var(--input-error-foreground-color);
+    background-color: var(--input-error-background-color);
+    outline: none;
+  }
+
+  /* Buttons  */
+  .button {
+    padding: 10px 40px;
+    position: relative;
+    white-space: nowrap;
+
+    color: var(--button-foreground-color);
+    background-color: var(--button-background-color);
+
+    @apply 
+      rounded 
+      cursor-pointer 
+      border-none 
+      overflow-hidden 
+      disabled:opacity-75 
+      disabled:cursor-default
+  }
+
+  .button:hover {
+    opacity: 0.8;
+  }
+
+  .button .spinner {
+    @apply hidden justify-center items-center
+  }
+
+  .button.loading .spinner {
+    @apply flex absolute inset-0
+  }
+
+  .button.loading .label {
+    @apply invisible
+  }
+
+  input.invalid {
+    @apply border-2 border-red-500
+  }
+}
+
+@layer utilities {
   .bg-accent {
     background-color: var(--accent);
   }
@@ -51,153 +149,62 @@
     color: var(--accent);
   }
 
+  .text-secondary {
+    color: var(--secondary-text-color);
+  }
+
+  .text-faded {
+    color: var(--text-faded)
+  }
+
+  .bg-new {
+    background-color: var(--new-background-color);
+    color: var(--new-text-color);
+  }
+
+  .bg-modal {
+    color: var(--foreground-color);
+    background: var(--background-color);
+  }
+
+  .bg-component {
+    color: var(--secondary-text-color);
+    background-color: var(--component-background-color);
+  }
+
+  .bg-component-faded {
+    background-color: var(--component-faded-background-color);
+  }
+
   .fill-accent {
     fill: var(--accent);
   }
-}
 
-/* Generals */
-body {
-  font-family: 'Montserrat', sans-serif;
+  .icon-mark {
+    @apply flex inline-block items-center pr-4
+  }
 
-  color: var(--foreground-color);
-  background: var(--background-color);
-}
-
-nav {
-  background-color: var(--nav-background-color);
-  box-shadow: inset 0 -4px 10px 0 rgb(0 0 0 / 0.25);
-}
-
-ul li:hover {
-  background-color: var(--nav-tab-hover-background-color) !important;
-}
-
-ul li.selected {
-  background-color: var(--nav-selected-background-color);
-  color: var(--nav-selected-foreground-color);
-}
-
-/* Inputs */
-.input {
-  color: var(--input-foreground-color);
-  background-color: var(--input-background-color);
-
-  height: 50px;
-  padding: 10px;
-
-  @apply rounded
-}
-
-.input-group {
-  background-color: var(--input-background-color);
-
-  @apply 
-    flex 
-    justify-center 
-    items-center
-    absolute 
-    w-auto 
-    mx-2 
-    border-none
-}
-
-.input:not(:focus):not(:placeholder-shown):invalid,
-.input:not(:focus):not(:placeholder-shown):invalid + .input-group {
-  color: var(--input-error-foreground-color);
-  background-color: var(--input-error-background-color);
-  outline: none;
-}
-
-/* Buttons  */
-.button {
-  padding: 10px 40px;
-  position: relative;
-  white-space: nowrap;
-
-  color: var(--button-foreground-color);
-  background-color: var(--button-background-color);
-
-  @apply 
-    rounded 
-    cursor-pointer 
-    border-none 
-    overflow-hidden 
-    disabled:opacity-75 
-    disabled:cursor-default
-}
-
-.button:hover {
-  opacity: 0.8;
-}
-
-.button .spinner {
-  @apply hidden justify-center items-center
-}
-
-.button.loading .spinner {
-  @apply flex absolute inset-0
-}
-
-.button.loading .label {
-  @apply invisible
-}
-
-input.invalid {
-  @apply border-2 border-red-500
-}
-
-.icon-mark {
-  @apply flex inline-block items-center pr-4
-}
-
-.paragraph-wrap-3 {
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-
-.bg-component {
-  background-color: var(--component-background-color);
-}
-
-.bg-component-faded {
-  background-color: var(--component-faded-background-color);
-}
-
-.text-secondary {
-  color: var(--secondary-text-color);
-}
-
-.text-faded {
-  color: var(--text-faded)
-}
-
-.bg-component::placeholder {
-  color: var(--secondary-text-color)
-}
-
-.bg-new {
-  background-color: var(--new-background-color);
-  color: var(--new-text-color);
-}
-
-.bg-modal {
-  color: var(--foreground-color);
-  background: var(--background-color);
-
+  .paragraph-wrap-3 {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
 }
 
 @layer component {
   .card {
     @apply flex flex-col p-2 rounded-md bg-component;
   }
-}
 
-.card:hover {
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  transition-property: box-shadow;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+  .card-faded {
+    @apply card bg-component-faded;
+  }
+
+  .card:hover {
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    transition-property: box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
 }
