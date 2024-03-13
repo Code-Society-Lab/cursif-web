@@ -59,7 +59,14 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
     <form onSubmit={onSubmit}>
 
       <div className="relative">
-        <SimpleMDE value={value} onChange={onChange} />
+        <SimpleMDE 
+            value={value} 
+            onChange={onChange} 
+            options={{
+              spellChecker: true,
+              placeholder: 'Write your content here...',
+            }}
+          />
       </div>
 
       <button id="save-button" className="button !bg-accent float-right mt-6" type="submit">
