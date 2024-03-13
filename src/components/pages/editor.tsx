@@ -60,6 +60,7 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
 
       <div className="relative">
         <SimpleMDE 
+            className='editor'
             value={value} 
             onChange={onChange}
             placeholder='Start typing your thought here...'
