@@ -28,20 +28,20 @@ const UPDATE_PAGE_MUTATION = gql`
  `;
 
 export default function PageEditor({ page_id }: { page_id: String }): JSX.Element {
-  const { data: pageData, loading: pageLoading, error: pageError } = useQuery(PAGE_QUERY, {
+  const { data, loading, error } = useQuery(PAGE_QUERY, {
     variables: {
       id: page_id,
     },
   });
 
-  const [updatePage, { data: pageUpdateData, loading: pageUpdateLoading, error: pageUpdateError }] = useMutation(UPDATE_PAGE_MUTATION, {
+  const [updatePage] = useMutation(UPDATE_PAGE_MUTATION, {
     variables: {
       id: page_id,
-      title: pageData?.page.title,
+      title: data?.page.title,
     }
   });
 
-  const [value, setValue] = useState(pageData?.page.content);
+  const [value, setValue] = useState(data?.page.content);
   const onChange = (value: string) => setValue(value);
 
   const onSubmit = (event: React.FormEvent) => {
