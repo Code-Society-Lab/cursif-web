@@ -62,10 +62,6 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
         <SimpleMDE 
             value={value} 
             onChange={onChange} 
-            options={{
-              spellChecker: true,
-              placeholder: 'Write your content here...',
-            }}
           />
       </div>
 
