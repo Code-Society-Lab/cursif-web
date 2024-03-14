@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
+import Notify from '@config/notiflix-config';
 
 import SimpleMDE from "react-simplemde-editor";
+import hljs from 'highlight.js';
 import "easymde/dist/easymde.min.css";
-
-import Notify from '@config/notiflix-config';
+import 'highlight.js/styles/github.css';
 
 const PAGE_QUERY = gql`
    query GetPage($id: ID!) {
@@ -90,6 +91,10 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
             "preview", "side-by-side", "fullscreen", "|",
             "guide"
           ],
+          renderingConfig: {
+            codeSyntaxHighlighting: true,
+            hljs: hljs,
+          }
         }}
       />
     </div>
