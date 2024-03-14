@@ -40,7 +40,6 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
     }
   });
 
-
   const [updatePage] = useMutation(UPDATE_PAGE_MUTATION, {
     variables: {
       id: page_id,
