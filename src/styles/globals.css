@@ -202,6 +202,26 @@ input.invalid {
   max-height: 100%;
 }
 
+.editor h1,
+.editor h2,
+.editor h3,
+.editor h4,
+.editor h5,
+.editor h6 {
+  font-size: revert;
+  font-weight: revert;
+}
+
+.editor blockquote,
+.editor dl,
+.editor dd,
+.editor hr,
+.editor figure,
+.editor p,
+.editor pre {
+  margin: revert;
+}
+
 .editor .EasyMDEContainer {
   display: flex;
   flex-direction: column;
@@ -251,4 +271,9 @@ input.invalid {
 
 .editor .EasyMDEContainer .CodeMirror-cursor {
   border-color: var(--input-foreground-color);
+}
+
+/* size images */
+.editor .EasyMDEContainer span[data-img-src] {
+  --width: 100% !important;
 }
