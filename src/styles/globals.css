@@ -198,18 +198,36 @@ input.invalid {
 
 /* Editor custom theme (override default)*/
 .editor {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.editor .EasyMDEContainer {
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
+}
+
+.editor .EasyMDEContainer .CodeMirror, 
+.editor .EasyMDEContainer .editor-preview {
+  flex: 1;
+
+  color: var(--input-foreground-color);
+  background-color: var(--input-background-color);
+
+  border: none;
   border-radius: 0;
 }
 
-.custom-simplemde .CodeMirror {
-  color: var(--input-foreground-color);
-  background-color: var(--input-background-color);
-  border: none  !important;
+.editor .EasyMDEContainer .editor-preview-side {
+  border-left: 1px solid var(--input-foreground-color);
 }
 .editor.custom-simplemde .CodeMirror .CodeMirror-selected {
   background-color: rgb(123, 123, 123) !important;
 }
 
+<<<<<<< HEAD
 /* editor toolbar theme */
 .custom-simplemde .editor-toolbar button:hover {
   color: var(--input-foreground-color);
@@ -230,4 +248,28 @@ input.invalid {
 .custom-simplemde .editor-preview pre {
   color: var(--input-foreground-color);
   background-color: var(--input-background-color);
+=======
+.editor .editor-toolbar button:hover,
+.editor .editor-toolbar.fullscreen button:hover {
+  color: var(--input-foreground-color);
+  background-color: var(--input-background-color);
+}
+
+
+.editor .editor-toolbar button.active,
+.editor .editor-toolbar.fullscreen button.active {
+  color: var(--input-foreground-color);
+  background-color: var(--input-background-color);
+}
+
+.editor .editor-toolbar, .editor .editor-toolbar.fullscreen {
+  background-color: var(--input-background-color);
+
+  border: none;
+  border-radius: 0;
+}
+
+.editor .EasyMDEContainer .CodeMirror-cursor {
+  border-color: var(--input-foreground-color);
+>>>>>>> 0d75849 (Fixed a bunch of css issues with the editor)
 }
