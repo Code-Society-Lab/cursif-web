@@ -222,6 +222,10 @@ input.invalid {
   margin: revert;
 }
 
+.editor a {
+  text-decoration: underline;
+}
+
 .editor .EasyMDEContainer {
   display: flex;
   flex-direction: column;
