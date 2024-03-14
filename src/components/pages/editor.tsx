@@ -44,17 +44,13 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
   const [value, setValue] = useState(data?.page.content);
   const onChange = (newValue: string) => setValue(newValue);
 
-  const onSubmit = () => {
+  const save = () => {
     updatePage({
       variables: {
         id: page_id,
         content: value,
       },
     });
-  };
-
-  const save = () => {
-    onSubmit();
   };
 
   useEffect(() => {
@@ -66,7 +62,7 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
   const saveButton = {
     name: "save",
     action: function (editor: any) {
-      onSubmit();
+      save();
       Notify.success('Saved!');
     },
     className: "fa fa-save",
