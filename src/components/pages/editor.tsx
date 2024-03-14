@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
 
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 
 import Notify from '@config/notiflix-config';
-import { Spinner } from '@/components/loader';
 
 const PAGE_QUERY = gql`
    query GetPage($id: ID!) {
@@ -42,36 +41,57 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
   });
 
   const [value, setValue] = useState(data?.page.content);
-  const onChange = (value: string) => setValue(value);
+  const onChange = (newValue: string) => setValue(newValue);
 
-  const onSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const onSubmit = () => {
     updatePage({
       variables: {
         id: page_id,
         content: value,
       },
     });
-    Notify.success('Note saved!');
+  };
+
+  const save = () => {
+    onSubmit();
+  };
+
+  useEffect(() => {
+    const interval = setInterval(save, 10000);
+    return () => clearInterval(interval);
+  });
+
+  // Custom toolbar button for save
+  const saveButton = {
+    name: "save",
+    action: function (editor: any) {
+      onSubmit();
+      Notify.success('Saved!');
+    },
+    className: "fa fa-save",
+    title: "Save",
   };
 
   return (
-    <form onSubmit={onSubmit}>
-
-      <div className="relative">
-        <SimpleMDE 
-            className='editor'
-            value={value} 
-            onChange={onChange}
-            placeholder='Start typing your thought here...'
-        />
-      </div>
-
-      <button id="save-button" className="button !bg-accent float-right mt-6" type="submit">
-        <span className="spinner"><Spinner /></span>
-        <span className="label">Save</span>
-      </button>
-
-    </form>
+    <div className="relative">
+      <SimpleMDE
+        className='editor custom-simplemde'
+        value={value}
+        onChange={onChange}
+        placeholder='Start typing your thought here...'
+        options={{
+          autofocus: true,
+          spellChecker: true,
+          toolbar: [
+            saveButton,
+            "bold", "italic", "heading", "|",
+            "quote", "unordered-list", "ordered-list", "|",
+            "link", "|",
+            "preview", "side-by-side", "fullscreen", "|",
+            "guide"
+          ],
+        }}
+      />
+    </div>
   );
 }
