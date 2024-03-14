@@ -196,9 +196,22 @@ input.invalid {
   transition-duration: 300ms;
 }
 
+/* Editor custom theme (override default)*/
 .editor {
+  border-radius: 0;
+}
+
+.custom-simplemde .CodeMirror {
   color: var(--input-foreground-color);
   background-color: var(--input-background-color);
-  
-  @apply rounded-md p-2 mb-4 shadow-md;
+  border: none  !important;
+}
+
+.custom-simplemde .editor-toolbar button:hover {
+  color: var(--input-foreground-color);
+  background-color: var(--input-background-color);
+}
+
+.custom-simplemde .editor-toolbar {
+  border: none;
 }
