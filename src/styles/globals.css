@@ -220,41 +220,21 @@ input.invalid {
   border-radius: 0;
 }
 
+.editor .EasyMDEContainer .editor-preview pre {
+  color: var(--input-foreground-color);
+  background-color: var(--input-background-color);
+}
+
 .editor .EasyMDEContainer .editor-preview-side {
-  border-left: 1px solid var(--input-foreground-color);
-}
-.editor.custom-simplemde .CodeMirror .CodeMirror-selected {
-  background-color: rgb(123, 123, 123) !important;
+  color: var(--input-foreground-color);
+  background-color: var(--input-background-color);
 }
 
-<<<<<<< HEAD
-/* editor toolbar theme */
-.custom-simplemde .editor-toolbar button:hover {
-  color: var(--input-foreground-color);
-  background-color: var(--input-background-color);
-}
-.custom-simplemde .editor-toolbar button.active {
-  background-color: var(--input-background-color);
-}
-.custom-simplemde .editor-toolbar {
-  border: none;
-}
-
-/* preview theme */
-.custom-simplemde .editor-preview {
-  color: var(--input-foreground-color);
-  background-color: var(--input-background-color);
-}
-.custom-simplemde .editor-preview pre {
-  color: var(--input-foreground-color);
-  background-color: var(--input-background-color);
-=======
 .editor .editor-toolbar button:hover,
 .editor .editor-toolbar.fullscreen button:hover {
   color: var(--input-foreground-color);
   background-color: var(--input-background-color);
 }
-
 
 .editor .editor-toolbar button.active,
 .editor .editor-toolbar.fullscreen button.active {
@@ -271,5 +251,4 @@ input.invalid {
 
 .editor .EasyMDEContainer .CodeMirror-cursor {
   border-color: var(--input-foreground-color);
->>>>>>> 0d75849 (Fixed a bunch of css issues with the editor)
 }
