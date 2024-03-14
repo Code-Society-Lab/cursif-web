@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { Loader } from "@/components/loader";
-import Notify from '@config/notiflix-config';
 
 import SimpleMDE from "react-simplemde-editor";
 import hljs from 'highlight.js';
