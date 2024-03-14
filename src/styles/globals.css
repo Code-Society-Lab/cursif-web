@@ -206,10 +206,16 @@ input.invalid {
   background-color: var(--input-background-color);
   border: none  !important;
 }
+.editor.custom-simplemde .CodeMirror .CodeMirror-selected {
+  background-color: rgb(123, 123, 123) !important;
+}
 
 /* editor toolbar theme */
 .custom-simplemde .editor-toolbar button:hover {
   color: var(--input-foreground-color);
+  background-color: var(--input-background-color);
+}
+.custom-simplemde .editor-toolbar button.active {
   background-color: var(--input-background-color);
 }
 .custom-simplemde .editor-toolbar {
