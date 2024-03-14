@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
+import { Loader } from "@/components/loader";
 import Notify from '@config/notiflix-config';
 
 import SimpleMDE from "react-simplemde-editor";
 import hljs from 'highlight.js';
+
 import "easymde/dist/easymde.min.css";
 import 'highlight.js/styles/github.css';
 
@@ -28,11 +30,17 @@ const UPDATE_PAGE_MUTATION = gql`
  `;
 
 export default function PageEditor({ page_id }: { page_id: String }): JSX.Element {
+  const [value, setValue] = useState('');
+
   const { data, loading, error } = useQuery(PAGE_QUERY, {
     variables: {
       id: page_id,
     },
+    onCompleted: (data) => {
+      setValue(data.page.content);
+    }
   });
+
 
   const [updatePage] = useMutation(UPDATE_PAGE_MUTATION, {
     variables: {
@@ -41,58 +49,59 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
     }
   });
 
-  const [value, setValue] = useState(data?.page.content);
-  const onChange = (newValue: string) => setValue(newValue);
+  const onChange = useCallback((value: string) => {
+    setValue(value);
+  }, []);
 
-  const save = () => {
+  function save() {
+    if (!value || value == data.page.content)
+      return null;
+
     updatePage({
       variables: {
         id: page_id,
         content: value,
       },
     });
-  };
+
+    console.log(`Content saved: ${value}`)
+  }
 
   useEffect(() => {
     const interval = setInterval(save, 10000);
     return () => clearInterval(interval);
   });
 
-  // Custom toolbar button for save
-  const saveButton = {
-    name: "save",
-    action: function (editor: any) {
-      save();
-      Notify.success('Saved!');
-    },
-    className: "fa fa-save",
-    title: "Save",
-  };
+  const options = useMemo(() => {
+    return {
+      autofocus: true,
+      spellChecker: true,
+      status: false,
+      previewImagesInEditor: true,
+      toolbar: [
+        "bold", "italic", "heading", "|",
+        "quote", "unordered-list", "ordered-list", "|",
+        "link", "image", "|",
+        "preview", "side-by-side", "fullscreen", "|",
+        "guide"
+      ],
+      renderingConfig: {
+        codeSyntaxHighlighting: true,
+        hljs: hljs,
+      }
+    } as SimpleMDE.Options;
+  }, []);
+
+  if (loading)
+    return <Loader />;
 
   return (
-    <div className="relative">
-      <SimpleMDE
-        className='editor custom-simplemde'
-        value={value}
-        onChange={onChange}
-        placeholder='Start typing your thought here...'
-        options={{
-          autofocus: true,
-          spellChecker: true,
-          toolbar: [
-            saveButton,
-            "bold", "italic", "heading", "|",
-            "quote", "unordered-list", "ordered-list", "|",
-            "link", "|",
-            "preview", "side-by-side", "fullscreen", "|",
-            "guide"
-          ],
-          renderingConfig: {
-            codeSyntaxHighlighting: true,
-            hljs: hljs,
-          }
-        }}
-      />
-    </div>
+    <SimpleMDE
+      className='editor'
+      value={value}
+      onChange={onChange}
+      placeholder='Write your thoughts...'
+      options={options}
+    />
   );
 }
