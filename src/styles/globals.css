@@ -207,11 +207,21 @@ input.invalid {
   border: none  !important;
 }
 
+/* editor toolbar theme */
 .custom-simplemde .editor-toolbar button:hover {
   color: var(--input-foreground-color);
   background-color: var(--input-background-color);
 }
-
 .custom-simplemde .editor-toolbar {
   border: none;
+}
+
+/* preview theme */
+.custom-simplemde .editor-preview {
+  color: var(--input-foreground-color);
+  background-color: var(--input-background-color);
+}
+.custom-simplemde .editor-preview pre {
+  color: var(--input-foreground-color);
+  background-color: var(--input-background-color);
 }
