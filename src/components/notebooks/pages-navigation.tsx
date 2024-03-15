@@ -5,7 +5,7 @@ import Notify from "@/config/notiflix-config";
 import { useRouter } from "next/navigation";
 import { useMutation, gql } from "@apollo/client";
 import { EllipsisVerticalIcon, PlusIcon, ArrowUturnLeftIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
-import { Modal, openModal } from "@/components/modal";
+import { Modal, openModal, closeModal } from "@/components/modal";
 import NotebookForm from "@/components/notebooks/form";
 
 const CREATE_PAGE_MUTATION = gql`
@@ -86,7 +86,7 @@ export function PagesNavigation({
       </div>
 
       <Modal id='update-notebook-modal' title='Update Notebook'>
-        <NotebookForm notebook={notebook} />
+        <NotebookForm notebook={notebook} onComplete={() => { closeModal('update-notebook-modal'); }} />
       </Modal>
     </nav>
   );

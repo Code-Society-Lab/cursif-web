@@ -5,7 +5,6 @@ import { useMutation, gql } from '@apollo/client';
 
 import Notify from '@config/notiflix-config';
 import { Spinner } from '@/components/loader';
-import { closeModal } from '@/components/modal';
 
 const CREATE_NOTEBOOK_MUTATION = gql`
   mutation CreateNotebook($title: String!, $description: String, $ownerId: ID!) {
@@ -62,7 +61,6 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
         onComplete();
 
       Notify.success("Notebook updated!");
-      closeModal('update-notebook-modal');
       router.push(`/notebooks/${data.updateNotebook.id}`);
     },
     onError: (error) => {
