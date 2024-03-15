@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 
 function _getModal(id: string): HTMLDialogElement | null {
-  return document.getElementById(id);
+  return document.getElementById(id) as HTMLDialogElement;
 }
 
 export function openModal(id: string) {
@@ -23,8 +23,8 @@ export function Modal({
   children: React.ReactNode;
 }) {
   document.addEventListener('click', (e) => {
-    if (e.target.closest('dialog')) {
-      if (e.target.closest('.modal')) return;
+    if ((e.target as Element).closest('dialog')) {
+      if ((e.target as Element).closest('.modal')) return;
       closeModal(id);
     }
   });
