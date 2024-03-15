@@ -35,8 +35,9 @@ export default function Page() {
   const [notebooks, setNotebooks] = useState<Notebook[] | null>(null);
   const [searchData, setSearchData] = useState<Notebook[] | null>(notebooks)
 
-  const { data, loading, error } = useQuery(GET_NOTEBOOKS_QUERY, {
+  const { data, loading, error, refetch } = useQuery(GET_NOTEBOOKS_QUERY, {
     onCompleted: () => {
+      Notify.success("Hello World")
       setNotebooks(data.notebooks);
     },
     onError: (error) => {
@@ -52,7 +53,7 @@ export default function Page() {
   };
 
   if (loading)
-    return <Loader/>;
+    return (<Loader/>);
 
   return (
     <div className="flex flex-col content-center">
@@ -89,7 +90,7 @@ export default function Page() {
       </div>
 
       <Modal id='new-notebook-modal' title='New notebook'>
-        <NotebookForm />
+        <NotebookForm onComplete={() => { refetch(); closeModal('new-notebook-modal'); }} />
       </Modal>
     </div>
   )

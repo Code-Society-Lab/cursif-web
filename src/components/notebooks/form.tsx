@@ -27,7 +27,7 @@ const UPDATE_NOTEBOOK_MUTATION = gql`
   }
 `;
 
-export default function NotebookForm({ notebook }: { notebook?: Notebook }) {
+export default function NotebookForm({ notebook, onComplete }: { notebook?: Notebook, onComplete?: VoidFunction }) {
   const router = useRouter();
   const { user } = useAuth();
 
@@ -40,6 +40,9 @@ export default function NotebookForm({ notebook }: { notebook?: Notebook }) {
       ownerType: "user",
     },
     onCompleted: (data) => {
+      if (onComplete)
+        onComplete();
+
       Notify.success("Notebook created!");
       router.push(`/notebooks/${data.createNotebook.id}`);
     },
@@ -55,8 +58,10 @@ export default function NotebookForm({ notebook }: { notebook?: Notebook }) {
       ownerType: "user",
     },
     onCompleted: (data) => {
+      if (onComplete)
+        onComplete();
+
       Notify.success("Notebook updated!");
-      closeModal('update-notebook-modal');
       router.push(`/notebooks/${data.updateNotebook.id}`);
     },
     onError: (error) => {
@@ -64,8 +69,9 @@ export default function NotebookForm({ notebook }: { notebook?: Notebook }) {
     },
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
     if (notebook) {
       updateNotebook({ variables: { title, description } });
     } else {
@@ -82,7 +88,7 @@ export default function NotebookForm({ notebook }: { notebook?: Notebook }) {
 
   return (
     <div className="p-4 md:p-5">
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={onSubmit} className="space-y-4">
         <input
           className="input w-full"
           type="text"
