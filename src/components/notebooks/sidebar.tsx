@@ -2,7 +2,7 @@ import { Cog8ToothIcon } from "@heroicons/react/24/solid";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 
-import { Modal, openModal, closeModal } from '@/components/modal';
+import { Modal, openModal } from '@/components/modal';
 import NotebookForm from '@/components/notebooks/form';
 
 export function Sidebar({
@@ -15,7 +15,7 @@ export function Sidebar({
   const router = useRouter();
 
   return (
-    <nav className="w-[300px] p-2 whitespace-nowrap">
+    <nav className="w-[300px] p-2">
       <div className="flex justify-between">
         <p className="pt-3 pb-6 font-bold text-xl text-ellipsis overflow-hidden" title={notebook.title}>{notebook.title}</p>
         <span className='cursor-pointer'>
