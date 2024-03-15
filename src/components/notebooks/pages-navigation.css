@@ -31,3 +31,7 @@
 .back-action {
   @apply text-xs;
 }
+
+.update-action {
+  @apply text-xs;
+}
