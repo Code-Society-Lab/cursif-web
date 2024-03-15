@@ -35,7 +35,6 @@
 
   --new-background-color: #309600;
   --new-text-color: white;
-
 }
 
 @layer base {
@@ -194,90 +193,4 @@ input.invalid {
   transition-property: box-shadow;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
-}
-
-/* Editor custom theme (override default)*/
-.editor {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.editor h1,
-.editor h2,
-.editor h3,
-.editor h4,
-.editor h5,
-.editor h6 {
-  font-size: revert;
-  font-weight: revert;
-}
-
-.editor blockquote,
-.editor dl,
-.editor dd,
-.editor hr,
-.editor figure,
-.editor p,
-.editor pre {
-  margin: revert;
-}
-
-.editor a {
-  text-decoration: underline;
-}
-
-.editor .EasyMDEContainer {
-  display: flex;
-  flex-direction: column;
-
-  height: 100vh;
-}
-
-.editor .EasyMDEContainer .CodeMirror, 
-.editor .EasyMDEContainer .editor-preview {
-  flex: 1;
-
-  color: var(--input-foreground-color);
-  background-color: var(--input-background-color);
-
-  border: none;
-  border-radius: 0;
-}
-
-.editor .EasyMDEContainer .editor-preview pre {
-  color: var(--input-foreground-color);
-  background-color: var(--input-background-color);
-}
-
-.editor .EasyMDEContainer .editor-preview-side {
-  color: var(--input-foreground-color);
-  background-color: var(--input-background-color);
-}
-
-.editor .editor-toolbar button:hover,
-.editor .editor-toolbar.fullscreen button:hover {
-  color: var(--input-foreground-color);
-  background-color: var(--input-background-color);
-}
-
-.editor .editor-toolbar button.active,
-.editor .editor-toolbar.fullscreen button.active {
-  color: var(--input-foreground-color);
-  background-color: var(--input-background-color);
-}
-
-.editor .editor-toolbar, .editor .editor-toolbar.fullscreen {
-  background-color: var(--input-background-color);
-
-  border: none;
-  border-radius: 0;
-}
-
-.editor .EasyMDEContainer .CodeMirror-cursor {
-  border-color: var(--input-foreground-color);
-}
-
-/* size images */
-.editor .EasyMDEContainer span[data-img-src] {
-  --width: 100% !important;
 }

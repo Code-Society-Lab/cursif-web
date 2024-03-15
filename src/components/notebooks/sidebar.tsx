@@ -12,7 +12,7 @@ export function Sidebar({
   const router = useRouter();
 
   return (
-    <nav className="w-[300px] p-2 whitespace-nowrap">
+    <nav className="w-[300px] p-2 whitespace-nowrap print:hidden">
       <div className="flex justify-between">
         <p className="pt-3 pb-6 font-bold text-xl text-ellipsis overflow-hidden" title={notebook.title}>{notebook.title}</p>
         <span>

@@ -5,8 +5,7 @@ import { Loader } from "@/components/loader";
 import SimpleMDE from "react-simplemde-editor";
 import hljs from 'highlight.js';
 
-import "easymde/dist/easymde.min.css";
-import 'highlight.js/styles/github.css';
+import '@styles/editor.css'
 
 const PAGE_QUERY = gql`
    query GetPage($id: ID!) {
@@ -86,7 +85,7 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
       renderingConfig: {
         codeSyntaxHighlighting: true,
         hljs: hljs,
-      }
+      },
     } as SimpleMDE.Options;
   }, []);
 
