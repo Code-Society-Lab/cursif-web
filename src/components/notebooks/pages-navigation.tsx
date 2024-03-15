@@ -73,7 +73,7 @@ export function PagesNavigation({
       </div>
 
       <div className='update-action'>
-        <span className='flex items-center cursor-pointer' onClick={() => openModal('update-notebook-modal')} title="Update Notebook">
+        <span className='flex items-center cursor-pointer mb-2' onClick={() => openModal('update-notebook-modal')} title="Update Notebook">
           <Cog8ToothIcon className="ml-2 mr-2 h-4 w-4" /> Update Notebook
         </span>
       </div>
