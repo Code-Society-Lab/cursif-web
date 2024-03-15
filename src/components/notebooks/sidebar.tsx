@@ -17,7 +17,7 @@ export function Sidebar({
   return (
     <nav className="w-[300px] p-2">
       <div className="flex justify-between">
-        <p className="pt-3 pb-6 font-bold text-xl text-ellipsis overflow-hidden" title={notebook.title}>{notebook.title}</p>
+        <p className="pt-3 pb-6 font-bold text-xl text-ellipsis overflow-hidden whitespace-nowrap" title={notebook.title}>{notebook.title}</p>
         <span className='cursor-pointer' title="Update Notebook">
           <Cog8ToothIcon className="h-5 w-5" onClick={() => openModal('update-notebook-modal')}/>
         </span>
