@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/auth-provider';
-import { useQuery, useMutation, gql } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 
 import Notify from '@config/notiflix-config';
 import { Spinner } from '@/components/loader';
+import { closeModal } from '@/components/modal';
 
 const CREATE_NOTEBOOK_MUTATION = gql`
   mutation CreateNotebook($title: String!, $description: String, $ownerId: ID!) {
@@ -17,8 +18,8 @@ const CREATE_NOTEBOOK_MUTATION = gql`
 `;
 
 const UPDATE_NOTEBOOK_MUTATION = gql`
-  mutation UpdateNotebook($title: String!, $description: String, $ownerId: ID!) {
-    updateNotebook(title: $title, description: $description, ownerId: $ownerId) {
+  mutation UpdateNotebook($title: String!, $id: ID!, $description: String, $ownerId: ID!) {
+    updateNotebook(title: $title, id: $id, description: $description, ownerId: $ownerId) {
       description
       id
       title
@@ -26,15 +27,14 @@ const UPDATE_NOTEBOOK_MUTATION = gql`
   }
 `;
 
-
-export default function NotebookForm({notebook}) : { notebook?: Notebook } {
+export default function NotebookForm({ notebook }: { notebook?: Notebook }) {
   const router = useRouter();
   const { user } = useAuth();
 
   const [title, setTitle] = useState(notebook?.title);
   const [description, setDescription] = useState(notebook?.description);
 
-  const [createNotebook, { data, loading, error }] = useMutation(CREATE_NOTEBOOK_MUTATION, {
+  const [createNotebook, { loading: createLoading }] = useMutation(CREATE_NOTEBOOK_MUTATION, {
     variables: {
       ownerId: user?.id,
       ownerType: "user",
@@ -48,9 +48,32 @@ export default function NotebookForm({notebook}) : { notebook?: Notebook } {
     },
   });
 
-  // Add update mutation
+  const [updateNotebook, { loading: updateLoading }] = useMutation(UPDATE_NOTEBOOK_MUTATION, {
+    variables: {
+      id: notebook?.id,
+      ownerId: user?.id,
+      ownerType: "user",
+    },
+    onCompleted: (data) => {
+      Notify.success("Notebook updated!");
+      closeModal('edit-notebook-modal');
+      router.push(`/notebooks/${data.updateNotebook.id}`);
+    },
+    onError: (error) => {
+      Notify.failure(`${error.message}!`);
+    },
+  });
 
-  if (loading)
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (notebook) {
+      updateNotebook({ variables: { title, description } });
+    } else {
+      createNotebook({ variables: { title, description } });
+    }
+  };
+
+  if (createLoading || updateLoading)
     return (
       <div className="flex items-center justify-center h-full min-h-[150px]">
         <Spinner size="35px" />
@@ -59,7 +82,7 @@ export default function NotebookForm({notebook}) : { notebook?: Notebook } {
 
   return (
     <div className="p-4 md:p-5">
-      <form onSubmit={() => createNotebook({ variables: { title, description }}) } className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           className="input w-full"
           type="text"
