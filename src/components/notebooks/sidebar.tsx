@@ -2,6 +2,9 @@ import { Cog8ToothIcon } from "@heroicons/react/24/solid";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 
+import { Modal, openModal, closeModal } from '@/components/modal';
+import NotebookForm from '@/components/notebooks/form';
+
 export function Sidebar({
   notebook,
   currentPageId,
@@ -15,13 +18,13 @@ export function Sidebar({
     <nav className="w-[300px] p-2 whitespace-nowrap">
       <div className="flex justify-between">
         <p className="pt-3 pb-6 font-bold text-xl text-ellipsis overflow-hidden" title={notebook.title}>{notebook.title}</p>
-        <span>
-          <a href="settings" className="text-right"><Cog8ToothIcon className="h-5 w-5" /></a>
+        <span className='cursor-pointer'>
+          <Cog8ToothIcon className="h-5 w-5" onClick={() => openModal('edit-notebook-modal')} />
         </span>
       </div>
 
       <ul>
-        {notebook.pages.map((page: Page) => (
+        {notebook?.pages?.map((page: Page) => (
           <li
             key={page.id}
             className={`p-1 my-2 cursor-pointer rounded-md ${page.id == currentPageId && "selected"}`}
@@ -34,6 +37,10 @@ export function Sidebar({
           </li>
         ))}
       </ul>
+
+      <Modal id='edit-notebook-modal' title='Update Notebook'>
+        <NotebookForm notebook={notebook} />
+      </Modal>
     </nav>
   );
 }
