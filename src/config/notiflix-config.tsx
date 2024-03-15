@@ -49,4 +49,4 @@ export default function useNotify() {
 		, []);
 }
 
-export { Notify };
+export { Notify, useNotify };
