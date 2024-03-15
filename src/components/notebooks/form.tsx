@@ -56,7 +56,7 @@ export default function NotebookForm({ notebook }: { notebook?: Notebook }) {
     },
     onCompleted: (data) => {
       Notify.success("Notebook updated!");
-      closeModal('edit-notebook-modal');
+      closeModal('update-notebook-modal');
       router.push(`/notebooks/${data.updateNotebook.id}`);
     },
     onError: (error) => {
