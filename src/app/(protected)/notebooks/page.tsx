@@ -90,7 +90,7 @@ export default function Page() {
 
       <Modal id='new-notebook-modal' title='New notebook'>
         <NotebookForm />
-      </Modal>  
+      </Modal>
     </div>
   )
 }
