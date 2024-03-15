@@ -62,6 +62,7 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
         onComplete();
 
       Notify.success("Notebook updated!");
+      closeModal('update-notebook-modal');
       router.push(`/notebooks/${data.updateNotebook.id}`);
     },
     onError: (error) => {
