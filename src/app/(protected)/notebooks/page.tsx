@@ -37,7 +37,6 @@ export default function Page() {
 
   const { data, loading, error, refetch } = useQuery(GET_NOTEBOOKS_QUERY, {
     onCompleted: () => {
-      Notify.success("Hello World")
       setNotebooks(data.notebooks);
     },
     onError: (error) => {
