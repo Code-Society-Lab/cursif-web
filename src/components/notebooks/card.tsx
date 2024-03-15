@@ -1,10 +1,9 @@
 export default function Card({notebook} : { notebook?: Notebook }) {
   // TODO: Fetch notebook 'Last Updated' when implemented on backend
   const lastUpdated = '';
-  const href = `notebooks/${notebook?.id}/`
 
   return (
-    <a key={notebook?.id} href={href} className="card md:w-full min-w-[250px]">
+    <a key={notebook?.id} href={`notebooks/${notebook?.id}/`} className="card md:w-full min-w-[250px]">
       <div className="flex flex-col pl-2 pt-2 ">
         <span>
           <h1 
