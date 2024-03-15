@@ -5,6 +5,8 @@ import Notify from "@/config/notiflix-config";
 import { useRouter } from "next/navigation";
 import { useMutation, gql } from "@apollo/client";
 import { EllipsisVerticalIcon, PlusIcon, ArrowUturnLeftIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
+import { Modal, openModal } from "@/components/modal";
+import NotebookForm from "@/components/notebooks/form";
 
 const CREATE_PAGE_MUTATION = gql`
   mutation CreatePage($title: String!, $parentId: ID!, $parentType: String!) {
@@ -71,12 +73,8 @@ export function PagesNavigation({
       </div>
 
       <div className='update-action'>
-        {/* Uncomment the following span and remove the current on once Create Notebook PR is merged. */}
-        {/* <span className='flex items-center cursor-pointer' title="Update Notebook">
-          <Cog8ToothIcon className="h-5 w-5" onClick={() => openModal('update-notebook-modal')} /> Update Notebook
-        </span> */}
-        <span className='flex items-center cursor-pointer' title="Update Notebook">
-          <Cog8ToothIcon className="ml-2 mr-2 h-4 w-4 mb-2" /> Update Notebook
+        <span className='flex items-center cursor-pointer' onClick={() => openModal('update-notebook-modal')} title="Update Notebook">
+          <Cog8ToothIcon className="ml-2 mr-2 h-4 w-4" /> Update Notebook
         </span>
       </div>
       <div className='back-action'>
@@ -86,6 +84,10 @@ export function PagesNavigation({
           </Link>
         </span>
       </div>
+
+      <Modal id='update-notebook-modal' title='Update Notebook'>
+        <NotebookForm notebook={notebook} />
+      </Modal>
     </nav>
   );
 }
