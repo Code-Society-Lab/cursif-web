@@ -7,7 +7,7 @@ import { Spinner } from '@components/loader';
 import { Password } from "@/components/forms/password";
 import { Email } from "@/components/forms/email";
 import Navigation from '@/components/navigation';
-import { Notify, useNotify } from '@config/notiflix-config';
+import { Notify } from '@config/notiflix-config';
 
 const SEND_RESET_PASSWORD_MUTATION = gql`
   mutation SendResetPasswordToken($email: String!) {
@@ -22,7 +22,6 @@ const RESET_PASSWORD_MUTATION = gql`
 `;
 
 export default function Page() {
-  useNotify();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const router = useRouter();

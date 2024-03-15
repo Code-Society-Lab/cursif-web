@@ -8,7 +8,7 @@ import { Password } from '@/components/forms/password';
 import { Username } from '@/components/forms/username';
 import Navigation from '@/components/navigation';
 import { useRouter } from 'next/navigation'
-import { Notify, useNotify } from '@config/notiflix-config';
+import { Notify } from '@config/notiflix-config';
 
 const REGISTER_MUTATION = gql`
 	mutation Register($email: String!, $password: String!, $username: String!) {
@@ -21,7 +21,6 @@ const REGISTER_MUTATION = gql`
 `;
 
 export default function Page() {
-	useNotify();
 	const router = useRouter();
 
 	const [email, setEmail] = useState('');

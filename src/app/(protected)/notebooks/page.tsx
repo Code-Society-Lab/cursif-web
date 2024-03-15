@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/auth-provider';
-import Notify from '@config/notiflix-config';
+import { Notify } from '@config/notiflix-config';
 import Fuse from 'fuse.js'
 import SearchBar from '@/components/search-bar';
 import Navigation from '@/components/navigation';
