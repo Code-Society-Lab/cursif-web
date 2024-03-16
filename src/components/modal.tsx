@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 
 function _getModal(id: string): HTMLDialogElement | null {
