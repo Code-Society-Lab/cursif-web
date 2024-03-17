@@ -39,7 +39,7 @@ export default function Page({
 
   // TO-DO: Remove this once we have a proper pages dashboard
   // For now, redirect to the first page if no page is selected.
-  if (!params.page_id) {
+  if (!params.page_id && data?.notebook.pages.length > 0) {
     const firstPageId = data.notebook.pages[0].id;
     if (firstPageId) {
       router.replace(`/notebooks/${params.notebook_id}/${firstPageId}`);
