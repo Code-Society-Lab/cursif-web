@@ -1,6 +1,6 @@
 "use client";
 
-import { Sidebar } from "@/components/notebooks/sidebar";
+import { PagesNavigation } from "@/components/notebooks/pages-navigation";
 import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
 import PageEditor from "@/components/pages/editor";
@@ -10,9 +10,11 @@ const NOTEBOOK_QUERY = gql`
     notebook(id: $id) {
       id
       title
+      description
       pages {
         id
         title
+        parentId
       }
     }
   }
@@ -23,21 +25,24 @@ export default function Page({
 }: {
   params: { notebook_id: string; page_id: string };
 }) {
-
-  const { data, loading, error } = useQuery(NOTEBOOK_QUERY, {
+  const { data, loading, error, refetch } = useQuery(NOTEBOOK_QUERY, {
     variables: {
       id: params.notebook_id,
     },
   });
+
+  if (error)
+    return <div>Error loading notebook: {error.message}</div>;
 
   if (loading)
     return <Loader />;
 
   return (
     <div className="flex h-screen items-stretch">
-      <Sidebar
-        notebook={data.notebook}
+      <PagesNavigation
+        notebook={data?.notebook}
         currentPageId={params.page_id}
+        onUpdate={() => refetch() }
       />
       <div className="flex-[4]" >
         <PageEditor page_id={params.page_id} />
