@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { Loader } from '@/components/loader'
-
-import Notify from '@config/notiflix-config';
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/components/auth-provider';
+import { Notify } from '@config/notiflix-config';
+import { Loader } from '@components/loader';
 import Fuse from 'fuse.js'
 
 import SearchBar from '@/components/search-bar';
@@ -52,7 +53,7 @@ export default function Page() {
   };
 
   if (loading)
-    return (<Loader/>);
+    return <Loader/>;
 
   return (
     <div className="flex flex-col content-center">
