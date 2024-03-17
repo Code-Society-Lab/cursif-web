@@ -22,7 +22,7 @@ export default function DeletePageForm({
   onComplete?: VoidFunction
 }) {
 
-  const [deletePage, { data, loading }] = useMutation(DELETE_PAGE_MUTATION, {
+  const [deletePage, { data, loading, error }] = useMutation(DELETE_PAGE_MUTATION, {
     variables: {
       id: page_id,
     },
@@ -45,6 +45,9 @@ export default function DeletePageForm({
         <Spinner size="35px" />
       </div>
     );
+
+  if (error)
+    return <div>Error loading page: {error.message}</div>;
 
   return (
     <div className="p-4 md:p-5">
