@@ -70,7 +70,7 @@ export function PagesNavigation({
   });
 
   if (error)
-    return <div>Error loading notebook: {error.message}</div>;
+    return <div>Error loading page: {error.message}</div>;
 
   return (
     <nav className="pages-navigation">
@@ -85,7 +85,7 @@ export function PagesNavigation({
               <Link href={`/notebooks/${notebook.id}/${page.id}`} className="flex-1 p-2 text-ellipsis overflow-hidden" title={`${page.title} (Double-click to edit)`}>
                 <EditTitle initialTitle={page.title} onUpdate={(title) => updatePage({ variables: { title } })} />
               </Link>
-              <EllipsisVerticalIcon className="h-5 w-5" onClick={() => openModal('delete-page-modal')} title="Delete Page"/>
+              <EllipsisVerticalIcon className="h-5 w-5" onClick={() => openModal('delete-page-modal')} title="Delete Page" />
             </li>
           ))}
           <li className="p-2 text-gray-400" onClick={() => createPage()}>
