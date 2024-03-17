@@ -7,6 +7,8 @@ import { useMutation, gql } from "@apollo/client";
 import { EllipsisVerticalIcon, PlusIcon, ArrowUturnLeftIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
 import { Modal, openModal, closeModal } from "@/components/modal";
 import NotebookForm from "@/components/notebooks/form";
+import PageForm from '@/components/pages/delete-form';
+import EditTitle from "@/components/pages/edit";
 
 const CREATE_PAGE_MUTATION = gql`
   mutation CreatePage($title: String!, $parentId: ID!, $parentType: String!) {
@@ -18,6 +20,16 @@ const CREATE_PAGE_MUTATION = gql`
     }
   }
 `;
+
+const UPDATE_PAGE_MUTATION = gql`
+   mutation UpdatePage($id: ID!, $content: String, $title: String) {
+     updatePage(id: $id, content: $content, title: $title) {
+       id
+       title
+       content
+     }
+   }
+ `;
 
 export function PagesNavigation({
   notebook,
@@ -45,6 +57,18 @@ export function PagesNavigation({
     },
   });
 
+  const [updatePage] = useMutation(UPDATE_PAGE_MUTATION, {
+    variables: {
+      id: currentPageId,
+    },
+    onCompleted: () => {
+      onUpdate()
+    },
+    onError: (error) => {
+      Notify.failure(`${error.message}!`);
+    },
+  });
+
   if (error)
     return <div>Error loading notebook: {error.message}</div>;
 
@@ -58,10 +82,10 @@ export function PagesNavigation({
         <ul>
           {notebook?.pages?.map((page: Page) => (
             <li key={page.id} className={page.id == currentPageId ? 'selected' : ''}>
-              <Link href={`/notebooks/${notebook.id}/${page.id}`} className="flex-1 p-2 text-ellipsis overflow-hidden" title={page.title}>
-                {page.title}
+              <Link href={`/notebooks/${notebook.id}/${page.id}`} className="flex-1 p-2 text-ellipsis overflow-hidden" title={`${page.title} (Double-click to edit)`}>
+                <EditTitle initialTitle={page.title} onUpdate={(title) => updatePage({ variables: { title } })} />
               </Link>
-              <a href="#"><EllipsisVerticalIcon className="h-5 w-5" /></a>
+              <a onClick={() => openModal('delete-page-modal')} title="Delete Page"><EllipsisVerticalIcon className="h-5 w-5" /></a>
             </li>
           ))}
           <li className="p-2 text-gray-400" onClick={() => createPage()}>
@@ -75,6 +99,7 @@ export function PagesNavigation({
           <Cog8ToothIcon className="ml-2 mr-2 h-4 w-4" /> Update Notebook
         </span>
       </div>
+
       <div className='back-action'>
         <span>
           <Link href={`/notebooks`} className="flex items-center">
@@ -85,6 +110,10 @@ export function PagesNavigation({
 
       <Modal id='update-notebook-modal' title='Update Notebook'>
         <NotebookForm notebook={notebook} onComplete={() => { closeModal('update-notebook-modal'); }} />
+      </Modal>
+
+      <Modal id='delete-page-modal' title='Delete Page'>
+        <PageForm page_id={currentPageId} onComplete={() => { closeModal('delete-page-modal'); }} />
       </Modal>
     </nav>
   );
