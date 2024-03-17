@@ -85,7 +85,7 @@ export function PagesNavigation({
               <Link href={`/notebooks/${notebook.id}/${page.id}`} className="flex-1 p-2 text-ellipsis overflow-hidden" title={`${page.title} (Double-click to edit)`}>
                 <EditTitle initialTitle={page.title} onUpdate={(title) => updatePage({ variables: { title } })} />
               </Link>
-              <span onClick={() => openModal('delete-page-modal')} title="Delete Page"><EllipsisVerticalIcon className="h-5 w-5" /></span>
+              <EllipsisVerticalIcon className="h-5 w-5" onClick={() => openModal('delete-page-modal')} title="Delete Page"/>
             </li>
           ))}
           <li className="p-2 text-gray-400" onClick={() => createPage()}>
