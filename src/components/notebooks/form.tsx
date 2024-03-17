@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/auth-provider';
 import { useMutation, gql } from '@apollo/client';
 
-import Notify from '@config/notiflix-config';
+import { Notify } from '@config/notiflix-config';
 import { Spinner } from '@/components/loader';
 
 const CREATE_NOTEBOOK_MUTATION = gql`

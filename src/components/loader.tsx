@@ -1,3 +1,5 @@
+import { useTransition } from 'react';
+
 export function Spinner({ size = "20px" }: { size?: string }) {
   return (
     <div style={{width: size, height: size}} role="status">
@@ -10,7 +12,9 @@ export function Spinner({ size = "20px" }: { size?: string }) {
 }
 
 export function Loader() {
-  if (document.readyState === "complete") {
+  const [isPending, startTransition] = useTransition();
+  
+  if (isPending) {
     return (
       <div className='flex items-center justify-center h-screen'>
         <Spinner size='80px' />

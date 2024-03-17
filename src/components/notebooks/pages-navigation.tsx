@@ -1,7 +1,7 @@
 import './pages-navigation.css';
 
 import Link from 'next/link'
-import Notify from "@/config/notiflix-config";
+import { Notify } from "@/config/notiflix-config";
 import { useRouter } from "next/navigation";
 import { useMutation, gql } from "@apollo/client";
 import { EllipsisVerticalIcon, PlusIcon, ArrowUturnLeftIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
