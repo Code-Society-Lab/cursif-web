@@ -7,7 +7,7 @@ import { useMutation, gql } from "@apollo/client";
 import { EllipsisVerticalIcon, PlusIcon, ArrowUturnLeftIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
 import { Modal, openModal, closeModal } from "@/components/modal";
 import NotebookForm from "@/components/notebooks/form";
-import PageForm from '@/components/pages/delete-form';
+import DeletePageForm from '@/components/pages/delete';
 import EditTitle from "@/components/pages/edit";
 
 const CREATE_PAGE_MUTATION = gql`
@@ -113,7 +113,7 @@ export function PagesNavigation({
       </Modal>
 
       <Modal id='delete-page-modal' title='Delete Page'>
-        <PageForm page_id={currentPageId} onUpdate={onUpdate} onComplete={() => { closeModal('delete-page-modal'); }} />
+        <DeletePageForm page_id={currentPageId} onUpdate={onUpdate} onComplete={() => { closeModal('delete-page-modal'); }} />
       </Modal>
     </nav>
   );

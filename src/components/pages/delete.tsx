@@ -3,6 +3,7 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 
 import { Notify } from '@config/notiflix-config';
 import { Spinner } from '@/components/loader';
+
 const DELETE_PAGE_MUTATION = gql`
    mutation DeletePage($id: ID!) {
      deletePage(id: $id) {
@@ -11,7 +12,7 @@ const DELETE_PAGE_MUTATION = gql`
    }
  `;
 
-export default function PageForm({
+export default function DeletePageForm({
   page_id,
   onUpdate,
   onComplete
