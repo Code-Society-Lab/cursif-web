@@ -45,7 +45,7 @@ export default function DeleteNotebookForm({
     );
 
   if (error)
-    return <div>Error loading page: {error.message}</div>;
+    return <div>Error loading notebook: {error.message}</div>;
 
   return (
     <div className="p-4 md:p-5">
