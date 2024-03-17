@@ -9,9 +9,9 @@ import { Spinner } from '@/components/loader';
 const CREATE_NOTEBOOK_MUTATION = gql`
   mutation CreateNotebook($title: String!, $description: String, $ownerId: ID!) {
     createNotebook(title: $title, description: $description, ownerId: $ownerId) {
-      description
       id
       title
+      description
     }
   }
 `;
@@ -19,9 +19,9 @@ const CREATE_NOTEBOOK_MUTATION = gql`
 const UPDATE_NOTEBOOK_MUTATION = gql`
   mutation UpdateNotebook($title: String!, $id: ID!, $description: String, $ownerId: ID!) {
     updateNotebook(title: $title, id: $id, description: $description, ownerId: $ownerId) {
-      description
       id
       title
+      description
     }
   }
 `;

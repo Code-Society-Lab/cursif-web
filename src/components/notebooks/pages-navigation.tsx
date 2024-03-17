@@ -37,8 +37,6 @@ export function PagesNavigation({
       parentType: "notebook",
     },
     onCompleted: (data) => {
-      Notify.success(`Page ${data.createPage.id} created!`)
-
       onUpdate()
       router.push(`/notebooks/${notebook.id}/${data.createPage.id}`)
     },
