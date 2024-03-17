@@ -30,7 +30,7 @@ export default function DeleteNotebookForm({
         onComplete();
       }
       router.push(`/notebooks`);
-      Notify.success("Page deleted!");
+      Notify.success("Notebook deleted!");
     },
     onError: (error) => {
       Notify.failure(`${error.message}!`);
