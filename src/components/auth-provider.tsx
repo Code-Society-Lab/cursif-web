@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useQuery, gql, useSuspenseQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { Notify } from 'notiflix';
+import { Notify } from '@config/notiflix-config';
 import { Loader } from '@components/loader';
 
 export const AuthContext = createContext({});

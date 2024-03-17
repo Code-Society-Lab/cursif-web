@@ -8,7 +8,7 @@ import { Password } from '@/components/forms/password';
 import { Username } from '@/components/forms/username';
 import Navigation from '@/components/navigation';
 import { useRouter } from 'next/navigation'
-import Notify from '@config/notiflix-config';
+import { Notify } from '@config/notiflix-config';
 
 const REGISTER_MUTATION = gql`
 	mutation Register($email: String!, $password: String!, $username: String!) {
@@ -29,7 +29,6 @@ export default function Page() {
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [username, setUsername] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
-
 
 	const validateForm = () => {
 		let isValid = true;
