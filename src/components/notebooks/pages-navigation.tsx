@@ -85,7 +85,7 @@ export function PagesNavigation({
               <Link href={`/notebooks/${notebook.id}/${page.id}`} className="flex-1 p-2 text-ellipsis overflow-hidden" title={`${page.title} (Double-click to edit)`}>
                 <EditTitle initialTitle={page.title} onUpdate={(title) => updatePage({ variables: { title } })} />
               </Link>
-              <a onClick={() => openModal('delete-page-modal')} title="Delete Page"><EllipsisVerticalIcon className="h-5 w-5" /></a>
+              <span onClick={() => openModal('delete-page-modal')} title="Delete Page"><EllipsisVerticalIcon className="h-5 w-5" /></span>
             </li>
           ))}
           <li className="p-2 text-gray-400" onClick={() => createPage()}>
@@ -113,7 +113,7 @@ export function PagesNavigation({
       </Modal>
 
       <Modal id='delete-page-modal' title='Delete Page'>
-        <PageForm page_id={currentPageId} onComplete={() => { closeModal('delete-page-modal'); }} />
+        <PageForm page_id={currentPageId} onUpdate={onUpdate} onComplete={() => { closeModal('delete-page-modal'); }} />
       </Modal>
     </nav>
   );
