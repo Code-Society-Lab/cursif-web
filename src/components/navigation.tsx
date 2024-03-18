@@ -1,27 +1,30 @@
 "use client"
 
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Navigation() {
-	const pathname = usePathname()
-
-	const actions: any = []
+	const pathname = usePathname();
+	const [token, setToken] = useState<string | null>(null);
 
 	useEffect(() => {
-		const showLoginAction = !localStorage.token && pathname != '/login'
-		const showSigninAction = !localStorage.token && pathname != '/signin'
-		const showLogoutAction = localStorage.token && pathname != '/logout'
+		const storedToken = localStorage.getItem('token');
+		setToken(storedToken);
+	}, []);
 
-		if (localStorage.token) {
-			// Add authenticated actions
-			actions.push({ "href": "/logout", "label": "Log Out", "isButton": true })
-		} else {
-			actions.push({ "href": "/login", "label": "Log In", "isButton": false })
-			actions.push({ "href": "/signin", "label": "Sign In", "isButton": true })
-		}
+	const actions: any[] = [];
+
+	const showLoginAction = !token && pathname !== '/login';
+	const showSigninAction = !token && pathname !== '/signin';
+	const showLogoutAction = token && pathname !== '/logout';
+
+	if (showLoginAction) {
+		actions.push({ href: '/login', label: 'Log In', isButton: false });
+	} else if (showSigninAction) {
+		actions.push({ href: '/signin', label: 'Sign In', isButton: true });
+	} else if (showLogoutAction) {
+		actions.push({ href: '/logout', label: 'Log Out', isButton: true });
 	}
-		, [pathname])
 
 	return (
 		<div className="grid grid-cols-2 p-5">
