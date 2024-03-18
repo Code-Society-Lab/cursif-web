@@ -4,9 +4,16 @@ import Link from 'next/link'
 import { Notify } from "@/config/notiflix-config";
 import { useRouter } from "next/navigation";
 import { useMutation, gql } from "@apollo/client";
-import { EllipsisVerticalIcon, PlusIcon, ArrowUturnLeftIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
+
+import { EllipsisVerticalIcon, 
+  PlusIcon, 
+  ArrowUturnLeftIcon, 
+  Cog8ToothIcon, 
+  TrashIcon } from "@heroicons/react/24/solid";
+
 import { Modal, openModal, closeModal } from "@/components/modal";
 import NotebookForm from "@/components/notebooks/form";
+import DeleteNotebookForm from "@/components/notebooks/delete";
 
 const CREATE_PAGE_MUTATION = gql`
   mutation CreatePage($title: String!, $parentId: ID!, $parentType: String!) {
@@ -29,7 +36,6 @@ export function PagesNavigation({
   onUpdate: () => void;
 }) {
   const router = useRouter();
-
   const [createPage, { data, loading, error }] = useMutation(CREATE_PAGE_MUTATION, {
     variables: {
       title: "Untitled Page",
@@ -51,7 +57,10 @@ export function PagesNavigation({
   return (
     <nav className="pages-navigation">
       <div className="title" title={notebook.title}>
-        <b>{notebook.title}</b>
+        <span className='flex items-center justify-center'>
+          <b>{notebook.title}</b>
+          <TrashIcon className="ml-2 h-4 w-4 cursor-pointer" onClick={() => openModal('delete-notebook-modal')} title="Delete Notebook" />
+        </span>
       </div>
 
       <div className="tabs">
@@ -85,6 +94,10 @@ export function PagesNavigation({
 
       <Modal id='update-notebook-modal' title='Update Notebook'>
         <NotebookForm notebook={notebook} onComplete={() => { closeModal('update-notebook-modal'); }} />
+      </Modal>
+
+      <Modal id='delete-notebook-modal' title='Delete Notebook'>
+        <DeleteNotebookForm notebook_id={notebook?.id} onComplete={() => { closeModal('delete-notebook-modal'); }} />
       </Modal>
     </nav>
   );

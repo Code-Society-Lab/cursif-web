@@ -35,6 +35,9 @@
 
   --new-background-color: #309600;
   --new-text-color: white;
+
+  --delete-background-color: #E83151;
+  --delete-text-color: white;
 }
 
 @layer base {
@@ -165,6 +168,11 @@
   .bg-modal {
     color: var(--foreground-color);
     background: var(--background-color);
+  }
+
+  .bg-delete {
+    background-color: var(--delete-background-color);
+    color: var(--delete-text-color);
   }
 
   .bg-component {
