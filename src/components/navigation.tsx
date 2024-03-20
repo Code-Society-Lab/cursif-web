@@ -1,20 +1,29 @@
+"use client"
+
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Navigation() {
-	const pathname = usePathname()
+	const pathname = usePathname();
+	const [token, setToken] = useState<string | null>(null);
 
-	var showLoginAction = !localStorage.token && pathname != '/login'
-	var showSigninAction = !localStorage.token && pathname != '/signin'
-	var showLogoutAction = localStorage.token && pathname != '/logout'
+	useEffect(() => {
+		const storedToken = localStorage.getItem('token');
+		setToken(storedToken);
+	}, []);
 
-	const actions = []
+	const actions: any[] = [];
 
-	if (localStorage.token) {
-		// Add authenticated actions
-		actions.push({"href": "/logout", "label": "Log Out", "isButton": true})
-	} else {
-		actions.push({"href": "/login", "label": "Log In", "isButton": false})
-		actions.push({"href": "/signin", "label": "Sign In", "isButton": true})
+	const showLoginAction = !token && pathname !== '/login';
+	const showSigninAction = !token && pathname !== '/signin';
+	const showLogoutAction = token && pathname !== '/logout';
+
+	if (showLoginAction) {
+		actions.push({ href: '/login', label: 'Log In', isButton: false });
+	} else if (showSigninAction) {
+		actions.push({ href: '/signin', label: 'Sign In', isButton: true });
+	} else if (showLogoutAction) {
+		actions.push({ href: '/logout', label: 'Log Out', isButton: true });
 	}
 
 	return (
@@ -23,11 +32,11 @@ export default function Navigation() {
 				<a href="/" className="text-5xl font-montez">Cursif</a>
 			</div>
 			<div className="flex items-center justify-end">
-				{ 
-					actions.map(({href, label, isButton}) => {
+				{
+					actions.map(({ href, label, isButton }: { href: string, label: string, isButton: boolean }) => {
 						if (pathname != href)
 							return <a key={href} href={href} className={isButton ? "button" : "mx-6"}><span className="label">{label}</span></a>
-					}) 
+					})
 				}
 			</div>
 		</div>

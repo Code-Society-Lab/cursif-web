@@ -14,13 +14,12 @@ declare global {
     id: string
     username: string
   }
-
   interface Page {
     id: string
     title: string
     content: string
-    parent_id: number
-    parent_type: string
+    parentId?: number
+    parentType?: string
     parent: Parent
     children: Page[]
   }

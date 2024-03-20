@@ -5,7 +5,7 @@ import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter } from 'next/navigation'
 import Navigation from '@components/navigation'
-import Notify from '@config/notiflix-config';
+import { Notify } from '@config/notiflix-config';
 
 const LOGIN_MUTATION = gql`
 	mutation Login($email: String!, $password: String!) {
@@ -78,8 +78,9 @@ export default function Page() {
 	if (loading)
 		toggleLoader(true);
 
-	if (localStorage.token)
+	if (typeof window !== 'undefined' && localStorage.token) {
 		return <></>;
+	}
 
 	return (
 		<div className="flex flex-col h-screen">
@@ -94,9 +95,9 @@ export default function Page() {
 
 						<div className="my-20">
 							<div className="my-5">
-								<input 
-									className="input w-full" 
-									type="text" 
+								<input
+									className="input w-full"
+									type="text"
 									placeholder="Email"
 									value={email}
 									onChange={onEmailChange}
@@ -107,14 +108,14 @@ export default function Page() {
 							</div>
 							<div className="my-5">
 								<div className="flex justify-end items-center relative">
-									<input 
-										className="input w-full" 
+									<input
+										className="input w-full"
 										type={showPassword ? 'text' : 'password'}
 										placeholder="Password"
 										value={password}
 										onChange={onPasswordChange}
 										required={true}
-										/>
+									/>
 									<div className="input-group">
 										<button className="svg" onClick={toggleShowPassword} type="button">
 											<img className="w-8" src={showPassword ? "/eye.svg" : "/eye-slash.svg"} />
@@ -128,10 +129,10 @@ export default function Page() {
 							</div>
 						</div>
 
-					  <button id="login-button" className="button !bg-accent !text-white float-right" type="submit">
-					  	<span className="spinner"><Spinner /></span>
-					    <span className="label">Login</span>  	   
-					  </button>
+						<button id="login-button" className="button !bg-accent !text-white float-right" type="submit">
+							<span className="spinner"><Spinner /></span>
+							<span className="label">Login</span>
+						</button>
 					</form>
 				</div>
 			</div>
