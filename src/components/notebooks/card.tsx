@@ -1,6 +1,6 @@
 export default function Card({notebook} : { notebook?: Notebook }) {
-  const lastUpdatedDate = new Date(notebook?.lastUpdated || Date.now());
-  const lastUpdated = lastUpdatedDate.toLocaleDateString('en-GB', {
+  const updatedAt = new Date(notebook?.updated_at || Date.now());
+  const lastUpdated = updatedAt.toLocaleDateString('en-GB', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric'
