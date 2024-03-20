@@ -29,7 +29,7 @@ export default function Card({notebook} : { notebook?: Notebook }) {
         </span>
 
         <p className="basis-4 font-thin text-xs text-faded tracking-tight text-gray-400">
-          {lastUpdated}
+          Edited: {lastUpdated}
         </p>
       </div>
     </a>
