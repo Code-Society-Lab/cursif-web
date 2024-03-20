@@ -1,6 +1,11 @@
 export default function Card({notebook} : { notebook?: Notebook }) {
   const lastUpdatedDate = new Date(notebook?.lastUpdated || Date.now());
-  const lastUpdated = lastUpdatedDate.toLocaleDateString('en-GB').replaceAll("/", "-");
+  const lastUpdated = lastUpdatedDate.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  }).replaceAll("/", "-");
+
 
   return (
     <a key={notebook?.id} href={`notebooks/${notebook?.id}/`} className="card md:w-full min-w-[250px]">
