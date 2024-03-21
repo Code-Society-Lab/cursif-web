@@ -9,6 +9,7 @@ const NOTEBOOK_QUERY = gql`
     notebook(id: $id) {
       id
       title
+      description
       pages {
         id
         title
