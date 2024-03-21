@@ -1,17 +1,14 @@
-export default function Card({notebook} : { notebook?: Notebook }) {
-  const updatedAt = new Date(notebook?.updated_at || Date.now());
-  const lastUpdated = updatedAt.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  }).replaceAll("/", "-");
+import moment from 'moment';
 
+export default function Card({ notebook }: { notebook?: Notebook }) {
+  const lastUpdatedDate = notebook?.updated_at ? moment.utc(notebook.updated_at).local() : moment();
+  const editedText = lastUpdatedDate.fromNow();
 
   return (
     <a key={notebook?.id} href={`notebooks/${notebook?.id}/`} className="card md:w-full min-w-[250px]">
       <div className="flex flex-col pl-2 pt-2 ">
         <span>
-          <h1 
+          <h1
             title={notebook?.title}
             className="text-lg font-bold tracking-tight whitespace-nowrap overflow-hidden text-ellipsis w-min max-w-[95%]"
           >
@@ -28,8 +25,8 @@ export default function Card({notebook} : { notebook?: Notebook }) {
           </p>
         </span>
 
-        <p className="basis-4 font-thin text-xs text-faded tracking-tight text-gray-400">
-          Edited: {lastUpdated}
+        <p className="basis-4 font-thin text-xs text--faded tracking-tight text-gray-400">
+          {`Edited ${editedText}`}
         </p>
       </div>
     </a>
