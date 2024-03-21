@@ -4,9 +4,11 @@ export default function Card({ notebook }: { notebook?: Notebook }) {
   let editedText = '';
 
   if (notebook) {
+    // If the notebook has been updated, use the updated time as the edited time
     const notebookUpdatedAt = notebook.updated_at ? moment.utc(notebook.updated_at).local() : null;
     const mostRecentPageUpdate = notebook.pages ? moment.max(notebook.pages.map(page => moment.utc(page.updated_at).local())) : null;
 
+    // If the notebook has pages, use the most recent page update as the edited time else use the notebook updated time
     if (mostRecentPageUpdate && (!notebookUpdatedAt || mostRecentPageUpdate.isAfter(notebookUpdatedAt))) {
       editedText = mostRecentPageUpdate.fromNow();
     } else if (notebookUpdatedAt) {
