@@ -20,6 +20,12 @@ query GetNotebooks {
       title
       description
       updated_at
+      pages {
+        id
+        title
+        parentId
+        updated_at
+      }
     }
   }
 `
