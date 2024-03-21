@@ -1,8 +1,18 @@
 import moment from 'moment';
 
 export default function Card({ notebook }: { notebook?: Notebook }) {
-  const lastUpdatedDate = notebook?.updated_at ? moment.utc(notebook.updated_at).local() : moment();
-  const editedText = lastUpdatedDate.fromNow();
+  let editedText = '';
+
+  if (notebook) {
+    const notebookUpdatedAt = notebook.updated_at ? moment.utc(notebook.updated_at).local() : null;
+    const mostRecentPageUpdate = notebook.pages ? moment.max(notebook.pages.map(page => moment.utc(page.updated_at).local())) : null;
+
+    if (mostRecentPageUpdate && (!notebookUpdatedAt || mostRecentPageUpdate.isAfter(notebookUpdatedAt))) {
+      editedText = mostRecentPageUpdate.fromNow();
+    } else if (notebookUpdatedAt) {
+      editedText = notebookUpdatedAt.fromNow();
+    }
+  }
 
   return (
     <a key={notebook?.id} href={`notebooks/${notebook?.id}/`} className="card md:w-full min-w-[250px]">
