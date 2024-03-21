@@ -22,6 +22,7 @@ declare global {
     parentType?: string
     parent: Parent
     children: Page[]
+    updated_at: string
   }
 
   interface Notebook {
