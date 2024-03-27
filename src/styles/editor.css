@@ -10,7 +10,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --editor-background-color: #212121;
+    --editor-background-color: #000;
     --editor-text-color: white;
 
     --code-background-color: #191919;
@@ -26,7 +26,7 @@
 
 
 .dark {
-  --editor-background-color: #212121;
+  --editor-background-color: #000;
   --editor-text-color: white;
 
   --code-background-color: #191919;
