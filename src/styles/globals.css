@@ -164,6 +164,11 @@
     background-color: var(--new-background-color);
     color: var(--new-text-color);
   }
+  
+  .bg-delete {
+    background-color: var(--delete-background-color);
+    color: var(--delete-text-color);
+  }
 
   .bg-modal {
     color: var(--foreground-color);
