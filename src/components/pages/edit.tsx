@@ -23,7 +23,7 @@ export default function EditTitle({
   };
 
   return (
-    <div onDoubleClick={() => setIsEditing(true)}>
+    <div className="truncate" onDoubleClick={() => setIsEditing(true)}>
       {isEditing ? (
         <input
           className='border-0 bg-transparent focus:outline-none font-bold'
