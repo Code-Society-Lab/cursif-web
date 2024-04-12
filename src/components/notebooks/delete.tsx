@@ -50,8 +50,11 @@ export default function DeleteNotebookForm({
   return (
     <div className="p-4 md:p-5">
       <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
-        <span className='flex items-center'>
-          <ExclamationTriangleIcon className="h-10 w-10 mr-4 text-red-500" /> Are you sure you want to delete this notebook?
+      <span className='text-center p-4'>
+          <ExclamationTriangleIcon className="h-20 w-20 m-auto text-red-500" /> 
+
+          <div className='text-3xl font-bold pb-2'>Are you sure?</div>
+          <div>Do you really want to delete this notebook? This action is irreversible.</div>
         </span>
 
         <div className="flex justify-center">
