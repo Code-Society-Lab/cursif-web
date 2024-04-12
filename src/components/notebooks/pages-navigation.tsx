@@ -10,6 +10,7 @@ import NotebookForm from "@/components/notebooks/form";
 import DeletePageForm from '@/components/pages/delete';
 import EditTitle from "@/components/pages/edit";
 import DeleteNotebookForm from "@/components/notebooks/delete";
+import DeleteForm from "@/components/delete";
 
 const CREATE_PAGE_MUTATION = gql`
   mutation CreatePage($title: String!, $parentId: ID!, $parentType: String!) {
@@ -92,7 +93,8 @@ export function PagesNavigation({
               <TrashIcon className="mx-2 h-5 w-5" onClick={() => openModal(`delete-page${page.id}-modal`)} title="Delete Page" />
               
               <Modal id={`delete-page${page.id}-modal`} title='Delete Page'>
-                <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); }} />
+                {/* <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); }} /> */}
+                <DeleteForm page_id={page.id} notebook_id='' onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); }} />
               </Modal>
             </li>
           ))}
@@ -121,7 +123,8 @@ export function PagesNavigation({
       </Modal>
 
       <Modal id='delete-notebook-modal' title='Delete Notebook'>
-        <DeleteNotebookForm notebook_id={notebook?.id} onComplete={() => { closeModal('delete-notebook-modal'); }} />
+        <DeleteForm page_id='' notebook_id={notebook?.id} onComplete={() => { closeModal('delete-notebook-modal'); }} onUpdate={() => router.push(`/notebooks`)} />
+        {/* <DeleteNotebookForm notebook_id={notebook?.id} onComplete={() => { closeModal('delete-notebook-modal'); }} /> */}
       </Modal>
     </nav>
   );
