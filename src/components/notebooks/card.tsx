@@ -1,16 +1,16 @@
 import moment from 'moment';
 
+function LastEdited({ notebook }: { notebook: Notebook }) {
+  if (!notebook) return null;
+
+  return (
+    <p className="basis-4 font-thin text-xs text--faded tracking-tight text-gray-400">
+      {`Edited ${moment.utc(notebook.updated_at).fromNow()}`}
+    </p>
+  );
+}
+
 export default function Card({ notebook }: { notebook?: Notebook }) {
-  let lastUpdated = '';
-
-  if (notebook) {
-    const notebookUpdatedAt = notebook.updated_at ? moment.utc(notebook.updated_at).local() : null;
-
-    if (notebookUpdatedAt) {
-      lastUpdated = notebookUpdatedAt.fromNow();
-    }
-  }
-
   return (
     <a key={notebook?.id} href={`notebooks/${notebook?.id}/`} className="card md:w-full min-w-[250px]">
       <div className="flex flex-col pl-2 pt-2 ">
@@ -32,9 +32,7 @@ export default function Card({ notebook }: { notebook?: Notebook }) {
           </p>
         </span>
 
-        <p className="basis-4 font-thin text-xs text--faded tracking-tight text-gray-400">
-          {`Edited ${lastUpdated}`}
-        </p>
+        <LastEdited notebook={notebook} />
       </div>
     </a>
   );
