@@ -1,20 +1,20 @@
 import moment from 'moment';
 
 export default function Card({ notebook }: { notebook?: Notebook }) {
-  let editedText = '';
+  let lastUpdated = '';
 
   if (notebook) {
-    // If the notebook has been updated, use the updated time as the edited time
+    // If the notebook or page has been updated, use the updated time as the edited time
     const notebookUpdatedAt = notebook.updated_at ? moment.utc(notebook.updated_at).local() : null;
     const mostRecentPageUpdate = notebook.pages ? moment.max(notebook.pages.map(page => moment.utc(page.updated_at).local())) : null;
 
     // If the notebook has no pages, use the notebook updated time else use the most recent page updated time
     if (notebook.pages && notebook.pages.length < 1) {
-      editedText = notebookUpdatedAt ? notebookUpdatedAt.fromNow() : '';
+      lastUpdated = notebookUpdatedAt ? notebookUpdatedAt.fromNow() : '';
     } else if (mostRecentPageUpdate && (!notebookUpdatedAt || mostRecentPageUpdate.isAfter(notebookUpdatedAt))) {
-      editedText = mostRecentPageUpdate.fromNow();
+      lastUpdated = mostRecentPageUpdate.fromNow();
     } else if (notebookUpdatedAt) {
-      editedText = notebookUpdatedAt.fromNow();
+      lastUpdated = notebookUpdatedAt.fromNow();
     }
   }
 
@@ -40,7 +40,7 @@ export default function Card({ notebook }: { notebook?: Notebook }) {
         </span>
 
         <p className="basis-4 font-thin text-xs text--faded tracking-tight text-gray-400">
-          {`Edited ${editedText}`}
+          {`Edited ${lastUpdated}`}
         </p>
       </div>
     </a>
