@@ -4,16 +4,9 @@ export default function Card({ notebook }: { notebook?: Notebook }) {
   let lastUpdated = '';
 
   if (notebook) {
-    // If the notebook or page has been updated, use the updated time as the edited time
     const notebookUpdatedAt = notebook.updated_at ? moment.utc(notebook.updated_at).local() : null;
-    const mostRecentPageUpdate = notebook.pages ? moment.max(notebook.pages.map(page => moment.utc(page.updated_at).local())) : null;
 
-    // If the notebook has no pages, use the notebook updated time else use the most recent page updated time
-    if (notebook.pages && notebook.pages.length < 1) {
-      lastUpdated = notebookUpdatedAt ? notebookUpdatedAt.fromNow() : '';
-    } else if (mostRecentPageUpdate && (!notebookUpdatedAt || mostRecentPageUpdate.isAfter(notebookUpdatedAt))) {
-      lastUpdated = mostRecentPageUpdate.fromNow();
-    } else if (notebookUpdatedAt) {
+    if (notebookUpdatedAt) {
       lastUpdated = notebookUpdatedAt.fromNow();
     }
   }
