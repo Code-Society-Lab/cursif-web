@@ -60,7 +60,7 @@ export default function DeletePageForm({
         </span>
 
         <div className="flex justify-center">
-          <button type="button" onClick={() => deletePage()} className="button bg-delete mr-2">
+          <button type="button" onClick={deletePage} className="button bg-delete mr-2">
             <span className="label">Yes</span>
           </button>
 

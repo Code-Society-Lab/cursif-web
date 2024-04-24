@@ -89,7 +89,9 @@ export function PagesNavigation({
               <TrashIcon className="mx-2 h-5 w-5" onClick={() => openModal(`delete-page${page.id}-modal`)} title="Delete Page" />
               
               <Modal id={`delete-page${page.id}-modal`} title='Delete Page'>
-                <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); }} />
+                <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { 
+                  router.push(`/notebooks/${notebook.id}`)
+                }} />
               </Modal>
             </li>
           ))}
