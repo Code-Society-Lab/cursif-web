@@ -2,6 +2,7 @@
 
 import { PagesNavigation } from "@/components/notebooks/pages-navigation";
 import { Loader } from "@/components/loader";
+import { useEffect} from 'react';
 import { useQuery, gql } from "@apollo/client";
 import { useRouter } from 'next/navigation';
 
@@ -30,6 +31,10 @@ export default function Page({
     variables: {
       id: params.notebook_id,
     },
+    onCompleted: (data) => {
+      const firstPageId = data.notebook.pages[0].id;
+      router.replace(`/notebooks/${params.notebook_id}/${firstPageId}`)
+    }
   });
 
   if (error)
@@ -37,16 +42,6 @@ export default function Page({
 
   if (loading)
     return <Loader />;
-
-  // TO-DO: Remove this once we have a proper pages dashboard
-  // For now, redirect to the first page if no page is selected.
-  if (!params.page_id && data?.notebook.pages.length > 0) {
-    const firstPageId = data.notebook.pages[0].id;
-    if (firstPageId) {
-      router.replace(`/notebooks/${params.notebook_id}/${firstPageId}`);
-      return <Loader />;
-    }
-  }
 
   return (
     <div className="flex h-screen items-stretch">
