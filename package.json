@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.1",
-    "@apollo/experimental-nextjs-app-support": "^0.4.1",
+    "@apollo/experimental-nextjs-app-support": "^0.10.0",
     "@heroicons/react": "^2.0.18",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react-dom": "18.2.7",
