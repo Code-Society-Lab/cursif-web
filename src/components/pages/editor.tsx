@@ -35,7 +35,7 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
       id: page_id,
     },
     onCompleted: (data) => {
-      setContent(data.page.content);
+      setContent(data.page.content || '');
     }
   });
 
@@ -46,14 +46,9 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
     }
   });
 
-  const onChange = useCallback((value: string) => {
-    setContent(value);
-  }, []);
+  const onChange = useCallback(setContent, []);
 
   function save() {
-    if (!content || (content && content == data.page.content))
-      return null;
-
     updatePage({
       variables: {
         id: page_id,
@@ -63,9 +58,9 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
   }
 
   useEffect(() => {
-    const interval = setInterval(save, 5000);
-    return () => clearInterval(interval);
-  });
+    const timeout = setTimeout(save, 1000);
+    return () => clearTimeout(timeout);
+  }, [content]);
 
   const options = useMemo(() => {
     return {
