@@ -2,8 +2,13 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { Loader } from "@/components/loader";
 
-import SimpleMDE from "react-simplemde-editor";
+import dynamic from "next/dynamic";
 import hljs from 'highlight.js';
+
+const SimpleMDE = dynamic(
+  () => import("react-simplemde-editor"),
+  { ssr: false }
+);
 
 import '@styles/editor.css'
 
