@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { useRouter } from 'next/navigation'
-import { useAuth } from '@/components/auth-provider';
 import { Notify } from '@config/notiflix-config';
 import { Loader } from '@components/loader';
 import Fuse from 'fuse.js'
@@ -16,13 +14,20 @@ import NotebookForm from '@/components/notebooks/form';
 import { Modal, openModal, closeModal } from '@/components/modal';
 
 const GET_NOTEBOOKS_QUERY = gql`
-  query GetNotebooks {
-      notebooks {
+query GetNotebooks {
+    notebooks {
+      id
+      title
+      description
+      updated_at
+      pages {
         id
         title
-        description
+        parentId
+        updated_at
       }
     }
+  }
 `
 
 const fuseOptions = {
@@ -45,7 +50,7 @@ export default function Page() {
     }
   });
 
-  if (!searchData && notebooks) 
+  if (!searchData && notebooks)
     setSearchData(notebooks);
 
   const doFilter = (query: string) => {
@@ -53,7 +58,7 @@ export default function Page() {
   };
 
   if (loading)
-    return <Loader/>;
+    return <Loader />;
 
   return (
     <div className="flex flex-col content-center">
