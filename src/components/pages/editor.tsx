@@ -28,14 +28,14 @@ const UPDATE_PAGE_MUTATION = gql`
  `;
 
 export default function PageEditor({ page_id }: { page_id: String }): JSX.Element {
-  const [value, setValue] = useState('');
+  const [content, setContent] = useState('');
 
   const { data, loading, error } = useQuery(PAGE_QUERY, {
     variables: {
       id: page_id,
     },
     onCompleted: (data) => {
-      setValue(data.page.content);
+      setContent(data.page.content);
     }
   });
 
@@ -47,25 +47,23 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
   });
 
   const onChange = useCallback((value: string) => {
-    setValue(value);
+    setContent(value);
   }, []);
 
   function save() {
-    if (!value || value == data.page.content)
+    if (!content || (content && content == data.page.content))
       return null;
 
     updatePage({
       variables: {
         id: page_id,
-        content: value,
+        content: content,
       },
     });
-
-    console.log(`Content saved: ${value}`)
   }
 
   useEffect(() => {
-    const interval = setInterval(save, 10000);
+    const interval = setInterval(save, 5000);
     return () => clearInterval(interval);
   });
 
@@ -95,7 +93,7 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
   return (
     <SimpleMDE
       className='editor'
-      value={value}
+      value={content}
       onChange={onChange}
       placeholder='Write your thoughts...'
       options={options}
