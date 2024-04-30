@@ -3,6 +3,7 @@
 import { PagesNavigation } from "@/components/notebooks/pages-navigation";
 import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
+import PageEditor from "@/components/pages/editor";
 
 const NOTEBOOK_QUERY = gql`
   query GetNotebook($id: ID!) {
@@ -43,10 +44,10 @@ export default function Page({
         currentPageId={params.page_id}
         onUpdate={() => refetch() }
       />
-
-      <div className="flex-[4]">
-
+      <div className="flex-[4]" >
+        <PageEditor page_id={params.page_id} />
       </div>
+
     </div>
   );
 }

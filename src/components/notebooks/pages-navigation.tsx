@@ -94,7 +94,9 @@ export function PagesNavigation({
               
               <Modal id={`delete-page${page.id}-modal`} title='Delete Page'>
                 {/* <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); }} /> */}
-                <DeleteForm page_id={page.id} notebook_id='' onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); }} />
+                <DeleteForm page_id={page.id} notebook_id='' onUpdate={onUpdate} onComplete={() => { 
+                    router.push(`/notebooks/${notebook.id}`)
+                }} />
               </Modal>
             </li>
           ))}

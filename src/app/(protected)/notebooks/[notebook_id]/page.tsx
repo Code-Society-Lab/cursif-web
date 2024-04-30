@@ -2,7 +2,9 @@
 
 import { PagesNavigation } from "@/components/notebooks/pages-navigation";
 import { Loader } from "@/components/loader";
+import { useEffect} from 'react';
 import { useQuery, gql } from "@apollo/client";
+import { useRouter } from 'next/navigation';
 
 const NOTEBOOK_QUERY = gql`
   query GetNotebook($id: ID!) {
@@ -24,10 +26,15 @@ export default function Page({
 }: {
   params: { notebook_id: string; page_id: string };
 }) {
+  const router = useRouter();
   const { data, loading, error, refetch } = useQuery(NOTEBOOK_QUERY, {
     variables: {
       id: params.notebook_id,
     },
+    onCompleted: (data) => {
+      const firstPageId = data.notebook.pages[0].id;
+      router.replace(`/notebooks/${params.notebook_id}/${firstPageId}`)
+    }
   });
 
   if (error)
