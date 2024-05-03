@@ -75,16 +75,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(me);
     },
     onError: (error) => {
-      Notify.failure(`${error.message}!`);
+      Notify.failure(`${error.message}`);
+      localStorage.removeItem("token")
       router.push("/login");
     }
   });
 
   if (loading)
     return <Loader />;
-
-  if (error) 
-    return null;
 
   return (
     <AuthContext.Provider value={{ user }}>
