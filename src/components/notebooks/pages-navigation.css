@@ -7,7 +7,7 @@
   @apply w-[300px] p-2
 }
 
-.pages-navigation .title {
+.pages-navigation .notebook-title {
   @apply p-3 text-center text-ellipsis overflow-hidden text-2xl font-bold;
 }
 
@@ -28,22 +28,18 @@
   @apply flex-1 overflow-auto;
 }
 
-.update-action {
-  @apply text-xs;
-}
-
-.action {
+.page-action {
   @apply flex items-center justify-center cursor-pointer border border-gray-400 rounded-full shadow-sm;
-}
-
-.top-action {
-  @apply flex justify-between text-xs;
 }
 
 .action-button {
   @apply flex items-center px-4 py-2 text-sm;
 }
 
-.bottom-action {
+.top-page-actions {
+  @apply flex justify-between text-xs;
+}
+
+.bottom-page-actions {
   @apply grid grid-cols-1 gap-1;
 }

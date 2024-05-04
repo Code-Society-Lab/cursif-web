@@ -77,8 +77,8 @@ export function PagesNavigation({
 
   return (
     <nav className="pages-navigation">
-      <div className='top-action'>
-        <Link href={`/notebooks`} className="flex items-center">
+      <div className='top-page-actions'>
+        <Link href={`/notebooks`} className="flex items-center" title="Back to All Notebooks">
           <ChevronLeftIcon className="h-4 w-4 mr-1" />All Notebooks
         </Link>
 
@@ -87,7 +87,7 @@ export function PagesNavigation({
         </button>
       </div>
 
-      <div className="title" title={notebook.title}>
+      <div className="notebook-title" title={notebook.title}>
         {notebook.title}
       </div>
 
@@ -111,14 +111,14 @@ export function PagesNavigation({
         </ul>
       </div>
 
-      <div className='bottom-action'>
-        <div className='action'>
+      <div className='bottom-page-actions'>
+        <div className='page-action'>
           <button className='action-button' onClick={() => createPage()} title="New Page">
             <PlusIcon className="h-3 w-3 ml-1 mr-1" />New Page
           </button>
         </div>
 
-        <div className='action'>
+        <div className='page-action'>
           <button className='action-button' onClick={() => openModal('update-notebook-modal')} title="Update Notebook">
             <ArrowPathIcon className="h-3 w-3 ml-1 mr-1" />Update Notebook
           </button>
