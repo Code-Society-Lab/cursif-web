@@ -5,8 +5,7 @@ import { Notify } from "@/config/notiflix-config";
 import { useRouter } from "next/navigation";
 import { useMutation, gql } from "@apollo/client";
 import {
-  TrashIcon, PlusIcon, ChevronLeftIcon,
-  Cog8ToothIcon, ArrowPathIcon
+  TrashIcon, PlusIcon, ChevronLeftIcon, Cog8ToothIcon
 } from "@heroicons/react/24/solid";
 import { Modal, openModal, closeModal } from "@/components/modal";
 import NotebookForm from "@/components/notebooks/form";
@@ -82,7 +81,7 @@ export function PagesNavigation({
           <ChevronLeftIcon className="h-4 w-4 mr-1" />All Notebooks
         </Link>
 
-        <button onClick={() => openModal('#')} title="Settings">
+        <button onClick={() => openModal('update-notebook-modal')} title="Settings">
           <Cog8ToothIcon className="mx-2 h-5 w-5" />
         </button>
       </div>
@@ -115,12 +114,6 @@ export function PagesNavigation({
         <div className='page-action'>
           <button className='action-button' onClick={() => createPage()} title="New Page">
             <PlusIcon className="h-3 w-3 ml-1 mr-1" />New Page
-          </button>
-        </div>
-
-        <div className='page-action'>
-          <button className='action-button' onClick={() => openModal('update-notebook-modal')} title="Update Notebook">
-            <ArrowPathIcon className="h-3 w-3 ml-1 mr-1" />Update Notebook
           </button>
         </div>
       </div>
