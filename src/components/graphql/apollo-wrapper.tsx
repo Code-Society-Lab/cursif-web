@@ -10,6 +10,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { onError } from "@apollo/client/link/error";
+import { RetryLink } from "@apollo/client/link/retry";
 import Config from '@/config';
 
 if (Config.development()) {
@@ -18,23 +19,23 @@ if (Config.development()) {
 }
 
 function makeClient() {
-  const authLink = setContext((_, { headers }) => {
+  const authLink = new ApolloLink((operation, forward) => {
     const token = window.localStorage.token;
 
-    return {
-      headers: {
-        ...headers,
-        authorization: token ? `Bearer ${token}` : "",
-      }
-    }
+    operation.setContext(({ headers }) => ({ headers: {
+      authorization: token ? `Bearer ${token}` : "",
+      ...headers 
+    }}));
+
+    return forward(operation);
   });
 
-  const errorLink = onError(({ graphQLErrors, networkError }) => {
+  const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach((error) => {
-        if (Config.development())
+        if (Config.production())
           console.log(`[GraphQL error]: ${error.message}`);
-        localStorage.removeItem("token")
+        return forward(operation);
       });
     }
 
@@ -44,13 +45,15 @@ function makeClient() {
   });
 
   const httpLink = new HttpLink({ 
-    uri: Config.graphql.endpoint 
+    uri: Config.graphql.endpoint
   });
+
+  const retryLink = new RetryLink();
 
   return new NextSSRApolloClient({
     cache: new NextSSRInMemoryCache(),
     credentials: "includes",
-    link: from([authLink, errorLink, httpLink])
+    link: from([retryLink, authLink, errorLink, httpLink])
   });
 }
 
