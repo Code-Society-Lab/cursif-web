@@ -8,7 +8,7 @@
 }
 
 .pages-navigation .title {
-  @apply p-8 text-center text-ellipsis overflow-hidden
+  @apply p-3 text-center text-ellipsis overflow-hidden text-2xl font-bold;
 }
 
 .pages-navigation ul li {
@@ -28,10 +28,22 @@
   @apply flex-1 overflow-auto;
 }
 
-.back-action {
+.update-action {
   @apply text-xs;
 }
 
-.update-action {
-  @apply text-xs;
+.action {
+  @apply flex items-center justify-center cursor-pointer border border-gray-400 rounded-full shadow-sm;
+}
+
+.top-action {
+  @apply flex justify-between text-xs;
+}
+
+.action-button {
+  @apply flex items-center px-4 py-2 text-sm;
+}
+
+.bottom-action {
+  @apply grid grid-cols-1 gap-1;
 }
