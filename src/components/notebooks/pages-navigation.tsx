@@ -11,6 +11,8 @@ import { Modal, openModal, closeModal } from "@/components/modal";
 import NotebookForm from "@/components/notebooks/form";
 import DeletePageForm from '@/components/pages/delete';
 import EditTitle from "@/components/pages/edit";
+import DeleteNotebookForm from "@/components/notebooks/delete";
+import DeleteForm from "@/components/delete";
 
 const CREATE_PAGE_MUTATION = gql`
   mutation CreatePage($title: String!, $parentId: ID!, $parentType: String!) {
@@ -43,7 +45,6 @@ export function PagesNavigation({
   onUpdate: () => void;
 }) {
   const router = useRouter();
-
   const [createPage, { data, loading, error }] = useMutation(CREATE_PAGE_MUTATION, {
     variables: {
       title: "Untitled Page",
@@ -87,7 +88,10 @@ export function PagesNavigation({
       </div>
 
       <div className="notebook-title" title={notebook.title}>
-        {notebook.title}
+      <span className='flex items-center justify-center'>
+          <b>{notebook.title}</b>
+          <TrashIcon className="ml-2 h-4 w-4 cursor-pointer" onClick={() => openModal('delete-notebook-modal')} title="Delete Notebook" />
+        </span>
       </div>
 
       <div className="tabs">
@@ -101,8 +105,9 @@ export function PagesNavigation({
               <TrashIcon className="mx-2 h-5 w-5" onClick={() => openModal(`delete-page${page.id}-modal`)} title="Delete Page" />
 
               <Modal id={`delete-page${page.id}-modal`} title='Delete Page'>
-                <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => {
-                  router.push(`/notebooks/${notebook.id}`)
+                {/* <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); }} /> */}
+                <DeleteForm page_id={page.id} notebook_id='' onUpdate={onUpdate} onComplete={() => { 
+                    router.push(`/notebooks/${notebook.id}`)
                 }} />
               </Modal>
             </li>
@@ -120,6 +125,11 @@ export function PagesNavigation({
 
       <Modal id='update-notebook-modal' title='Update Notebook'>
         <NotebookForm notebook={notebook} onComplete={() => { closeModal('update-notebook-modal'); }} />
+      </Modal>
+
+      <Modal id='delete-notebook-modal' title='Delete Notebook'>
+        <DeleteForm page_id='' notebook_id={notebook?.id} onComplete={() => { closeModal('delete-notebook-modal'); }} onUpdate={() => router.push(`/notebooks`)} />
+        {/* <DeleteNotebookForm notebook_id={notebook?.id} onComplete={() => { closeModal('delete-notebook-modal'); }} /> */}
       </Modal>
     </nav>
   );

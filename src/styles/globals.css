@@ -175,6 +175,11 @@
     background: var(--background-color);
   }
 
+  .bg-delete {
+    background-color: var(--delete-background-color);
+    color: var(--delete-text-color);
+  }
+
   .bg-component {
     color: var(--secondary-text-color);
     background-color: var(--component-background-color);
