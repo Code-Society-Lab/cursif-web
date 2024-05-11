@@ -102,7 +102,8 @@ export function PagesNavigation({
                 <EditTitle initialTitle={page.title} onUpdate={(title) => updatePage({ variables: { title } })} />
               </Link>
 
-              <TrashIcon className="mx-2 h-5 w-5" onClick={() => openModal(`delete-page${page.id}-modal`)} title="Delete Page" />
+              {page.id == currentPageId ?
+                <TrashIcon className="mx-2 h-4 w-4" onClick={() => openModal(`delete-page${page.id}-modal`)} title="Delete Page" /> : ''}
 
               <Modal id={`delete-page${page.id}-modal`} title='Delete Page'>
                 {/* <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); }} /> */}
