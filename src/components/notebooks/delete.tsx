@@ -1,35 +1,39 @@
-import { useMutation, gql } from '@apollo/client';
-import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
-
-import { Notify } from '@config/notiflix-config';
-import { Spinner } from '@/components/loader';
+import { useState } from 'react';
 import { useRouter } from "next/navigation";
+import { Spinner } from '@/components/loader';
+import { Notify } from '@config/notiflix-config';
+import { useMutation, gql } from '@apollo/client';
 
 const DELETE_NOTEBOOK_MUTATION = gql`
-   mutation DeleteNotebook($id: ID!) {
-     deleteNotebook(id: $id) {
-       id
-     }
-   }
- `;
+  mutation DeleteNotebook($id: ID!) {
+    deleteNotebook(id: $id) {
+      id
+    }
+  }
+`;
 
 export default function DeleteNotebookForm({
-  notebook_id,
-  onComplete
+  notebook,
+  onComplete,
+  onUpdate,
 }: {
-  notebook_id?: string,
-  onComplete?: VoidFunction
+  notebook?: Notebook,
+  onComplete?: VoidFunction,
+  onUpdate: VoidFunction,
 }) {
+  const [title, setTitle] = useState('');
+
   const router = useRouter();
   const [deleteNotebook, { data, loading, error }] = useMutation(DELETE_NOTEBOOK_MUTATION, {
     variables: {
-      id: notebook_id,
+      id: notebook?.id,
     },
     onCompleted: () => {
+
       if (onComplete) {
         onComplete();
+        onUpdate();
       }
-      router.push(`/notebooks`);
       Notify.success("Notebook deleted!");
     },
     onError: (error) => {
@@ -49,24 +53,26 @@ export default function DeleteNotebookForm({
 
   return (
     <div className="p-4 md:p-5">
-      <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
-      <span className='text-center p-4'>
-          <ExclamationTriangleIcon className="h-20 w-20 m-auto text-red-500" /> 
-
-          <div className='text-3xl font-bold pb-2'>Are you sure?</div>
-          <div>Do you really want to delete this notebook? This action is irreversible.</div>
-        </span>
+      <div className="space-y-4">
+        <div className="flex flex-col items-center">
+          <div className='text-sm font-bold'>
+            Enter notebook title to confirm
+          </div>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder={notebook?.title}
+            className="border border-gray-300 rounded-md px-3 py-2 mt-4 focus:outline-none focus:border-blue-500 w-[80%]"
+          />
+        </div>
 
         <div className="flex justify-center">
-          <button type="button" onClick={() => deleteNotebook()} className="button bg-delete mr-2">
-            <span className="label">Yes</span>
-          </button>
-
-          <button type="button" onClick={() => { if (onComplete) onComplete(); }} className="button">
-            <span className="label">No</span>
+          <button type="button" onClick={() => deleteNotebook()} className="button bg-delete mr-2" disabled={title.trim() !== (notebook?.title)}>
+            <span className="label" >Confirm</span>
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
