@@ -1,18 +1,16 @@
 import './pages-navigation.css';
 
 import Link from 'next/link'
-import { Notify } from "@/config/notiflix-config";
 import { useRouter } from "next/navigation";
+import EditTitle from "@/components/pages/edit";
+import { Notify } from "@/config/notiflix-config";
 import { useMutation, gql } from "@apollo/client";
+import NotebookForm from "@/components/notebooks/form";
+import DeletePageForm from '@/components/pages/delete';
 import {
   TrashIcon, PlusIcon, ChevronLeftIcon, Cog8ToothIcon
 } from "@heroicons/react/24/solid";
 import { Modal, openModal, closeModal } from "@/components/modal";
-import NotebookForm from "@/components/notebooks/form";
-import DeletePageForm from '@/components/pages/delete';
-import EditTitle from "@/components/pages/edit";
-import DeleteNotebookForm from "@/components/notebooks/delete";
-import DeleteForm from "@/components/delete";
 
 const CREATE_PAGE_MUTATION = gql`
   mutation CreatePage($title: String!, $parentId: ID!, $parentType: String!) {
@@ -82,15 +80,14 @@ export function PagesNavigation({
           <ChevronLeftIcon className="h-4 w-4 mr-1" />All Notebooks
         </Link>
 
-        <button onClick={() => openModal('update-notebook-modal')} title="Settings">
+        <button onClick={() => openModal('notebook-settings-modal')} title="Settings">
           <Cog8ToothIcon className="mx-2 h-5 w-5" />
         </button>
       </div>
 
       <div className="notebook-title" title={notebook.title}>
-      <span className='flex items-center justify-center'>
+        <span className='flex items-center justify-center'>
           <b>{notebook.title}</b>
-          <TrashIcon className="ml-2 h-4 w-4 cursor-pointer" onClick={() => openModal('delete-notebook-modal')} title="Delete Notebook" />
         </span>
       </div>
 
@@ -106,10 +103,7 @@ export function PagesNavigation({
                 <TrashIcon className="mx-2 h-4 w-4" onClick={() => openModal(`delete-page${page.id}-modal`)} title="Delete Page" /> : ''}
 
               <Modal id={`delete-page${page.id}-modal`} title='Delete Page'>
-                {/* <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); }} /> */}
-                <DeleteForm page_id={page.id} notebook_id='' onUpdate={onUpdate} onComplete={() => { 
-                    router.push(`/notebooks/${notebook.id}`)
-                }} />
+                <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); router.push(`/notebooks/${notebook.id}`); }} />
               </Modal>
             </li>
           ))}
@@ -124,13 +118,8 @@ export function PagesNavigation({
         </div>
       </div>
 
-      <Modal id='update-notebook-modal' title='Update Notebook'>
-        <NotebookForm notebook={notebook} onComplete={() => { closeModal('update-notebook-modal'); }} />
-      </Modal>
-
-      <Modal id='delete-notebook-modal' title='Delete Notebook'>
-        <DeleteForm page_id='' notebook_id={notebook?.id} onComplete={() => { closeModal('delete-notebook-modal'); }} onUpdate={() => router.push(`/notebooks`)} />
-        {/* <DeleteNotebookForm notebook_id={notebook?.id} onComplete={() => { closeModal('delete-notebook-modal'); }} /> */}
+      <Modal id='notebook-settings-modal' title='Settings'>
+        <NotebookForm notebook={notebook} onComplete={() => { closeModal('notebook-settings-modal'); }} />
       </Modal>
     </nav>
   );
