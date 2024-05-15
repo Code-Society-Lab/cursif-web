@@ -89,9 +89,9 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
 
   return (
     <div className="p-4 md:p-5">
-      <span className='text-sm font-bold'>
-        {notebook ? 'Update Notebook' : ''}
-      </span>
+      {notebook && (
+        <span className='text-sm font-bold'>Update Notebook</span>
+      )}
       <div className="mt-1">
         <form onSubmit={onSubmit} className="space-y-4">
           <input
@@ -118,7 +118,7 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
           </div>
         </form>
       </div>
-      {notebook ?
+      {notebook && (
         <>
           <hr className="my-4" />
           <span className='flex text-sm font-bold'>
@@ -137,8 +137,8 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
           <Modal id='delete-notebook-modal' title='Delete Notebook'>
             <DeleteNotebookForm notebook={notebook} onComplete={() => { closeModal('delete-notebook-modal'); }} onUpdate={() => router.push(`/notebooks`)} />
           </Modal>
-        </> : ''
-      }
+        </>
+      )}
     </div>
   );
 }
