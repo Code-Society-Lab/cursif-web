@@ -1,12 +1,18 @@
 "use client"
 
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { Loader } from '@/components/loader';
+
 export default function Page() {
+  const router   = useRouter();
+  const pathname = usePathname();
+
+  if (pathname === '/') {
+    router.replace('/login');
+  }
+
   return (
-    <span className="h-screen flex items-center justify-center">
-      <div className="text-center">
-        <p className="text-4xl font-bold">Welcome to Cursif</p>
-        <p className="text-1xl">Taking notes should be <b>quick</b> and <b>simple</b></p>
-      </div>
-    </span>
+    <Loader />
   );
 }
