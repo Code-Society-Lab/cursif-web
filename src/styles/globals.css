@@ -221,3 +221,20 @@
     transition-duration: 300ms;
   }
 }
+
+.homepage-wave {
+  --size: 100px;
+  --m: 1;
+  --p: calc(var(--m)*var(--size));
+  --R: calc(var(--size)*sqrt(var(--m)*var(--m) + 1));
+
+  height: 100%;
+  margin: auto;
+  margin-top: 200px;
+
+  mask:
+    radial-gradient(var(--R) at left 50% top calc(var(--size) + var(--p)), #000 99%, #0000 101%) left calc(50% - 2*var(--size)) top 0/calc(4*var(--size)) 51% repeat-x,
+    radial-gradient(var(--R) at left 50% top calc(-1*var(--p)), #0000 99%, #000 101%) left 50% top var(--size)/calc(4*var(--size)) calc(51% - var(--size)) repeat-x;
+  background: linear-gradient(90deg, rgb(202, 11, 11), rgb(0, 0, 255));
+  border: none;
+}

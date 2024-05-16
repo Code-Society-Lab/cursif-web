@@ -84,7 +84,7 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
         codeSyntaxHighlighting: true,
         hljs: hljs,
       },
-    } as SimpleMDE.Options;
+    } as EasyMDE.Options;
   }, []);
 
   if (loading)
