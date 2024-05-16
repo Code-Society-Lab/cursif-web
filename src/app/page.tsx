@@ -30,7 +30,7 @@ export default function Page() {
         codeSyntaxHighlighting: true,
         hljs: hljs,
       },
-    } as SimpleMDE.Options;
+    } as EasyMDE.Options;
   }, []);
 
   return (
@@ -47,7 +47,7 @@ export default function Page() {
         </div>
 
         <p className="text-center font-extrabold mt-32 text-3xl bg-clip-text text-transparent bg-gradient-to-r from-gray-200 to-gray-800">Try It Yourself!</p>
-        <div className="mt-8 mx-auto relative border-2 border-gray-200 rounded shadow-lg h-96 w-[55%]">
+        <div className="mt-8 mx-auto relative border-2 border-gray-200 rounded shadow-lg w-full h-96 lg:w-[55%] sm:w-[80%]">
           <SimpleMDE
             className='editor'
             placeholder='Write your thoughts...'
