@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation';
 import { Notify } from '@config/notiflix-config';
 import { Loader } from '@components/loader';
 
+import Cookies from 'js-cookie';
+
+
 export const AuthContext = createContext({});
 
 const GET_ME = gql`
@@ -49,8 +52,6 @@ const GET_ME = gql`
   *
   * // web/src/pages/index.tsx
   * ```
-  * import { useAuth } from '@redwoodjs/auth'
-  *
   *  "use client"
   *
   *  import React from 'react';
@@ -68,16 +69,18 @@ const GET_ME = gql`
   * ```
  */
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
+  const router          = useRouter();
   const [user, setUser] = useState(null);
+
   const { data, loading, error } = useQuery(GET_ME, {
     onCompleted: ({ me }) => {
       setUser(me);
     },
     onError: (error) => {
       Notify.failure(`${error.message}`);
-      localStorage.removeItem("token")
-      router.push("/login");
+      
+      Cookies.remove('token');
+      router.push('/login');
     }
   });
 

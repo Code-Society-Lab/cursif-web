@@ -11,7 +11,9 @@ import { setContext } from '@apollo/client/link/context';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
+
 import Config from '@/config';
+import Cookies from 'js-cookie';
 
 if (Config.development()) {
   loadDevMessages();
@@ -20,7 +22,7 @@ if (Config.development()) {
 
 function makeClient() {
   const authLink = new ApolloLink((operation, forward) => {
-    const token = window.localStorage.token;
+    const token = Cookies.get('token');
 
     operation.setContext(({ headers }) => ({ headers: {
       authorization: token ? `Bearer ${token}` : "",

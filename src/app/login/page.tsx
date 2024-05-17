@@ -3,9 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
-import { useRouter } from 'next/navigation'
-import Navigation from '@components/navigation'
+import { useRouter } from 'next/navigation';
 import { Notify } from '@config/notiflix-config';
+
+import Navigation from '@components/navigation';
+import Cookies from 'js-cookie'
 
 const LOGIN_MUTATION = gql`
 	mutation Login($email: String!, $password: String!) {
@@ -58,27 +60,23 @@ export default function Page() {
 			password: password,
 		},
 		onCompleted: ({ login }) => {
-			localStorage.setItem('token', login.token);
+			Cookies.set('token', login.token, { expires: 1, secure: true, sameSite: 'strict' });
 
-			toggleLoader(false);
 			Notify.success(`Welcome back ${login.user.username}!`);
+			toggleLoader(false);
+
 			router.push('/notebooks')
 		},
 		onError: (error) => {
-			toggleLoader(false);
 			Notify.failure(`${error.message}!`);
+			toggleLoader(false);
 		}
 	});
-
-	useEffect(() => {
-		if (localStorage.token)
-			router.push('/notebooks')
-	}, []);
 
 	if (loading)
 		toggleLoader(true);
 
-	if (typeof window !== 'undefined' && localStorage.token) {
+	if (typeof window !== 'undefined' && document.cookie.includes('token')) {
 		return <></>;
 	}
 
