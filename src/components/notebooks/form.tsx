@@ -88,12 +88,11 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
     );
 
   return (
-    <div className="p-4 md:p-5">
+    <div className="p-4 md:p-5 ">
       {notebook && (
-        <span className='text-sm font-bold'>Update Notebook</span>
+        <div className="font-bold my-2">General</div>
       )}
-      <div className="mt-1">
-        <form onSubmit={onSubmit} className="space-y-4">
+      <form onSubmit={onSubmit} className="space-y-4">
           <input
             className="input w-full"
             type="text"
@@ -116,20 +115,20 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
               <span className="label">{notebook ? 'Save' : 'Create'}</span>
             </button>
           </div>
-        </form>
-      </div>
+      </form>
       {notebook && (
         <>
           <hr className="my-4" />
-          <span className='flex text-sm font-bold'>
-            <ExclamationTriangleIcon className="h-5 w-5 text-red-500 mr-2" /> Danger Zone
-          </span>
-          <div className="border border-red-600 rounded-4 p-2 mt-1 text-xs">
-            <b>Delete this notebook.</b>
-            <br />
-            This action is irreversible. All pages in this notebook will be deleted. Make sure you have a backup of your data.
-            <span className='flex justify-end'>
-              <button className='button bg-delete p-2 pt-1 pb-1' onClick={() => openModal('delete-notebook-modal')}>
+          <div className='flex items-center font-bold my-2'>
+            <ExclamationTriangleIcon className="h-5 w-5 text-red-500 mr-1" /> Danger Zone
+          </div>
+          <div className="flex items-center border rounded-lg border-red-600 rounded-4 p-2">
+            <div>
+              <p className="font-bold">Delete this notebook.</p>
+              <p>This action is irreversible. All pages in this notebook will be deleted.</p>
+            </div>
+            <span>
+              <button className='button bg-delete' onClick={() => openModal('delete-notebook-modal')}>
                 Delete
               </button>
             </span>

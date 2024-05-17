@@ -111,14 +111,12 @@ export function PagesNavigation({
       </div>
 
       <div className='bottom-page-actions'>
-        <div className='page-action'>
-          <button className='action-button' onClick={() => createPage()} title="New Page">
-            <PlusIcon className="h-3 w-3 ml-1 mr-1" />New Page
-          </button>
-        </div>
+        <button className='page-action' onClick={() => createPage()} title="New Page">
+          + New Page
+        </button>
       </div>
 
-      <Modal id='notebook-settings-modal' title='Settings'>
+      <Modal id='notebook-settings-modal' title='Settings' maxSize="max-w-2xl">
         <NotebookForm notebook={notebook} onComplete={() => { closeModal('notebook-settings-modal'); }} />
       </Modal>
     </nav>

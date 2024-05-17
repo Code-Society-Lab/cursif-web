@@ -29,11 +29,7 @@
 }
 
 .page-action {
-  @apply flex items-center justify-center cursor-pointer border border-gray-400 rounded-full shadow-sm;
-}
-
-.action-button {
-  @apply flex items-center px-4 py-2 text-sm;
+  @apply text-center border border-gray-400 rounded px-4 py-2 text-sm;
 }
 
 .top-page-actions {
@@ -41,5 +37,5 @@
 }
 
 .bottom-page-actions {
-  @apply grid grid-cols-1 gap-1;
+  @apply grid grid-cols-1 gap-1 pt-3;
 }

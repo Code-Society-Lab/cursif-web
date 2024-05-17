@@ -56,19 +56,19 @@ export default function DeleteNotebookForm({
       <div className="space-y-4">
         <div className="flex flex-col items-center">
           <div className='text-sm font-bold'>
-            Enter notebook title to confirm
+            Enter '{ notebook.title }' to confirm
           </div>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder={notebook?.title}
-            className="border border-gray-300 rounded-md px-3 py-2 mt-4 focus:outline-none focus:border-blue-500 w-[80%]"
+            className="input px-3 py-2 mt-4 w-[80%]"
           />
         </div>
 
         <div className="flex justify-center">
-          <button type="button" onClick={() => deleteNotebook()} className="button bg-delete mr-2" disabled={title.trim() !== (notebook?.title)}>
+          <button type="button" onClick={() => deleteNotebook()} className="button bg-delete" disabled={title.trim() !== (notebook?.title)}>
             <span className="label" >Confirm</span>
           </button>
         </div>
