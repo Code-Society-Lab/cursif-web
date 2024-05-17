@@ -2,21 +2,17 @@
 
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useAuth } from '@components/auth-provider';
 
 export default function Navigation() {
 	const pathname = usePathname();
-	const [token, setToken] = useState<string | null>(null);
-
-	useEffect(() => {
-		const storedToken = localStorage.getItem('token');
-		setToken(storedToken);
-	}, []);
+	const { user } = useAuth();
 
 	const actions: any[] = [];
 
-	const showLoginAction = !token && pathname !== '/login';
-	const showSigninAction = !token && pathname !== '/signin';
-	const showLogoutAction = token && pathname !== '/logout';
+	const showLoginAction = !user && pathname !== '/login';
+	const showSigninAction = !user && pathname !== '/signin';
+	const showLogoutAction = user && pathname !== '/logout';
 
 	if (showLoginAction) {
 		actions.push({ href: '/login', label: 'Log In', isButton: false });
