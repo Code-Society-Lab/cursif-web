@@ -7,8 +7,8 @@
   @apply w-[300px] p-2
 }
 
-.pages-navigation .title {
-  @apply p-8 text-center text-ellipsis overflow-hidden
+.pages-navigation .notebook-title {
+  @apply p-3 text-center text-ellipsis overflow-hidden text-2xl font-bold;
 }
 
 .pages-navigation ul li {
@@ -28,10 +28,14 @@
   @apply flex-1 overflow-auto;
 }
 
-.back-action {
-  @apply text-xs;
+.page-action {
+  @apply text-center border border-gray-400 rounded px-4 py-2 text-sm;
 }
 
-.update-action {
-  @apply text-xs;
+.top-page-actions {
+  @apply flex justify-between text-xs;
+}
+
+.bottom-page-actions {
+  @apply grid grid-cols-1 gap-1 pt-3;
 }

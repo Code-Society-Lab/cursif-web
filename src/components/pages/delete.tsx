@@ -51,7 +51,7 @@ export default function DeletePageForm({
 
   return (
     <div className="p-4 md:p-5">
-      <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+      <div className="space-y-4">
         <span className='text-center p-4'>
           <ExclamationTriangleIcon className="h-20 w-20 m-auto text-red-500" /> 
 
@@ -60,7 +60,7 @@ export default function DeletePageForm({
         </span>
 
         <div className="flex justify-center">
-          <button type="button" onClick={deletePage} className="button bg-delete mr-2">
+          <button type="button" onClick={() => deletePage()} className="button bg-delete mr-2">
             <span className="label">Yes</span>
           </button>
 
@@ -68,7 +68,7 @@ export default function DeletePageForm({
             <span className="label">No</span>
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

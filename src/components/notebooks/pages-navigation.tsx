@@ -1,16 +1,16 @@
 import './pages-navigation.css';
 
 import Link from 'next/link'
-import { Notify } from "@/config/notiflix-config";
 import { useRouter } from "next/navigation";
+import EditTitle from "@/components/pages/edit";
+import { Notify } from "@/config/notiflix-config";
 import { useMutation, gql } from "@apollo/client";
-import { TrashIcon, PlusIcon, ArrowUturnLeftIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
-import { Modal, openModal, closeModal } from "@/components/modal";
 import NotebookForm from "@/components/notebooks/form";
 import DeletePageForm from '@/components/pages/delete';
-import EditTitle from "@/components/pages/edit";
-import DeleteNotebookForm from "@/components/notebooks/delete";
-import DeleteForm from "@/components/delete";
+import {
+  TrashIcon, PlusIcon, ChevronLeftIcon, Cog8ToothIcon
+} from "@heroicons/react/24/solid";
+import { Modal, openModal, closeModal } from "@/components/modal";
 
 const CREATE_PAGE_MUTATION = gql`
   mutation CreatePage($title: String!, $parentId: ID!, $parentType: String!) {
@@ -75,10 +75,19 @@ export function PagesNavigation({
 
   return (
     <nav className="pages-navigation">
-      <div className="title" title={notebook.title}>
+      <div className='top-page-actions'>
+        <Link href={`/notebooks`} className="flex items-center" title="Back to All Notebooks">
+          <ChevronLeftIcon className="h-4 w-4 mr-1" />All Notebooks
+        </Link>
+
+        <button onClick={() => openModal('notebook-settings-modal')} title="Settings">
+          <Cog8ToothIcon className="mx-2 h-5 w-5" />
+        </button>
+      </div>
+
+      <div className="notebook-title" title={notebook.title}>
         <span className='flex items-center justify-center'>
           <b>{notebook.title}</b>
-          <TrashIcon className="ml-2 h-4 w-4 cursor-pointer" onClick={() => openModal('delete-notebook-modal')} title="Delete Notebook" />
         </span>
       </div>
 
@@ -89,44 +98,26 @@ export function PagesNavigation({
               <Link href={`/notebooks/${notebook.id}/${page.id}`} className="flex-1 truncate p-2" title={`${page.title} (Double-click to edit)`}>
                 <EditTitle initialTitle={page.title} onUpdate={(title) => updatePage({ variables: { title } })} />
               </Link>
-              
-              <TrashIcon className="mx-2 h-5 w-5" onClick={() => openModal(`delete-page${page.id}-modal`)} title="Delete Page" />
-              
+
+              {page.id == currentPageId ?
+                <TrashIcon className="mx-2 h-4 w-4" onClick={() => openModal(`delete-page${page.id}-modal`)} title="Delete Page" /> : ''}
+
               <Modal id={`delete-page${page.id}-modal`} title='Delete Page'>
-                {/* <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); }} /> */}
-                <DeleteForm page_id={page.id} notebook_id='' onUpdate={onUpdate} onComplete={() => { 
-                    router.push(`/notebooks/${notebook.id}`)
-                }} />
+                <DeletePageForm page_id={page.id} onUpdate={onUpdate} onComplete={() => { closeModal(`delete-page${page.id}-modal`); router.push(`/notebooks/${notebook.id}`); }} />
               </Modal>
             </li>
           ))}
-          <li className="p-2 text-gray-400" onClick={() => createPage()}>
-            <PlusIcon className="w-5 h-5" /> New page
-          </li>
         </ul>
       </div>
 
-      <div className='update-action'>
-        <span className='flex items-center cursor-pointer mb-2' onClick={() => openModal('update-notebook-modal')} title="Update Notebook">
-          <Cog8ToothIcon className="ml-2 mr-2 h-4 w-4" /> Update Notebook
-        </span>
+      <div className='bottom-page-actions'>
+        <button className='page-action' onClick={() => createPage()} title="New Page">
+          + New Page
+        </button>
       </div>
 
-      <div className='back-action'>
-        <span>
-          <Link href={`/notebooks`} className="flex items-center">
-            <ArrowUturnLeftIcon className="ml-2 mr-2 h-4 w-4" /> Back to Notebooks
-          </Link>
-        </span>
-      </div>
-
-      <Modal id='update-notebook-modal' title='Update Notebook'>
-        <NotebookForm notebook={notebook} onComplete={() => { closeModal('update-notebook-modal'); }} />
-      </Modal>
-
-      <Modal id='delete-notebook-modal' title='Delete Notebook'>
-        <DeleteForm page_id='' notebook_id={notebook?.id} onComplete={() => { closeModal('delete-notebook-modal'); }} onUpdate={() => router.push(`/notebooks`)} />
-        {/* <DeleteNotebookForm notebook_id={notebook?.id} onComplete={() => { closeModal('delete-notebook-modal'); }} /> */}
+      <Modal id='notebook-settings-modal' title='Settings' maxSize="max-w-2xl">
+        <NotebookForm notebook={notebook} onComplete={() => { closeModal('notebook-settings-modal'); }} />
       </Modal>
     </nav>
   );
