@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { useQuery, gql, useSuspenseQuery } from '@apollo/client';
+import { createContext, useContext, useState } from "react";
+import { useQuery, gql } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { Notify } from '@config/notiflix-config';
 import { Loader } from '@components/loader';

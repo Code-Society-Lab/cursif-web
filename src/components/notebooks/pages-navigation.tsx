@@ -8,7 +8,7 @@ import { useMutation, gql } from "@apollo/client";
 import NotebookForm from "@/components/notebooks/form";
 import DeletePageForm from '@/components/pages/delete';
 import {
-  TrashIcon, PlusIcon, ChevronLeftIcon, Cog8ToothIcon
+  TrashIcon, ChevronLeftIcon, Cog8ToothIcon
 } from "@heroicons/react/24/solid";
 import { Modal, openModal, closeModal } from "@/components/modal";
 
