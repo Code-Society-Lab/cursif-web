@@ -1,5 +1,4 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { user } from '@components/auth-provider';
 
 export function middleware(request: NextRequest) {
   if (request.cookies.has('token')) {

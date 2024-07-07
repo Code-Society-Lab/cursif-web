@@ -2,7 +2,6 @@
 
 import { PagesNavigation } from "@/components/notebooks/pages-navigation";
 import { Loader } from "@/components/loader";
-import { useEffect} from 'react';
 import { useQuery, gql } from "@apollo/client";
 import { useRouter } from 'next/navigation';
 
