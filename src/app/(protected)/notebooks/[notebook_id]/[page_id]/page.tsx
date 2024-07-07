@@ -1,8 +1,10 @@
 "use client";
 
 import { PagesNavigation } from "@/components/notebooks/pages-navigation";
-import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
+import { Loader } from "@/components/loader";
+import { useState } from "react";
+
 import PageEditor from "@/components/pages/editor";
 
 const NOTEBOOK_QUERY = gql`
@@ -25,6 +27,7 @@ export default function Page({
 }: {
   params: { notebook_id: string; page_id: string };
 }) {
+  const [isNavVisible, setIsNavVisible] = useState(true);
   const { data, loading, error, refetch } = useQuery(NOTEBOOK_QUERY, {
     variables: {
       id: params.notebook_id,
@@ -39,15 +42,20 @@ export default function Page({
 
   return (
     <div className="flex h-screen items-stretch">
-      <PagesNavigation
-        notebook={data?.notebook}
-        currentPageId={params.page_id}
-        onUpdate={() => refetch() }
+      {isNavVisible && (
+        <PagesNavigation
+          notebook={data?.notebook}
+          currentPageId={params.page_id}
+          onUpdate={() => refetch()}
+        />
+      )}
+      <div
+        className={`resizable-divider ${isNavVisible ? '' : 'closed'}`}
+        onClick={() => setIsNavVisible(!isNavVisible)}
       />
-      <div className="flex-[4]" >
+      <div className="flex-[4]">
         <PageEditor page_id={params.page_id} />
       </div>
-
     </div>
   );
 }
