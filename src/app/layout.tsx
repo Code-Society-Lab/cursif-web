@@ -15,25 +15,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ApolloWrapper>
-      <AuthProvider>
-        <html lang="en">
-          <body className="min-w-[350px]">
-            <WarningBanner if={Config.production()}>
-              <>
-                Cursif is currently under heavy <b>development</b>.
-                Data loss could occur.
-                Please use at your own risk. <a href="https://github.com/Code-Society-Lab/cursif" className="underline text-blue-600"><b>Read more</b></a>
-              </>
-            </WarningBanner>
+    <html lang="en">
+      <body className="min-w-[350px]">
+        <WarningBanner if={Config.production()}>
+          <>
+            Cursif is currently under heavy <b>development</b>.
+            Data loss could occur.
+            Please use at your own risk. <a href="https://github.com/Code-Society-Lab/cursif" className="underline text-blue-600"><b>Read more</b></a>
+          </>
+        </WarningBanner>
 
-            <WarningBanner if={Config.development()}>
-              You are currently in <b>development!</b>
-            </WarningBanner>
+        <WarningBanner if={Config.development()}>
+          You are currently in <b>development!</b>
+        </WarningBanner>
+ 
+        <ApolloWrapper>
+          <AuthProvider>
             {children}
-          </body>
-        </html>
-      </AuthProvider>
-    </ApolloWrapper>
+          </AuthProvider>
+        </ApolloWrapper>
+      </body>
+    </html>
   )
 }

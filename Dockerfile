@@ -1,12 +1,13 @@
 FROM node:18-alpine AS base
-
 FROM base AS deps
+
+ARG NEXT_PUBLIC_GRAPHQL_ENDPOINT
+RUN echo NEXT_PUBLIC_GRAPHQL_ENDPOINT
 
 WORKDIR /app
 
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY package.json package-lock.json* ./
 RUN npm ci
-
 
 FROM base AS builder
 WORKDIR /app
