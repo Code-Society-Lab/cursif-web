@@ -56,7 +56,7 @@ export default function DeleteNotebookForm({
       <div className="space-y-4">
         <div className="flex flex-col items-center">
           <div className='text-sm font-bold'>
-            Enter '{ notebook.title }' to confirm
+            Enter &apos;{ notebook?.title }&apos; to confirm
           </div>
           <input
             type="text"
