@@ -1,3 +1,4 @@
+"use client"
 import { createContext, useContext, useState, useEffect } from "react";
 import { useQuery, gql, useSuspenseQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
@@ -6,8 +7,7 @@ import { Loader } from '@components/loader';
 
 import Cookies from 'js-cookie';
 
-
-export const AuthContext = createContext({});
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const GET_ME = gql`
   query GetMe {
@@ -70,22 +70,20 @@ const GET_ME = gql`
  */
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router          = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
 
   const { data, loading, error } = useQuery(GET_ME, {
-    onCompleted: ({ me }) => {
-      setUser(me);
+    onCompleted: (data) => {
+      setUser(data.me);
     },
     onError: (error) => {
       Notify.failure(`${error.message}`);
-      
       Cookies.remove('token');
       router.push('/login');
-    }
+    },
   });
 
-  if (loading)
-    return <Loader />;
+  if (loading) return <Loader />;
 
   return (
     <AuthContext.Provider value={{ user }}>
@@ -94,6 +92,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useAuth() {
-  return useContext(AuthContext);
+export function useAuth(): AuthContextType {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 }
