@@ -24,7 +24,7 @@ function makeClient() {
   const authLink = new ApolloLink((operation, forward) => {
     const token = Cookies.get('token');
 
-    operation.setContext(({ headers }) => ({ headers: {
+    operation.setContext(({ headers }: { headers: Record<string, string> }) => ({ headers: {
       authorization: token ? `Bearer ${token}` : "",
       ...headers 
     }}));
