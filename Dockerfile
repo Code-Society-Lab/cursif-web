@@ -2,7 +2,7 @@ FROM node:18-alpine AS base
 FROM base AS deps
 
 ARG NEXT_PUBLIC_GRAPHQL_ENDPOINT
-RUN echo NEXT_PUBLIC_GRAPHQL_ENDPOINT
+RUN echo $NEXT_PUBLIC_GRAPHQL_ENDPOINT
 
 WORKDIR /app
 
@@ -20,9 +20,9 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV PORT 3000
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
