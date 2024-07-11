@@ -4,13 +4,13 @@ import { Loader } from "@/components/loader";
 
 import dynamic from "next/dynamic";
 import hljs from 'highlight.js';
+import '@styles/editor.css';
 
 const SimpleMDE = dynamic(
   () => import("react-simplemde-editor"),
   { ssr: false }
 );
 
-import '@styles/editor.css'
 
 const PAGE_QUERY = gql`
    query GetPage($id: ID!) {
@@ -20,7 +20,7 @@ const PAGE_QUERY = gql`
        content
      }
    }
- `;
+`;
 
 const UPDATE_PAGE_MUTATION = gql`
    mutation UpdatePage($id: ID!, $content: String!, $title: String) {
@@ -30,7 +30,7 @@ const UPDATE_PAGE_MUTATION = gql`
        content
      }
    }
- `;
+`;
 
 export default function PageEditor({ page_id }: { page_id: String }): JSX.Element {
   const [content, setContent] = useState('');
@@ -68,24 +68,24 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
   }, [content]);
 
   const options = useMemo(() => {
-    return {
-      autofocus: true,
-      spellChecker: true,
-      status: false,
-      previewImagesInEditor: true,
-      toolbar: [
-        "bold", "italic", "heading", "|",
-        "quote", "unordered-list", "ordered-list", "|",
-        "link", "image", "|",
-        "preview", "side-by-side", "fullscreen", "|",
-        "guide"
-      ],
-      renderingConfig: {
-        codeSyntaxHighlighting: true,
-        hljs: hljs,
-      },
-    } as SimpleMDE.Options;
-  }, []);
+      return {
+        autofocus: true,
+        spellChecker: true,
+        status: false,
+        previewImagesInEditor: true,
+        toolbar: [
+          "bold", "italic", "heading", "|",
+          "quote", "unordered-list", "ordered-list", "|",
+          "link", "image", "|",
+          "preview", "side-by-side", "fullscreen", "|",
+          "guide"
+        ],
+        renderingConfig: {
+          codeSyntaxHighlighting: true,
+          hljs: hljs,
+        },
+      } as EasyMDE.Options;
+    }, []);
 
   if (loading)
     return <Loader />;
