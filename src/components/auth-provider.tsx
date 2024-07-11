@@ -73,8 +73,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
   const { data, loading, error } = useQuery(GET_ME, {
-    onCompleted: (data) => {
-      setUser(data.me);
+    onCompleted: ({me}) => {
+      setUser(me);
     },
     onError: (error) => {
       Notify.failure(`${error.message}`);
