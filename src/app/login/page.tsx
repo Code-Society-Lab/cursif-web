@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter } from 'next/navigation';
 import { Notify } from '@config/notiflix-config';
+import { useAuth } from '@components/auth-provider';
 
 import Navigation from '@components/navigation';
 import Cookies from 'js-cookie'
@@ -21,7 +22,7 @@ const LOGIN_MUTATION = gql`
 	}
 `;
 
-export default function Page() {
+function LoginPage() {
 	const router = useRouter()
 
 	const [email, setEmail] = useState('');
@@ -140,4 +141,12 @@ export default function Page() {
 			</div>
 		</div>
 	);
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<Spinner />}>
+      <LoginPage />
+    </Suspense>
+  );
 }

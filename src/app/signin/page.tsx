@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { Email } from '@/components/forms/email';
@@ -20,7 +20,7 @@ const REGISTER_MUTATION = gql`
 	}
 `;
 
-export default function Page() {
+function SigninPage() {
 	const router = useRouter();
 
 	const [email, setEmail] = useState('');
@@ -125,4 +125,12 @@ export default function Page() {
 			</div>
 		</div>
 	);
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<Spinner />}>
+      <SigninPage />
+    </Suspense>
+  );
 }

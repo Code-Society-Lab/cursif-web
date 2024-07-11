@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -19,7 +19,7 @@ const CONFIRM_EMAIL_MUTATION = gql`
    }
  `;
 
-export default function Page() {
+function ConfirmPage() {
 	const searchParams = useSearchParams()
 	const token = searchParams.get("token");
 	const router = useRouter()
@@ -76,12 +76,12 @@ export default function Page() {
 		}
 	});
 
-	// If a token is fond in the url params, confirm the email.
-	if (token) {
-		useEffect(() => {
+	// Use useEffect to conditionally confirm email
+	useEffect(() => {
+		if (token) {
 			confirm_email();
-		}, []);
-	}
+		}
+	}, [token]);
 
 	if (confirmLoading || sendLoading)
 		toggleLoader(true);
@@ -130,4 +130,12 @@ export default function Page() {
 			</div>
 		</div>
 	);
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<Spinner />}>
+      <ConfirmPage />
+    </Suspense>
+  );
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Spinner } from '@components/loader';
@@ -21,7 +21,7 @@ const RESET_PASSWORD_MUTATION = gql`
   }
 `;
 
-export default function Page() {
+function ResetPasswordPage() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const router = useRouter();
@@ -134,5 +134,13 @@ export default function Page() {
         <span>Made by the <a className="font-bold hover:underline" href="https://codesociety.xyz/">Code Society</a></span>
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<Spinner />}>
+      <ResetPasswordPage />
+    </Suspense>
   );
 }
