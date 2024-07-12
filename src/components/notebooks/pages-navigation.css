@@ -39,3 +39,18 @@
 .bottom-page-actions {
   @apply grid grid-cols-1 gap-1 pt-3;
 }
+
+.resizable-divider{
+  width: 10px;
+  cursor: w-resize;
+  background-color: transparent;
+  position: relative;
+}
+
+.resizable-divider:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.resizable-divider.closed {
+  cursor: e-resize;
+}
