@@ -1,7 +1,7 @@
 "use client"
-import { createContext, useContext, useState, useEffect } from "react";
-import { useQuery, gql, useSuspenseQuery } from '@apollo/client';
-import { useRouter } from 'next/navigation';
+import { createContext, useContext, useState } from "react";
+import { useQuery, gql } from '@apollo/client';
+import { useRouter, usePathname } from 'next/navigation';
 import { Notify } from '@config/notiflix-config';
 import { Loader } from '@components/loader';
 
@@ -70,6 +70,7 @@ const GET_ME = gql`
  */
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router          = useRouter();
+  const path            = usePathname();
   const [user, setUser] = useState<User | null>(null);
 
   const { data, loading, error } = useQuery(GET_ME, {
@@ -77,9 +78,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(me);
     },
     onError: (error) => {
-      Notify.failure(`${error.message}`);
-      Cookies.remove('token');
-      router.push('/login');
+      // Added this if condition to prevent redirection when trying to sign in when not authenticated
+      // TO-DO: try to find a better way to handle this
+      if (path === '/signin') router.push('/signin');
+      else {
+        Notify.failure(`${error.message}`);
+        Cookies.remove('token');
+        router.push('/login');
+      }
     },
   });
 
