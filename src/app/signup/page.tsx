@@ -20,7 +20,7 @@ const REGISTER_MUTATION = gql`
 	}
 `;
 
-function SigninPage() {
+function SignupPage() {
 	const router = useRouter();
 
 	const [email, setEmail] = useState('');
@@ -48,7 +48,7 @@ function SigninPage() {
 	};
 
 	const toggleLoader = (state: boolean) => {
-		const button: HTMLElement | null = document.getElementById("signin-button");
+		const button: HTMLElement | null = document.getElementById("Signup-button");
 
 		if (button)
 			button.classList.toggle("loading", state);
@@ -88,7 +88,7 @@ function SigninPage() {
 				<div className="flex justify-center h-full">
 					<form className="w-[400px]" onSubmit={onSubmit}>
 						<div className="text-center mt-20">
-							<h1 className="text-5xl"><b>SIGN</b> IN</h1>
+							<h1 className="text-5xl"><b>SIGN</b> UP</h1>
 						</div>
 
 						<div className="my-8">
@@ -112,9 +112,9 @@ function SigninPage() {
 							<span className='text-sm'>By creating an account, you agree to Cursif <a href="#" className="underline text-blue-400">Terms & Conditions</a>.</span>
 						</div>
 
-						<button id="signin-button" className="button !bg-accent !text-white float-right" type="submit">
+						<button id="Signup-button" className="button !bg-accent !text-white float-right" type="submit">
 							<span className="spinner"><Spinner /></span>
-							<span className="label">Sign in</span>
+							<span className="label">Sign up</span>
 						</button>
 					</form>
 				</div>
@@ -130,7 +130,7 @@ function SigninPage() {
 export default function Page() {
   return (
     <Suspense fallback={<Spinner />}>
-      <SigninPage />
+      <SignupPage />
     </Suspense>
   );
 }

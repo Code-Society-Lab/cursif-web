@@ -10,13 +10,13 @@ export default function Navigation() {
 	const actions: any[] = [];
 
 	const showLoginAction = !user && pathname !== '/login';
-	const showSigninAction = !user && pathname !== '/signin';
+	const showSignupAction = !user && pathname !== '/signup';
 	const showLogoutAction = user && pathname !== '/logout';
 
 	if (showLoginAction) {
 		actions.push({ href: '/login', label: 'Log In', isButton: false });
-	} else if (showSigninAction) {
-		actions.push({ href: '/signin', label: 'Sign In', isButton: true });
+	} else if (showSignupAction) {
+		actions.push({ href: '/signup', label: 'Sign Up', isButton: true });
 	} else if (showLogoutAction) {
 		actions.push({ href: '/logout', label: 'Log Out', isButton: true });
 	}
