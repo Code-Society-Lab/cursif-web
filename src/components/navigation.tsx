@@ -34,7 +34,7 @@ export default function Navigation() {
 						)
 					))
 				}
-				{!showLoginAction && !showSigninAction && (
+				{!showLoginAction && !showSigninAction && user && (
 					<SettingsDropdown user={user} />
 				)}
 			</div>
