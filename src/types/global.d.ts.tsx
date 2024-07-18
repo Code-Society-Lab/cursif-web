@@ -12,6 +12,7 @@ declare global {
     email: string
     first_name: string
     last_name: string
+    profilePicture: string
   }
 
   interface PartialUser {
