@@ -5,7 +5,7 @@ import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter } from 'next/navigation';
 import { Notify } from '@config/notiflix-config';
-import { useAuth } from '@components/auth-provider';
+import { Email } from '@components/forms/email';
 
 import Navigation from '@components/navigation';
 import Cookies from 'js-cookie'
@@ -26,15 +26,12 @@ function LoginPage() {
 	const router = useRouter()
 
 	const [email, setEmail] = useState('');
+	const [isValidEmail, setIsValidEmail] = useState(true);
 	const [password, setPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
 
 	const toggleShowPassword = () => {
 		setShowPassword(!showPassword);
-	};
-
-	const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setEmail(event.target.value);
 	};
 
 	const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +54,7 @@ function LoginPage() {
 
 	const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION, {
 		variables: {
-			email: email,
+			email: email.toLowerCase(),
 			password: password,
 		},
 		onCompleted: ({ login }) => {
@@ -93,18 +90,12 @@ function LoginPage() {
 						</div>
 
 						<div className="my-20">
-							<div className="my-5">
-								<input
-									className="input w-full"
-									type="text"
-									placeholder="Email"
-									value={email}
-									onChange={onEmailChange}
-									required={true}
-									pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-									title="Enter a valid email address."
-								/>
-							</div>
+							<Email
+								email={email}
+								setEmail={setEmail}
+								isValidEmail={isValidEmail}
+								setIsValidEmail={setIsValidEmail}
+							/>
 							<div className="my-5">
 								<div className="flex justify-end items-center relative">
 									<input
