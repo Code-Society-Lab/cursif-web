@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-function LastEdited({ notebook }: { notebook: Notebook }) {
+function LastEdited({ notebook }: { notebook?: Notebook }) {
   if (!notebook) return null;
 
   return (

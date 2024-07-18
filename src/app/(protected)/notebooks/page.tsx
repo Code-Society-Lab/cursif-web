@@ -54,7 +54,7 @@ export default function Page() {
     setSearchData(notebooks);
 
   const doFilter = (query: string) => {
-    setSearchData(searchFilter(notebooks, query));
+    setSearchData(searchFilter(notebooks??[], query));
   };
 
   if (loading)
@@ -80,10 +80,11 @@ export default function Page() {
 
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
             {
-              searchData?.map((notebook) => (
-                <Card notebook={notebook} />
+              searchData?.map((notebook, index) => (
+                <Card key={notebook.id} notebook={notebook} />
               ))
             }
+
             <span className="card-faded cursor-pointer justify-center min-w-[250px] min-h-[135px]" onClick={() => openModal('new-notebook-modal')}>
               <div className="flex justify-center">
                 <span className="text-5xl text-center text-faded">+</span>

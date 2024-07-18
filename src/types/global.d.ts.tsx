@@ -2,6 +2,10 @@
 export { };
 
 declare global {
+  interface AuthContextType {
+    user: User | null;
+  }
+  
   interface User {
     id: string
     username: string

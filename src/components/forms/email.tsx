@@ -22,7 +22,7 @@ export function Email({
     <div className="my-5">
       <input
         className={`input w-full ${isBlurred && !isValidEmail ? 'invalid' : ''}`}
-        type="text"
+        type="email"
         placeholder="Email"
         value={email}
         onChange={onEmailChange}

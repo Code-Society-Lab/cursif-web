@@ -1,11 +1,15 @@
 FROM node:18-alpine
 
+ARG NEXT_PUBLIC_GRAPHQL_ENDPOINT
+
 WORKDIR /app
 
 COPY package.json .
 
-RUN npm install
+RUN npm install --only=production
 
 COPY . .
 
-CMD ["npm", "run", "dev"]
+RUN npm run build
+
+CMD ["npm", "run", "start"]
