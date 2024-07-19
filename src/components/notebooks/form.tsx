@@ -28,12 +28,31 @@ const UPDATE_NOTEBOOK_MUTATION = gql`
   }
 `;
 
+const ADD_COLLABORATOR = gql`
+  mutation AddCollaborator($notebookId: ID!, $userId: ID, $email: String!) {
+    addCollaborator(notebookId: $notebookId, userId: $userId, email: $email) {
+      id
+    }
+  }
+`;
+
+const DELETE_COLLABORATOR = gql`
+  mutation DeleteCollaborator($notebookId: ID!, $userId: ID!) {
+    deleteCollaborator(notebookId: $notebookId, userId: $userId) {
+      id
+    }
+  }
+`;
+
+
 export default function NotebookForm({ notebook, onComplete }: { notebook?: Notebook, onComplete?: VoidFunction }) {
   const router = useRouter();
   const { user } = useAuth();
 
   const [title, setTitle] = useState(notebook?.title);
   const [description, setDescription] = useState(notebook?.description);
+
+  const [collaboratorId, setCollaboratorId] = useState('');
 
   const [createNotebook, { loading: createLoading }] = useMutation(CREATE_NOTEBOOK_MUTATION, {
     variables: {
@@ -70,6 +89,32 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
     },
   });
 
+  const [addCollaborator] = useMutation(ADD_COLLABORATOR, {
+    onCompleted: () => {
+      if (onComplete)
+        onComplete();
+
+      Notify.success("Collaborator added!");
+      router.push(`/notebooks/${notebook?.id}`);
+    },
+    onError: (error) => {
+      Notify.failure(`${error.message}!`);
+    },
+  });
+
+  const [deleteCollaborator] = useMutation(DELETE_COLLABORATOR, {
+    onCompleted: () => {
+      if (onComplete)
+        onComplete();
+
+      Notify.success("Collaborator removed!");
+      router.push(`/notebooks/${notebook?.id}`);
+    },
+    onError: (error) => {
+      Notify.failure(`${error.message}!`);
+    },
+  });
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -79,6 +124,16 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
       createNotebook({ variables: { title, description } });
     }
   };
+
+  const onAddCollaborator = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (collaboratorId.includes('@')) {
+      addCollaborator({ variables: { notebookId: notebook?.id, email: collaboratorId } });
+    } else {
+      addCollaborator({ variables: { notebookId: notebook?.id, userId: collaboratorId } });
+    }
+  }
 
   if (createLoading || updateLoading)
     return (
@@ -93,29 +148,66 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
         <div className="font-bold my-2">General</div>
       )}
       <form onSubmit={onSubmit} className="space-y-4">
-          <input
-            className="input w-full"
-            type="text"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required={true}
-          />
-          <textarea
-            rows={4}
-            maxLength={200}
-            className="input w-full resize-none"
-            placeholder="Write your notebook description here... (Optional)"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required={false}
-          />
-          <div className="flex justify-end">
-            <button type="submit" className="button bg-new">
-              <span className="label">{notebook ? 'Save' : 'Create'}</span>
-            </button>
-          </div>
+        <input
+          className="input w-full"
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required={true}
+        />
+        <textarea
+          rows={4}
+          maxLength={200}
+          className="input w-full resize-none"
+          placeholder="Write your notebook description here... (Optional)"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required={false}
+        />
+        <div className="flex justify-end">
+          <button type="submit" className="button bg-new">
+            <span className="label">{notebook ? 'Save' : 'Create'}</span>
+          </button>
+        </div>
       </form>
+      {notebook && (
+        <>
+          <hr className="my-4" />
+          <div className="p-2">
+            <div className="flex items-center mb-2">
+              Invite Collaborator
+            </div>
+            <div>
+              <form onSubmit={onAddCollaborator} className="flex space-x-4">
+                <input
+                  className="input flex-grow"
+                  type="text"
+                  placeholder="Collaborator ID..."
+                  onChange={(e) => setCollaboratorId(e.target.value)}
+                  required
+                />
+                <button type="submit" className="button bg-new">
+                  <span className="label">Invite</span>
+                </button>
+              </form>
+            </div>
+            <div className="mt-2">
+              <p>Notebook Collaborators</p>
+              <div className="border rounded-lg p-2 m-1">
+                {notebook?.collaborators?.map((collaborator) => (
+                  <div key={collaborator.id} className="flex items-center mb-2">
+                    <p className="flex-grow">{collaborator.username}</p>
+                    <button className="button bg-delete" onClick={() => deleteCollaborator({ variables: { notebookId: notebook?.id, userId: collaborator.id } })}>
+                      <span className="label">Delete</span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
       {notebook && (
         <>
           <hr className="my-4" />
