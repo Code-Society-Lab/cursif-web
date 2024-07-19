@@ -10,7 +10,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.1",
+    "@apollo/client": "^3.10.8",
     "@apollo/experimental-nextjs-app-support": "^0.10.0",
     "@heroicons/react": "^2.0.18",
     "@reduxjs/toolkit": "^1.9.5",
