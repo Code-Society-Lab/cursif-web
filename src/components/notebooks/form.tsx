@@ -52,7 +52,7 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
   const [title, setTitle] = useState(notebook?.title);
   const [description, setDescription] = useState(notebook?.description);
 
-  const [collaboratorId, setCollaboratorId] = useState('');
+  const [email, setEmail] = useState('');
 
   const [createNotebook, { loading: createLoading }] = useMutation(CREATE_NOTEBOOK_MUTATION, {
     variables: {
@@ -128,10 +128,10 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
   const onAddCollaborator = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (collaboratorId.includes('@')) {
-      addCollaborator({ variables: { notebookId: notebook?.id, email: collaboratorId } });
+    if (email.includes('@')) {
+      addCollaborator({ variables: { notebookId: notebook?.id, email: email } });
     } else {
-      addCollaborator({ variables: { notebookId: notebook?.id, userId: collaboratorId } });
+      addCollaborator({ variables: { notebookId: notebook?.id, userId: email } });
     }
   }
 
@@ -182,9 +182,9 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
               <form onSubmit={onAddCollaborator} className="flex space-x-4">
                 <input
                   className="input flex-grow"
-                  type="text"
-                  placeholder="Member email..."
-                  onChange={(e) => setCollaboratorId(e.target.value)}
+                  type="email"
+                  placeholder="Collaborator email..."
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
                 <button type="submit" className="button bg-new">
