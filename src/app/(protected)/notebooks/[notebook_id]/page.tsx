@@ -1,9 +1,11 @@
 "use client";
 
 import { PagesNavigation } from "@/components/notebooks/pages-navigation";
+import { useState, useEffect } from 'react';
 import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
-import { useRouter } from 'next/navigation';
+import { Bars3Icon } from '@heroicons/react/20/solid';
+import { useRouter } from "next/navigation";
 
 const NOTEBOOK_QUERY = gql`
   query GetNotebook($id: ID!) {
@@ -16,9 +18,14 @@ const NOTEBOOK_QUERY = gql`
         title
         parentId
       }
+      collaborators {
+        id
+        username
+      }
     }
   }
 `;
+
 
 export default function Page({
   params,
@@ -26,6 +33,7 @@ export default function Page({
   params: { notebook_id: string; page_id: string };
 }) {
   const router = useRouter();
+  const [isNavVisible, setIsNavVisible] = useState(true);
   const { data, loading, error, refetch } = useQuery(NOTEBOOK_QUERY, {
     variables: {
       id: params.notebook_id,
@@ -36,6 +44,18 @@ export default function Page({
     }
   });
 
+  // On mobile, hid the pages navigation menu by default
+  useEffect(() => {
+    const handleResize = () => {
+      setIsNavVisible(window.innerWidth > 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   if (error)
     return <div>Error loading notebook: {error.message}</div>;
 
@@ -44,13 +64,23 @@ export default function Page({
 
   return (
     <div className="flex h-screen items-stretch">
-      <PagesNavigation
-        notebook={data?.notebook}
-        currentPageId={params.page_id}
-        onUpdate={() => refetch() }
-      />
-
-      <div className="flex-[4]">
+      {isNavVisible && (
+        <PagesNavigation
+          notebook={data?.notebook}
+          currentPageId={params.page_id}
+          onUpdate={() => refetch()}
+        />
+      )}
+      <div className="relative">
+        <div
+          className="p-1 mt-2 rounded cursor-pointer"
+          onClick={() => setIsNavVisible(!isNavVisible)}
+          title='Toggle pages navigation bar'
+        >
+          <Bars3Icon className="h-6 w-6" />
+        </div>
+      </div>
+      <div className="flex-[4] max-w-screen overflow-hidden">
 
       </div>
     </div>

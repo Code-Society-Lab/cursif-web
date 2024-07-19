@@ -19,6 +19,10 @@ const NOTEBOOK_QUERY = gql`
         title
         parentId
       }
+      collaborators {
+        id
+        username
+      }
     }
   }
 `;
