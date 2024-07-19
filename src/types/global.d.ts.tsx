@@ -37,6 +37,7 @@ declare global {
     owner?: PartialUser
     pages?: Page[]
     updated_at: string
+    collaborators: PartialUser[]
   }
 
   interface Parent {
