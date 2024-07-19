@@ -171,19 +171,19 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
           </button>
         </div>
       </form>
-      {notebook && (
+      {notebook && user?.id == notebook?.owner?.id && (
         <>
           <hr className="my-4" />
-          <div className="p-2">
+          <div className=" p-2">
             <div className="flex items-center mb-2">
-              Invite Collaborator
+              Invite Collaborators
             </div>
             <div>
               <form onSubmit={onAddCollaborator} className="flex space-x-4">
                 <input
                   className="input flex-grow"
                   type="text"
-                  placeholder="Collaborator ID..."
+                  placeholder="Member email..."
                   onChange={(e) => setCollaboratorId(e.target.value)}
                   required
                 />
@@ -192,19 +192,37 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
                 </button>
               </form>
             </div>
-            <div className="mt-2">
-              <p>Notebook Collaborators</p>
-              <div className="border rounded-lg p-2 m-1">
-                {notebook?.collaborators?.map((collaborator) => (
-                  <div key={collaborator.id} className="flex items-center mb-2">
-                    <p className="flex-grow">{collaborator.username}</p>
-                    <button className="button bg-delete" onClick={() => deleteCollaborator({ variables: { notebookId: notebook?.id, userId: collaborator.id } })}>
-                      <span className="label">Delete</span>
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {notebook?.collaborators?.length > 0 && (
+              <div className="mt-4 px-4">
+                <p className="flex items-center mb-2">Members</p>
+                <hr className="my-4 border-gray-300" />
+                <div className="overflow-x-auto shadow-md rounded-lg">
+                  <table className="min-w-full table-auto divide-y divide-gray-200">
+                    <thead className="bg-gray-200">
+                      <tr>
+                        <th className="py-3 px-6 text-left text-gray-600">Username</th>
+                        <th className="py-3 px-9 text-right text-gray-600">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {notebook?.collaborators?.map((collaborator) => (
+                        <tr key={collaborator.id} className="">
+                          <td className="py-2 px-6 truncate">{collaborator.username}</td>
+                          <td className="py-2 px-6 text-right">
+                            <button
+                              className="button bg-delete py-1 px-3 rounded"
+                              onClick={() => deleteCollaborator({ variables: { notebookId: notebook?.id, userId: collaborator.id } })}
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>)}
+
           </div>
         </>
       )}
@@ -220,7 +238,7 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
               <p>This action is irreversible. All pages in this notebook will be deleted.</p>
             </div>
             <span>
-              <button className='button bg-delete' onClick={() => openModal('delete-notebook-modal')}>
+              <button className='button bg-delete ml-2' onClick={() => openModal('delete-notebook-modal')}>
                 Delete
               </button>
             </span>
