@@ -14,6 +14,12 @@ const NOTEBOOK_QUERY = gql`
       id
       title
       description
+      owner {
+        ... on PartialUser {
+          id
+          username
+        }
+      }
       pages {
         id
         title
