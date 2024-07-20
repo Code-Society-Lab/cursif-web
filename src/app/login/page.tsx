@@ -9,6 +9,7 @@ import { Email } from '@components/forms/email';
 
 import Navigation from '@components/navigation';
 import Cookies from 'js-cookie'
+import Config from '@/config';
 
 const LOGIN_MUTATION = gql`
 	mutation Login($email: String!, $password: String!) {
@@ -58,7 +59,7 @@ function LoginPage() {
 			password: password,
 		},
 		onCompleted: ({ login }) => {
-			Cookies.set('token', login.token, { expires: 1, secure: true, sameSite: 'strict' });
+			Cookies.set('token', login.token, { expires: 1, sameSite: 'none', secure: Config.production() });
 
 			Notify.success(`Welcome back ${login.user.username}!`);
 			toggleLoader(false);
