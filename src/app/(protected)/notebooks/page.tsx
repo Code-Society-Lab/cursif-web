@@ -2,16 +2,19 @@
 
 import { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
+
 import { Notify } from '@config/notiflix-config';
 import { Loader } from '@components/loader';
-import Fuse from 'fuse.js'
 
+import { UserNavigation } from '@/components/navigation';
+import { Modal, openModal, closeModal } from '@/components/modal';
+
+import Fuse from 'fuse.js'
 import SearchBar from '@/components/search-bar';
-import Navigation from '@/components/navigation';
 
 import Card from '@/components/notebooks/card';
 import NotebookForm from '@/components/notebooks/form';
-import { Modal, openModal, closeModal } from '@/components/modal';
+
 
 const GET_NOTEBOOKS_QUERY = gql`
 query GetNotebooks {
@@ -62,7 +65,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col content-center">
-      <Navigation />
+      <UserNavigation />
 
       <div className='w-full max-w-[920px] px-5 mx-auto'>
         <div className="flex flex-col gap-10">

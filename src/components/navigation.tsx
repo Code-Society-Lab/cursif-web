@@ -2,42 +2,51 @@
 
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@components/auth-provider';
-import SettingsDropdown from '@components/settings';
+import { ProfileDropdownMenu } from '@components/profile';
 
-export default function Navigation() {
-	const pathname = usePathname();
-	const { user } = useAuth();
-
-	const actions: any[] = [];
-
-	const showLoginAction = !user && pathname !== '/login';
-	const showSignupAction = !user && pathname !== '/signup';
-
-	if (showLoginAction) {
-		actions.push({ href: '/login', label: 'Log In', isButton: false });
-	} else if (showSignupAction) {
-		actions.push({ href: '/signup', label: 'Sign Up', isButton: true });
-	}
-
+function BaseNavigation({ children, actions }: { children?: React.ReactNode, actions?: Object[] }) {
 	return (
 		<div className="grid grid-cols-2 p-5">
 			<div className="flex">
 				<a href="/" className="text-5xl font-montez">Cursif</a>
 			</div>
+
 			<div className="flex items-center justify-end">
 				{
-					actions.map(({ href, label, isButton }: { href: string, label: string, isButton: boolean }) => (
-						pathname !== href && (
-							<a key={href} href={href} className={isButton ? "button" : "mx-6"}>
-								<span className="label">{label}</span>
-							</a>
-						)
+					actions?.map(({ href, label, isButton }: { href: string, label: string, isButton: boolean }) => (
+						<a key={href} href={href} className={isButton ? "button" : "mx-6"}>
+							<span className="label">{label}</span>
+						</a>
 					))
 				}
-				{!showLoginAction && !showSignupAction && user && (
-					<SettingsDropdown user={user} />
-				)}
+
+				{children}
 			</div>
-		</div>
+		</div>	
+	);
+}
+
+export function AnonymousNavigation() {
+	const actions: Object[]			= [];
+	const pathname: string			= usePathname();
+	const showLoginAction: boolean  = pathname !== '/login';
+	const showSigninAction: boolean = pathname !== '/signup';
+
+	if (showLoginAction) {
+		actions.push({ href: '/login', label: 'Log In', isButton: false });
+	} else if (showSigninAction) {
+		actions.push({ href: '/signup', label: 'Sign Up', isButton: true });
+	}
+
+	return <BaseNavigation actions={actions} />;
+}
+
+export function UserNavigation() {
+	const { user } = useAuth();
+
+	return (
+		<BaseNavigation>
+			<ProfileDropdownMenu user={user} />
+		</BaseNavigation>
 	);
 }

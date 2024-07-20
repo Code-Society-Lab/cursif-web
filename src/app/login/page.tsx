@@ -1,13 +1,14 @@
 "use client"
 
 import React, { useState, Suspense } from 'react';
-import { useMutation, gql } from '@apollo/client';
-import { Spinner } from '@components/loader';
 import { useRouter } from 'next/navigation';
+import { useMutation, gql } from '@apollo/client';
+
+import { Spinner } from '@components/loader';
 import { Notify } from '@config/notiflix-config';
 import { Email } from '@components/forms/email';
+import { AnonymousNavigation } from '@components/navigation';
 
-import Navigation from '@components/navigation';
 import Cookies from 'js-cookie'
 import Config from '@/config';
 
@@ -81,7 +82,7 @@ function LoginPage() {
 
 	return (
 		<div className="flex flex-col h-screen">
-			<Navigation />
+			<AnonymousNavigation />
 
 			<div className="flex-1 p-5">
 				<div className="flex justify-center h-full">

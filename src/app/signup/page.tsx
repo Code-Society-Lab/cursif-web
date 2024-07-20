@@ -6,7 +6,7 @@ import { Spinner } from '@components/loader';
 import { Email } from '@/components/forms/email';
 import { Password } from '@/components/forms/password';
 import { Username } from '@/components/forms/username';
-import Navigation from '@/components/navigation';
+import { AnonymousNavigation } from '@/components/navigation';
 import { useRouter } from 'next/navigation'
 import { Notify } from '@config/notiflix-config';
 
@@ -82,7 +82,7 @@ function SignupPage() {
 
 	return (
 		<div className="flex flex-col h-screen">
-			<Navigation />
+			<AnonymousNavigation />
 
 			<div className="flex-1 p-5">
 				<div className="flex justify-center h-full">
