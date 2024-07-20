@@ -19,6 +19,7 @@ declare global {
     id: string
     username: string
   }
+
   interface Page {
     id: string
     title: string
