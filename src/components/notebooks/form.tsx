@@ -192,14 +192,13 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
             </form>
           </div>
           {notebook?.collaborators?.length > 0 && (
-            <div className="mt-4 px-4">
-              <hr className="my-4 border-gray-300" />
+            <div className="mt-4">
               <div className="overflow-x-auto shadow-md rounded-lg">
                 <table className="min-w-full table-auto divide-y divide-gray-200">
-                  <thead className="bg-gray-200">
+                  <thead className="">
                     <tr>
-                      <th className="py-3 px-6 text-left text-gray-600">Username</th>
-                      <th className="py-3 px-9 text-right text-gray-600">Action</th>
+                      <th className="py-3 px-6 text-left">Username</th>
+                      <th className="py-3 px-9 text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody>
