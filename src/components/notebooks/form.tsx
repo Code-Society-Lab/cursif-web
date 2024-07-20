@@ -175,7 +175,7 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
         <>
           <hr className="my-4" />
           <div className="flex items-center mb-2">
-            Invite Collaborators
+            Collaborators
           </div>
           <div>
             <form onSubmit={onAddCollaborator} className="flex space-x-4">
@@ -187,13 +187,12 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
                 required
               />
               <button type="submit" className="button bg-new">
-                <span className="label">Invite</span>
+                <span className="label">Add</span>
               </button>
             </form>
           </div>
           {notebook?.collaborators?.length > 0 && (
             <div className="mt-4 px-4">
-              <p className="flex items-center mb-2">Members</p>
               <hr className="my-4 border-gray-300" />
               <div className="overflow-x-auto shadow-md rounded-lg">
                 <table className="min-w-full table-auto divide-y divide-gray-200">
