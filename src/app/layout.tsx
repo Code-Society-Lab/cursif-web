@@ -2,11 +2,13 @@ import '@styles/globals.css'
 import '@styles/themes/dark.css'
 import '@styles/themes/light.css'
 
-import { ApolloWrapper } from "@/components/graphql/apollo-wrapper";
-import WarningBanner from '@/components/warning-banner';
 import type { Metadata } from 'next'
-import Config from '@/config';
+
+import { ApolloWrapper } from "@/components/graphql/apollo-wrapper";
 import { AuthProvider } from '@/components/auth-provider';
+
+import WarningBanner from '@/components/warning-banner';
+import Config from '@/config';
 
 export const metadata: Metadata = {
   title: 'Cursif',
@@ -30,9 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </WarningBanner>
  
         <ApolloWrapper>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
+          {children}
         </ApolloWrapper>
       </body>
     </html>
