@@ -1,6 +1,7 @@
 import '@styles/globals.css'
 import '@styles/themes/dark.css'
 import '@styles/themes/light.css'
+import '@styles/kmenu.css'
 
 import type { Metadata } from 'next'
 

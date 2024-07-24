@@ -9,15 +9,17 @@ import { Loader } from '@components/loader';
 import { UserNavigation } from '@/components/navigation';
 import { Modal, openModal, closeModal } from '@/components/modal';
 
+import { HiViewGridAdd, HiPlusCircle } from 'react-icons/hi'
+
 import Fuse from 'fuse.js'
 import SearchBar from '@/components/search-bar';
 
 import Card from '@/components/notebooks/card';
 import NotebookForm from '@/components/notebooks/form';
-import CommandPalette from '@components/command-palette';
+import CommandPalette from '@/components/command-palette';
 
 const GET_NOTEBOOKS_QUERY = gql`
-query GetNotebooks {
+  query GetNotebooks {
     notebooks {
       id
       title
@@ -33,7 +35,7 @@ query GetNotebooks {
   }
 `
 
-const fuseOptions = {
+const FUSE_OPTIONS = {
   keys: [
     "title",
     "description"
@@ -60,23 +62,24 @@ export default function Page() {
     setSearchData(searchFilter(notebooks??[], query));
   };
 
-  const actions: ActionImpl[] = [
-    {
-      id: "newNotebooks",
-      name: "New notebook",
-      subtitle: "Create a new notebook",
-      shortcut: ["new"],
-      keywords: "new create notebook",
-      section: "Actions",
-      perform: () => openModal('new-notebook-modal')
-    },
-  ]
+  const commands = {
+      actions: [
+        {
+          icon: <HiPlusCircle />,
+          text: 'New Notebook',
+          perform: () => openModal('new-notebook-modal'),
+          keywords: ['new', 'create', 'add'],
+        },
+      ]
+  };
 
   if (loading)
     return <Loader />;
 
   return (
-    <CommandPalette actions={actions}>
+    <>
+      <CommandPalette commands={commands}/>
+
       <div className="flex flex-col content-center">
         <UserNavigation />
 
@@ -115,7 +118,7 @@ export default function Page() {
           <NotebookForm onComplete={() => { refetch(); closeModal('new-notebook-modal'); }} />
         </Modal>
       </div>
-    </CommandPalette>
+    </>
   )
 }
 
@@ -123,7 +126,7 @@ function searchFilter(notebooks: Notebook[], query: string): Notebook[] {
   if (!notebooks) return [];
   if (!query) return notebooks;
 
-  const fuse = new Fuse(notebooks, fuseOptions);
+  const fuse = new Fuse(notebooks, FUSE_OPTIONS);
   const result = fuse.search(query);
 
   return result.map(r => r.item);
