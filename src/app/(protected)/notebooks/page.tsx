@@ -14,7 +14,7 @@ import SearchBar from '@/components/search-bar';
 
 import Card from '@/components/notebooks/card';
 import NotebookForm from '@/components/notebooks/form';
-
+import CommandPalette from '@components/command-palette';
 
 const GET_NOTEBOOKS_QUERY = gql`
 query GetNotebooks {
@@ -60,48 +60,62 @@ export default function Page() {
     setSearchData(searchFilter(notebooks??[], query));
   };
 
+  const actions: ActionImpl[] = [
+    {
+      id: "newNotebooks",
+      name: "New notebook",
+      subtitle: "Create a new notebook",
+      shortcut: ["new"],
+      keywords: "new create notebook",
+      section: "Actions",
+      perform: () => openModal('new-notebook-modal')
+    },
+  ]
+
   if (loading)
     return <Loader />;
 
   return (
-    <div className="flex flex-col content-center">
-      <UserNavigation />
+    <CommandPalette actions={actions}>
+      <div className="flex flex-col content-center">
+        <UserNavigation />
 
-      <div className='w-full max-w-[920px] px-5 mx-auto'>
-        <div className="flex flex-col gap-10">
-          <div>
-            <h1 className='text-2xl pl-2 pb-8 font-bold'>My Notebooks</h1>
-            <div className='flex flex-row grow'>
-              <SearchBar onChange={(e) => doFilter(e.currentTarget.value)} />
-              <div className='flex flex-row grow justify-end'>
-                <button className="button bg-new font-medium text-sm" onClick={() => openModal('new-notebook-modal')}>
-                  New
-                </button>
+        <div className='w-full max-w-[920px] px-5 mx-auto'>
+          <div className="flex flex-col gap-10">
+            <div>
+              <h1 className='text-2xl pl-2 pb-8 font-bold'>My Notebooks</h1>
+              <div className='flex flex-row grow'>
+                <SearchBar onChange={(e) => doFilter(e.currentTarget.value)} />
+                <div className='flex flex-row grow justify-end'>
+                  <button className="button bg-new font-medium text-sm" onClick={() => openModal('new-notebook-modal')}>
+                    New
+                  </button>
+                </div>
               </div>
             </div>
+
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+              {
+                searchData?.map((notebook, index) => (
+                  <Card key={notebook.id} notebook={notebook} />
+                ))
+              }
+
+              <span className="card-faded cursor-pointer justify-center min-w-[250px] min-h-[135px]" onClick={() => openModal('new-notebook-modal')}>
+                <div className="flex justify-center">
+                  <span className="text-5xl text-center text-faded">+</span>
+                </div>
+              </span>
+            </div>
+
           </div>
-
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
-            {
-              searchData?.map((notebook, index) => (
-                <Card key={notebook.id} notebook={notebook} />
-              ))
-            }
-
-            <span className="card-faded cursor-pointer justify-center min-w-[250px] min-h-[135px]" onClick={() => openModal('new-notebook-modal')}>
-              <div className="flex justify-center">
-                <span className="text-5xl text-center text-faded">+</span>
-              </div>
-            </span>
-          </div>
-
         </div>
-      </div>
 
-      <Modal id='new-notebook-modal' title='New notebook'>
-        <NotebookForm onComplete={() => { refetch(); closeModal('new-notebook-modal'); }} />
-      </Modal>
-    </div>
+        <Modal id='new-notebook-modal' title='New notebook'>
+          <NotebookForm onComplete={() => { refetch(); closeModal('new-notebook-modal'); }} />
+        </Modal>
+      </div>
+    </CommandPalette>
   )
 }
 
