@@ -16,6 +16,9 @@
 }
 
 .pages-navigation ul li.selected {
+  /* Work around for kmenu breaking the selected */
+  position: inherit !important;
+
   background-color: var(--nav-selected-background-color);
   color: var(--nav-selected-foreground-color);
 }
