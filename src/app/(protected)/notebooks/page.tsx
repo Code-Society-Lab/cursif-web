@@ -68,6 +68,7 @@ export default function Page() {
           icon: <HiPlusCircle />,
           text: 'New Notebook',
           perform: () => openModal('new-notebook-modal'),
+          closeOnComplete: true,
           keywords: ['new', 'create', 'add'],
         },
       ]

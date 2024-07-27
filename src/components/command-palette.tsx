@@ -17,6 +17,44 @@ interface Props {
   commands?: [key: string, value: any][]
 }
 
+/**
+ * This component is a wrapper around kmenu, it simplifies adding command palette 
+ * with basic commands and simplfies addition of extra commands for specific context.
+ *
+ * Props:
+ * - children: ReactNode (optional) - Any child components to be rendered inside the CommandPalette. This is mainly to add sub menus.
+ * - commands: Object (optional) - An object containing additional commands to be included in the palette.
+ *   - The object can have keys: 'navigations', 'actions', and 'preferences', each mapping to an array of commands.
+ *
+ * Example (adding a new action):
+ * ```jsx
+ * import CommandPalette from './CommandPalette';
+ * 
+ * function MyComponent() {
+ *   const additionalCommands = {
+ *       actions: [
+ *         {
+ *           icon: <HiPlusCircle />,
+ *           text: 'New Notebook',
+ *           perform: () => openModal('new-notebook-modal'),
+ *           closeOnComplete: true,
+ *           keywords: ['new', 'create', 'add'],
+ *         },
+ *       ]
+ *   };
+ * 
+ *   return (
+ *     <>
+ *       <CommandPalette commands={additionalCommands}>
+ *       ...
+ *     </>
+ *   );
+ * }
+ * ```
+ *
+ * https://kmenu.hxrsh.in/docs/
+ */
+
 export default function CommandPalette({ children, commands = {} }: Props) {
   const { setOpen } = useKmenu()
   const router = useRouter()
@@ -92,6 +130,7 @@ export default function CommandPalette({ children, commands = {} }: Props) {
       <CommandMenu commands={main} index={1} />
       <CommandMenu commands={themes} index={2} />
 
+      {/* In case we want to add sub menus */}
       {children}
     </CommandWrapper>
   );
