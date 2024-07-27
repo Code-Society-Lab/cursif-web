@@ -6,7 +6,6 @@ import {
   CommandWrapper,
   useCommands,
   useKmenu,
-  setOpen
 } from 'kmenu';
 
 import { HiViewGridAdd, HiPlusCircle } from 'react-icons/hi'
@@ -14,7 +13,7 @@ import { TbSunMoon, TbSunFilled, TbMoonFilled } from 'react-icons/tb'
 
 interface Props {
   children?: React.ReactNode;
-  commands?: [key: string, value: any][]
+  commands?: { [key: string]: Command[] };
 }
 
 /**
@@ -59,7 +58,8 @@ export default function CommandPalette({ children, commands = {} }: Props) {
   const { setOpen } = useKmenu()
   const router = useRouter()
 
-  const navigations = [
+  // Any should be change for map
+  const navigations: any[] = [
     {
       icon: <HiViewGridAdd />,
       text: 'Notebook',
@@ -68,11 +68,11 @@ export default function CommandPalette({ children, commands = {} }: Props) {
     },
   ]
 
-  const actions = [
+  const actions: any[] = [
     // No default actions
   ]
 
-  const preferences = [
+  const preferences: any[] = [
     {
       icon: <TbSunMoon />,
       text: 'Change Theme...',
@@ -127,8 +127,8 @@ export default function CommandPalette({ children, commands = {} }: Props) {
 
   return (
     <CommandWrapper>
-      <CommandMenu commands={main} index={1} />
-      <CommandMenu commands={themes} index={2} />
+      <CommandMenu commands={main} index={1} crumbs={[]} />
+      <CommandMenu commands={themes} index={2} crumbs={[]} />
 
       {/* In case we want to add sub menus */}
       {children}

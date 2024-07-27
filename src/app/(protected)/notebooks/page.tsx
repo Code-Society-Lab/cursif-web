@@ -62,8 +62,8 @@ export default function Page() {
     setSearchData(searchFilter(notebooks??[], query));
   };
 
-  const commands = {
-      actions: [
+  const commands: any = {
+      "actions": [
         {
           icon: <HiPlusCircle />,
           text: 'New Notebook',
