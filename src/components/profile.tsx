@@ -43,14 +43,14 @@ export function ProfileDropdownMenu({ user }: { user: User }) {
       {isOpen && (<div onClick={closeDropdown} className="fixed inset-0 h-full w-full z-10"></div>)}
 
       <div className={`absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-component rounded-md shadow-xl ${isOpen ? 'block' : 'hidden'}`}>
-        <p className="flex items-center p-3 -mt-2 text-sm">
+        <span className="flex items-center p-3 -mt-2 text-sm">
           <ProfilePicture user={user} />
 
           <div className="mx-1">
             <h1 className="text-sm font-semibold">{user.username}</h1>
             <p className="text-sm">{user.email}</p>
           </div>
-        </p>
+        </span>
 
         <hr className="border-gray-200" />
 

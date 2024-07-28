@@ -7,8 +7,6 @@ export const metadata: Metadata = {
   description: 'My notebooks!',
 }
 
-export const dynamic = 'auto';
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

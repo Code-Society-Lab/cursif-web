@@ -10,7 +10,7 @@ export default function Card({ notebook }: { notebook: Notebook }) {
             title={notebook.title}
             className="text-lg font-bold tracking-tight whitespace-nowrap overflow-hidden text-ellipsis w-min max-w-[95%]"
           >
-            {notebook?.title}
+            {notebook.title}
           </h1>
         </span>
 
@@ -24,7 +24,7 @@ export default function Card({ notebook }: { notebook: Notebook }) {
         </span>
 
         <p className="basis-4 font-thin text-xs text--faded tracking-tight text-gray-400">
-          {`Edited ${moment.utc(notebook.updated_at).fromNow()}`}
+          {`Edited ${moment.utc(notebook.updatedAt).fromNow()}`}
         </p>
       </div>
     </Link>
