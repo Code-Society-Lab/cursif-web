@@ -9,7 +9,7 @@ import { Loader } from '@components/loader';
 import { UserNavigation } from '@/components/navigation';
 import { Modal, openModal, closeModal } from '@/components/modal';
 
-import { HiViewGridAdd, HiPlusCircle } from 'react-icons/hi'
+import { HiPlusCircle } from 'react-icons/hi'
 
 import Fuse from 'fuse.js'
 import SearchBar from '@/components/search-bar';
@@ -41,6 +41,8 @@ const FUSE_OPTIONS = {
     "description"
   ]
 }
+
+export const dynamic = 'force-dynamic';
 
 export default function Page() {
   const [notebooks, setNotebooks] = useState<Notebook[] | null>(null);
@@ -79,8 +81,6 @@ export default function Page() {
 
   return (
     <>
-      <CommandPalette commands={commands}/>
-
       <div className="flex flex-col content-center">
         <UserNavigation />
 
