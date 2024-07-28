@@ -78,48 +78,45 @@ export default function Page() {
     return <Loader />;
 
   return (
-    <>
-      <CommandPalette commands={commands}/>
+    <div className="flex flex-col content-center">
+      <CommandPalette commands={commands} />
+      <UserNavigation />
 
-      <div className="flex flex-col content-center">
-        <UserNavigation />
-
-        <div className='w-full max-w-[920px] px-5 mx-auto'>
-          <div className="flex flex-col gap-10">
-            <div>
-              <h1 className='text-2xl pl-2 pb-8 font-bold'>My Notebooks</h1>
-              <div className='flex flex-row grow'>
-                <SearchBar onChange={(e) => doFilter(e.currentTarget.value)} />
-                <div className='flex flex-row grow justify-end'>
-                  <button className="button bg-new font-medium text-sm" onClick={() => openModal('new-notebook-modal')}>
-                    New
-                  </button>
-                </div>
+      <div className='w-full max-w-[920px] px-5 mx-auto'>
+        <div className="flex flex-col gap-10">
+          <div>
+            <h1 className='text-2xl pl-2 pb-8 font-bold'>My Notebooks</h1>
+            <div className='flex flex-row grow'>
+              <SearchBar onChange={(e) => doFilter(e.currentTarget.value)} />
+              <div className='flex flex-row grow justify-end'>
+                <button className="button bg-new font-medium text-sm" onClick={() => openModal('new-notebook-modal')}>
+                  New
+                </button>
               </div>
             </div>
-
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
-              {
-                searchData?.map((notebook, index) => (
-                  <Card key={notebook.id} notebook={notebook} />
-                ))
-              }
-
-              <span className="card-faded cursor-pointer justify-center min-w-[250px] min-h-[135px]" onClick={() => openModal('new-notebook-modal')}>
-                <div className="flex justify-center">
-                  <span className="text-5xl text-center text-faded">+</span>
-                </div>
-              </span>
-            </div>
-
           </div>
-        </div>
 
-        <Modal id='new-notebook-modal' title='New notebook'>
-          <NotebookForm onComplete={() => { refetch(); closeModal('new-notebook-modal'); }} />
-        </Modal>
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+            {
+              searchData?.map((notebook, index) => (
+                <Card key={notebook.id} notebook={notebook} />
+              ))
+            }
+
+            <span className="card-faded cursor-pointer justify-center min-w-[250px] min-h-[135px]" onClick={() => openModal('new-notebook-modal')}>
+              <div className="flex justify-center">
+                <span className="text-5xl text-center text-faded">+</span>
+              </div>
+            </span>
+          </div>
+
+        </div>
       </div>
-    </>
+
+      <Modal id='new-notebook-modal' title='New notebook'>
+        <NotebookForm onComplete={() => { refetch(); closeModal('new-notebook-modal'); }} />
+      </Modal>
+    </div>
   )
 }
 
