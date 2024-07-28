@@ -1,7 +1,9 @@
+import { ReactNode } from 'react';
 import { useRouter } from "next/navigation";
 
 import {
   Command,
+  InnerCommand,
   CommandMenu,
   CommandWrapper,
   useCommands,
@@ -13,7 +15,7 @@ import { TbSunMoon, TbSunFilled, TbMoonFilled } from 'react-icons/tb'
 
 interface Props {
   children?: React.ReactNode;
-  commands?: { [key: string]: Command[] };
+  commands?: { [key: string]: InnerCommand[] };
 }
 
 /**
@@ -27,7 +29,7 @@ interface Props {
  *
  * Example (adding a new action):
  * ```jsx
- * import CommandPalette from './CommandPalette';
+ * import CommandPalette from '@components/command-palette';
  * 
  * function MyComponent() {
  *   const additionalCommands = {
@@ -59,7 +61,7 @@ export default function CommandPalette({ children, commands = {} }: Props) {
   const router = useRouter()
 
   // Any should be change for map
-  const navigations: any[] = [
+  const navigations: InnerCommand[] = [
     {
       icon: <HiViewGridAdd />,
       text: 'Notebook',
@@ -68,11 +70,11 @@ export default function CommandPalette({ children, commands = {} }: Props) {
     },
   ]
 
-  const actions: any[] = [
+  const actions: InnerCommand[] = [
     // No default actions
   ]
 
-  const preferences: any[] = [
+  const preferences: InnerCommand[] = [
     {
       icon: <TbSunMoon />,
       text: 'Change Theme...',

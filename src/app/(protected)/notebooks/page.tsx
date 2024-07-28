@@ -62,7 +62,7 @@ export default function Page() {
     setSearchData(searchFilter(notebooks??[], query));
   };
 
-  const commands: any = {
+  const commands = {
       "actions": [
         {
           icon: <HiPlusCircle />,
