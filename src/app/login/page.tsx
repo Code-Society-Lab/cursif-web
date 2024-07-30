@@ -24,7 +24,7 @@ const LOGIN_MUTATION = gql`
 	}
 `;
 
-function LoginPage() {
+export default function Page() {
 	const router = useRouter()
 
 	const [email, setEmail] = useState('');
@@ -77,7 +77,7 @@ function LoginPage() {
 		toggleLoader(true);
 
 	if (typeof window !== 'undefined' && document.cookie.includes('token')) {
-		return <></>;
+		router.push('/notebooks');
 	}
 
 	return (
@@ -134,12 +134,4 @@ function LoginPage() {
 			</div>
 		</div>
 	);
-}
-
-export default function Page() {
-  return (
-    <Suspense fallback={<Spinner />}>
-      <LoginPage />
-    </Suspense>
-  );
 }

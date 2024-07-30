@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { AuthProvider } from '@components/auth-provider';
-import { MenuProvider, Dimensions } from 'kmenu'
+import { MenuProvider, Dimensions } from 'kmenu';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const dimensions: Dimensions = {}

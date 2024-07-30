@@ -42,15 +42,15 @@ export function ProfileDropdownMenu({ user }: { user: User }) {
 
       {isOpen && (<div onClick={closeDropdown} className="fixed inset-0 h-full w-full z-10"></div>)}
 
-      <div className={`absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-component rounded-md shadow-xl ${isOpen ? 'block' : 'hidden'}`}>
-        <p className="flex items-center p-3 -mt-2 text-sm">
+      <div className={`absolute right-0 overflow-hidden bg-component rounded-md shadow-xl w-[250px] z-20 ${isOpen ? 'block' : 'hidden'}`}>
+        <span className="flex items-center p-5 text-sm">
           <ProfilePicture user={user} />
 
-          <div className="mx-1">
-            <h1 className="text-sm font-semibold">{user.username}</h1>
-            <p className="text-sm">{user.email}</p>
+          <div className="mx-1 overflow-hidden">
+            <h1 className="overflow-hidden text-ellipsis font-semibold">{user.username}</h1>
+            <p className="overflow-hidden text-ellipsis text-xs">{user.email}</p>
           </div>
-        </p>
+        </span>
 
         <hr className="border-gray-200" />
 

@@ -1,5 +1,3 @@
-"use client"
-
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@components/auth-provider';
 import { ProfileDropdownMenu } from '@components/profile';

@@ -6,13 +6,13 @@ import { useQuery, gql } from '@apollo/client';
 import { Notify } from '@config/notiflix-config';
 import { Loader } from '@components/loader';
 
+import Fuse from 'fuse.js'
+import SearchBar from '@/components/search-bar';
+
 import { UserNavigation } from '@/components/navigation';
 import { Modal, openModal, closeModal } from '@/components/modal';
 
-import { HiViewGridAdd, HiPlusCircle } from 'react-icons/hi'
-
-import Fuse from 'fuse.js'
-import SearchBar from '@/components/search-bar';
+import { HiPlusCircle } from 'react-icons/hi'
 
 import Card from '@/components/notebooks/card';
 import NotebookForm from '@/components/notebooks/form';
@@ -24,12 +24,12 @@ const GET_NOTEBOOKS_QUERY = gql`
       id
       title
       description
-      updated_at
+      updatedAt
       pages {
         id
         title
         parentId
-        updated_at
+        updatedAt
       }
     }
   }
@@ -43,23 +43,21 @@ const FUSE_OPTIONS = {
 }
 
 export default function Page() {
-  const [notebooks, setNotebooks] = useState<Notebook[] | null>(null);
-  const [searchData, setSearchData] = useState<Notebook[] | null>(notebooks)
+  const [notebooks, setNotebooks] = useState<Notebook[] | []>([]);
+  const [searchData, setSearchData] = useState<Notebook[] | []>(notebooks)
 
   const { data, loading, error, refetch } = useQuery(GET_NOTEBOOKS_QUERY, {
-    onCompleted: () => {
+    onCompleted: (data) => {
       setNotebooks(data.notebooks);
+      setSearchData(data.notebooks);
     },
     onError: (error) => {
       Notify.failure(`${error.message}!`);
     }
   });
 
-  if (!searchData && notebooks)
-    setSearchData(notebooks);
-
   const doFilter = (query: string) => {
-    setSearchData(searchFilter(notebooks??[], query));
+    setSearchData(searchFilter(notebooks, query));
   };
 
   const commands = {
@@ -90,6 +88,7 @@ export default function Page() {
               <h1 className='text-2xl pl-2 pb-8 font-bold'>My Notebooks</h1>
               <div className='flex flex-row grow'>
                 <SearchBar onChange={(e) => doFilter(e.currentTarget.value)} />
+
                 <div className='flex flex-row grow justify-end'>
                   <button className="button bg-new font-medium text-sm" onClick={() => openModal('new-notebook-modal')}>
                     New
@@ -100,9 +99,9 @@ export default function Page() {
 
             <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
               {
-                searchData?.map((notebook, index) => (
-                  <Card key={notebook.id} notebook={notebook} />
-                ))
+                searchData?.map((notebook, index) => {
+                  return <Card key={notebook.id} notebook={notebook} />;
+                })
               }
 
               <span className="card-faded cursor-pointer justify-center min-w-[250px] min-h-[135px]" onClick={() => openModal('new-notebook-modal')}>
@@ -116,7 +115,10 @@ export default function Page() {
         </div>
 
         <Modal id='new-notebook-modal' title='New notebook'>
-          <NotebookForm onComplete={() => { refetch(); closeModal('new-notebook-modal'); }} />
+          <NotebookForm onComplete={() => {
+            refetch();
+            closeModal('new-notebook-modal');
+          }} />
         </Modal>
       </div>
     </>
