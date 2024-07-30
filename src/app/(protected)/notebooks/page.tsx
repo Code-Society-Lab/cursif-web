@@ -47,7 +47,7 @@ export default function Page() {
   const [searchData, setSearchData] = useState<Notebook[] | []>(notebooks)
 
   const { data, loading, error, refetch } = useQuery(GET_NOTEBOOKS_QUERY, {
-    onCompleted: () => {
+    onCompleted: (data) => {
       setNotebooks(data.notebooks);
       setSearchData(data.notebooks);
     },
