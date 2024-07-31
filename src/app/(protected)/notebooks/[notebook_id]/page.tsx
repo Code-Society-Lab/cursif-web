@@ -26,6 +26,9 @@ const NOTEBOOK_QUERY = gql`
       }
       collaborators {
         id
+        notebook_id
+        user_id
+        email
         username
       }
     }
