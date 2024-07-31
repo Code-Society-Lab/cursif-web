@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Spinner } from '@components/loader';
 import { Password } from "@/components/forms/password";
 import { Email } from "@/components/forms/email";
-import Navigation from '@/components/navigation';
+import { AnonymousNavigation } from '@/components/navigation';
 import { Notify } from '@config/notiflix-config';
 
 const SEND_RESET_PASSWORD_MUTATION = gql`
@@ -90,7 +90,7 @@ function ResetPasswordPage() {
 
   return (
     <div className="flex flex-col h-screen">
-      <Navigation />
+      <AnonymousNavigation />
 
       <div className="flex-1 p-5">
         <div className="flex justify-center h-full">

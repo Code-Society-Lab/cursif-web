@@ -28,7 +28,6 @@ export function Email({
         onChange={onEmailChange}
         onBlur={onEmailBlur}
         required={true}
-        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
         title="Enter a valid email address."
       />
       {isBlurred && !isValidEmail && (

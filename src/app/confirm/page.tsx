@@ -5,7 +5,7 @@ import { useMutation, gql } from '@apollo/client';
 import { Spinner } from '@components/loader';
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Notify } from '@config/notiflix-config';
-import Navigation from '@components/navigation'
+import { AnonymousNavigation } from '@components/navigation'
 
 const SEND_CONFIRMATION_EMAIL_MUTATION = gql`
   mutation ResendConfirmationEmail($email: String!) {
@@ -19,7 +19,7 @@ const CONFIRM_EMAIL_MUTATION = gql`
    }
  `;
 
-function ConfirmPage() {
+export default function Page() {
 	const searchParams = useSearchParams()
 	const token = searchParams.get("token");
 	const router = useRouter()
@@ -88,7 +88,7 @@ function ConfirmPage() {
 
 	return (
 		<div className="flex flex-col h-screen">
-			<Navigation />
+			<AnonymousNavigation />
 
 			<div className="flex-1 p-5">
 				<div className="flex justify-center h-full">
@@ -102,7 +102,7 @@ function ConfirmPage() {
 							<h2 className="text-s text-gray-300">Submit your email to get a new confirmation code!</h2>
 						</div>
 
-						<div className="my-20">
+						<div className="mt-10">
 							<div className="my-5">
 								<input
 									className="input w-full"
@@ -130,12 +130,4 @@ function ConfirmPage() {
 			</div>
 		</div>
 	);
-}
-
-export default function Page() {
-  return (
-    <Suspense fallback={<Spinner />}>
-      <ConfirmPage />
-    </Suspense>
-  );
 }
