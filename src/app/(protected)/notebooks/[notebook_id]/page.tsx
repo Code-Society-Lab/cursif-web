@@ -1,10 +1,12 @@
 "use client";
 
 import { PagesNavigation } from "@/components/notebooks/pages-navigation";
+import { useState, useEffect } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
-import { useRouter } from 'next/navigation';
+import { Bars3Icon } from '@heroicons/react/20/solid';
+import { useRouter } from "next/navigation";
 import { Notify } from "@/config/notiflix-config";
 import { useMutation } from "@apollo/client";
 import { useEffect, useState } from 'react';
@@ -16,10 +18,23 @@ const NOTEBOOK_QUERY = gql`
       id
       title
       description
+      owner {
+        ... on PartialUser {
+          id
+          username
+        }
+      }
       pages {
         id
         title
         parentId
+      }
+      collaborators {
+        id
+        notebook_id
+        user_id
+        email
+        username
       }
     }
   }

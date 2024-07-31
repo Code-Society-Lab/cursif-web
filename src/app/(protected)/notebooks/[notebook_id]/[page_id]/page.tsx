@@ -15,10 +15,23 @@ const NOTEBOOK_QUERY = gql`
       id
       title
       description
+      owner {
+        ... on PartialUser {
+          id
+          username
+        }
+      }
       pages {
         id
         title
         parentId
+      }
+      collaborators {
+        id
+        notebook_id
+        user_id
+        email
+        username
       }
     }
   }

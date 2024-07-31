@@ -22,6 +22,8 @@
   --button-background-color: black;
   --button-foreground-color: white;
 
+  --table-background-color: #E9E9E9;
+
   --input-background-color: #E9E9E9;
   --input-foreground-color: black;
 
@@ -72,6 +74,10 @@
     padding: 10px;
 
     @apply rounded
+  }
+
+  .bg-table {
+    background-color: var(--table-background-color);
   }
 
   textarea.input {
