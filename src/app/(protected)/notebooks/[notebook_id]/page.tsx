@@ -5,11 +5,9 @@ import { useState, useEffect } from 'react';
 import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
-import { Bars3Icon } from '@heroicons/react/20/solid';
 import { useRouter } from "next/navigation";
 import { Notify } from "@/config/notiflix-config";
 import { useMutation } from "@apollo/client";
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const NOTEBOOK_QUERY = gql`
