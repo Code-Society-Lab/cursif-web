@@ -51,7 +51,7 @@ export default function NotebookForm({
   onComplete
 }: {
   notebook?: Notebook,
-  onUpdate: VoidFunction,
+  onUpdate?: VoidFunction,
   onComplete?: VoidFunction
 }) {
   const router = useRouter();
@@ -99,7 +99,7 @@ export default function NotebookForm({
 
   const [addCollaborator] = useMutation(ADD_COLLABORATOR, {
     onCompleted: () => {
-      if (onComplete) {
+      if (onComplete && onUpdate) {
         onComplete();
         onUpdate();
       }
@@ -114,7 +114,7 @@ export default function NotebookForm({
 
   const [deleteCollaborator] = useMutation(DELETE_COLLABORATOR, {
     onCompleted: () => {
-      if (onComplete) {
+      if (onComplete && onUpdate) {
         onComplete();
         onUpdate();
       }
