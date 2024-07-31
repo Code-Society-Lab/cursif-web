@@ -117,7 +117,7 @@ export function PagesNavigation({
       </div>
 
       <Modal id='notebook-settings-modal' title='Settings' maxSize="max-w-2xl">
-        <NotebookForm notebook={notebook} onComplete={() => { closeModal('notebook-settings-modal'); }} />
+        <NotebookForm notebook={notebook} onUpdate={onUpdate} onComplete={() => { closeModal('notebook-settings-modal'); }} />
       </Modal>
     </nav>
   );
