@@ -143,7 +143,7 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
     );
 
   return (
-    <div className="p-4 md:p-5 ">
+    <div className="p-4 md:p-5">
       {notebook && (
         <div className="font-bold my-2">General</div>
       )}
@@ -177,34 +177,34 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
           <div className="flex items-center mb-2">
             Collaborators
           </div>
-          <div>
-            <form onSubmit={onAddCollaborator} className="flex space-x-4">
-              <input
-                className="input flex-grow"
-                type="email"
-                placeholder="Collaborator email..."
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="button bg-new">
-                <span className="label">Add</span>
-              </button>
-            </form>
-          </div>
+          <form onSubmit={onAddCollaborator} className="flex space-x-4 mb-4 w-full">
+            <input
+              className="input flex-grow"
+              type="email"
+              placeholder="Collaborator email..."
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <button type="submit" className="button bg-new">
+              <span className="label">Add</span>
+            </button>
+          </form>
           {notebook?.collaborators?.length > 0 && (
             <div className="mt-4">
               <div className="overflow-x-auto shadow-md rounded-lg">
-                <table className="min-w-full table-auto divide-y divide-gray-200">
-                  <thead className="">
+                <table className="bg-table min-w-full table-auto divide-y divide-gray-200">
+                  <thead>
                     <tr>
                       <th className="py-3 px-6 text-left">Username</th>
+                      <th className="py-3 px-9 text-center">Email</th>
                       <th className="py-3 px-9 text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     {notebook?.collaborators?.map((collaborator) => (
-                      <tr key={collaborator.id} className="">
+                      <tr key={collaborator.id}>
                         <td className="py-2 px-6 truncate">{collaborator.username}</td>
+                        <td className="py-2 px-6 truncate text-center">{collaborator.email}</td>
                         <td className="py-2 px-6 text-right">
                           <button
                             className="button bg-delete py-1 px-3 rounded"
@@ -228,7 +228,7 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
           <div className='flex items-center font-bold my-2'>
             <ExclamationTriangleIcon className="h-5 w-5 text-red-500 mr-1" /> Danger Zone
           </div>
-          <div className="flex items-center border rounded-lg border-red-600 rounded-4 p-2">
+          <div className="flex items-center border rounded-lg border-red-600 p-2">
             <div>
               <p className="font-bold">Delete this notebook.</p>
               <p>This action is irreversible. All pages in this notebook will be deleted.</p>
