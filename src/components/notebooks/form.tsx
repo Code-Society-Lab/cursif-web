@@ -45,7 +45,15 @@ const DELETE_COLLABORATOR = gql`
 `;
 
 
-export default function NotebookForm({ notebook, onComplete }: { notebook?: Notebook, onComplete?: VoidFunction }) {
+export default function NotebookForm({ 
+  notebook,
+  onUpdate,
+  onComplete
+}: {
+  notebook?: Notebook,
+  onUpdate: VoidFunction,
+  onComplete?: VoidFunction
+}) {
   const router = useRouter();
   const { user } = useAuth();
 
@@ -91,8 +99,10 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
 
   const [addCollaborator] = useMutation(ADD_COLLABORATOR, {
     onCompleted: () => {
-      if (onComplete)
+      if (onComplete) {
         onComplete();
+        onUpdate();
+      }
 
       Notify.success("Collaborator added!");
       router.push(`/notebooks/${notebook?.id}`);
@@ -104,8 +114,10 @@ export default function NotebookForm({ notebook, onComplete }: { notebook?: Note
 
   const [deleteCollaborator] = useMutation(DELETE_COLLABORATOR, {
     onCompleted: () => {
-      if (onComplete)
+      if (onComplete) {
         onComplete();
+        onUpdate();
+      }
 
       Notify.success("Collaborator removed!");
       router.push(`/notebooks/${notebook?.id}`);
