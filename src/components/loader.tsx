@@ -12,14 +12,9 @@ export function Spinner({ size = "20px" }: { size?: string }) {
 }
 
 export function Loader() {
-  const [isPending, startTransition] = useTransition();
-  
-  if (isPending) {
-    return (
-      <div className='flex items-center justify-center h-screen'>
-        <Spinner size='80px' />
-      </div>
-    );
-  }
-
+  return (
+    <div className='flex items-center justify-center h-screen'>
+      <Spinner size='80px' />
+    </div>
+  );
 }

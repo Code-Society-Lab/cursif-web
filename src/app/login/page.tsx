@@ -1,14 +1,16 @@
 "use client"
 
 import React, { useState, Suspense } from 'react';
-import { useMutation, gql } from '@apollo/client';
-import { Spinner } from '@components/loader';
 import { useRouter } from 'next/navigation';
+import { useMutation, gql } from '@apollo/client';
+
+import { Spinner } from '@components/loader';
 import { Notify } from '@config/notiflix-config';
 import { Email } from '@components/forms/email';
+import { AnonymousNavigation } from '@components/navigation';
 
-import Navigation from '@components/navigation';
 import Cookies from 'js-cookie'
+import Config from '@/config';
 
 const LOGIN_MUTATION = gql`
 	mutation Login($email: String!, $password: String!) {
@@ -22,7 +24,7 @@ const LOGIN_MUTATION = gql`
 	}
 `;
 
-function LoginPage() {
+export default function Page() {
 	const router = useRouter()
 
 	const [email, setEmail] = useState('');
@@ -58,7 +60,7 @@ function LoginPage() {
 			password: password,
 		},
 		onCompleted: ({ login }) => {
-			Cookies.set('token', login.token, { expires: 1, secure: true, sameSite: 'strict' });
+			Cookies.set('token', login.token, { expires: 1, sameSite: 'none', secure: Config.production() });
 
 			Notify.success(`Welcome back ${login.user.username}!`);
 			toggleLoader(false);
@@ -75,12 +77,12 @@ function LoginPage() {
 		toggleLoader(true);
 
 	if (typeof window !== 'undefined' && document.cookie.includes('token')) {
-		return <></>;
+		router.push('/notebooks');
 	}
 
 	return (
 		<div className="flex flex-col h-screen">
-			<Navigation />
+			<AnonymousNavigation />
 
 			<div className="flex-1 p-5">
 				<div className="flex justify-center h-full">
@@ -132,12 +134,4 @@ function LoginPage() {
 			</div>
 		</div>
 	);
-}
-
-export default function Page() {
-  return (
-    <Suspense fallback={<Spinner />}>
-      <LoginPage />
-    </Suspense>
-  );
 }

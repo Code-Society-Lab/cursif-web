@@ -78,19 +78,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(me);
     },
     onError: (error) => {
-      // Added this if condition to prevent redirection when trying to sign up when not authenticated
-      // TO-DO: try to find a better way to handle this
-      if (path === '/signup') router.push('/signup');
-      else if (path === '/confirm') router.push('/confirm');
-      else {
-        Notify.failure(`${error.message}`);
-        Cookies.remove('token');
-        router.push('/login');
-      }
+      Cookies.remove('token');
     },
   });
 
-  if (loading) return <Loader />;
+  if (loading) 
+    return <Loader />;
+
+  if (error) {
+    router.push('/login');
+  }
 
   return (
     <AuthContext.Provider value={{ user }}>
@@ -101,8 +98,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 export function useAuth(): AuthContextType {
   const context = useContext(AuthContext);
+
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
+
   return context;
 }
