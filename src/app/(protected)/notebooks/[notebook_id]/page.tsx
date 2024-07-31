@@ -2,10 +2,13 @@
 
 import { PagesNavigation } from "@/components/notebooks/pages-navigation";
 import { useState, useEffect } from 'react';
+import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
-import { Bars3Icon } from '@heroicons/react/20/solid';
 import { useRouter } from "next/navigation";
+import { Notify } from "@/config/notiflix-config";
+import { useMutation } from "@apollo/client";
+import Link from 'next/link';
 
 const NOTEBOOK_QUERY = gql`
   query GetNotebook($id: ID!) {
@@ -35,6 +38,16 @@ const NOTEBOOK_QUERY = gql`
   }
 `;
 
+const CREATE_PAGE_MUTATION = gql`
+  mutation CreatePage($title: String!, $parentId: ID!, $parentType: String!) {
+    createPage(title: $title,  parentId: $parentId, parentType: $parentType) {
+        id
+        title
+        parentId
+        parentType
+    }
+  }
+`;
 
 export default function Page({
   params,
@@ -43,17 +56,34 @@ export default function Page({
 }) {
   const router = useRouter();
   const [isNavVisible, setIsNavVisible] = useState(true);
+  const [createPage] = useMutation(CREATE_PAGE_MUTATION, {
+    variables: {
+      title: "Untitled Page",
+      parentId: params?.notebook_id,
+      parentType: "notebook",
+    },
+    onCompleted: (data) => {
+      refetch();
+      router.push(`/notebooks/${params?.notebook_id}/${data.createPage.id}`);
+    },
+    onError: (error) => {
+      Notify.failure(`${error.message}!`);
+    },
+  });
+
   const { data, loading, error, refetch } = useQuery(NOTEBOOK_QUERY, {
     variables: {
       id: params.notebook_id,
     },
     onCompleted: (data) => {
-      const firstPageId = data.notebook.pages[0].id;
-      router.replace(`/notebooks/${params.notebook_id}/${firstPageId}`)
+      const firstPageId = data.notebook.pages[0]?.id;
+      if (firstPageId) {
+        router.replace(`/notebooks/${params.notebook_id}/${firstPageId}`);
+      }
     }
   });
 
-  // On mobile, hid the pages navigation menu by default
+  // On mobile, hide the pages navigation menu by default
   useEffect(() => {
     const handleResize = () => {
       setIsNavVisible(window.innerWidth > 768);
@@ -80,17 +110,21 @@ export default function Page({
           onUpdate={() => refetch()}
         />
       )}
-      <div className="relative">
-        <div
-          className="p-1 mt-2 rounded cursor-pointer"
-          onClick={() => setIsNavVisible(!isNavVisible)}
-          title='Toggle pages navigation bar'
-        >
-          <Bars3Icon className="h-6 w-6" />
-        </div>
-      </div>
-      <div className="flex-[4] max-w-screen overflow-hidden">
 
+      {!isNavVisible && (
+          <div className='absolute top-16 left-4 top-page-actions'>
+            <Link href={`/notebooks`} className="flex items-center" title="Back to All Notebooks">
+              <ChevronLeftIcon className="h-4 w-4 mr-1" />All Notebooks
+            </Link>
+          </div>
+        )}
+      <div className="flex-[4] flex items-center justify-center">
+        <div className="text-center rounded text-sm">
+          <p className="text-xl mb-4">No pages available</p>
+          <button className='page-action' onClick={() => createPage()} title="New Page">
+            Create Page
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { Loader } from "@/components/loader";
 import { useQuery, gql } from "@apollo/client";
 import { Bars3Icon } from '@heroicons/react/20/solid';
+import { useRouter } from 'next/navigation';
 
 import PageEditor from "@/components/pages/editor";
 
@@ -41,14 +42,21 @@ export default function Page({
 }: {
   params: { notebook_id: string; page_id: string };
 }) {
+  const router = useRouter();
   const [isNavVisible, setIsNavVisible] = useState(true);
   const { data, loading, error, refetch } = useQuery(NOTEBOOK_QUERY, {
     variables: {
       id: params.notebook_id,
+    },
+    onCompleted: (data) => {
+      if (data.notebook.pages.length === 0) {
+        router.push(`/notebooks/${params.notebook_id}`);
+      }
+      refetch();
     }
   });
 
-  // On mobile, hid the pages navigation menu by default
+  // On mobile, hide the pages navigation menu by default
   useEffect(() => {
     const handleResize = () => {
       setIsNavVisible(window.innerWidth > 768);
