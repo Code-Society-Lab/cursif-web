@@ -31,6 +31,14 @@ declare global {
     updatedAt: string
   }
 
+  interface Collaborator {
+    id: string
+    notebookId: string
+    userId: string
+    email: string
+    username: string
+  }
+
   interface Notebook {
     id: string
     title?: string
@@ -38,7 +46,7 @@ declare global {
     owner?: PartialUser
     pages?: Page[]
     updatedAt: string
-    collaborators: PartialUser[]
+    collaborators: Collaborator[]
   }
 
   interface Parent {
