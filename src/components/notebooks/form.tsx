@@ -19,7 +19,7 @@ const CREATE_NOTEBOOK_MUTATION = gql`
 `;
 
 const UPDATE_NOTEBOOK_MUTATION = gql`
-  mutation UpdateNotebook($title: String!, $id: ID!, $description: String, $ownerId: ID!) {
+  mutation UpdateNotebook($title: String!, $id: ID!, $description: String, $ownerId: ID) {
     updateNotebook(title: $title, id: $id, description: $description, ownerId: $ownerId) {
       id
       title
@@ -81,9 +81,7 @@ export default function NotebookForm({
 
   const [updateNotebook, { loading: updateLoading }] = useMutation(UPDATE_NOTEBOOK_MUTATION, {
     variables: {
-      id: notebook?.id,
-      ownerId: user?.id,
-      ownerType: "user",
+      id: notebook?.id
     },
     onCompleted: (data) => {
       if (onComplete)
