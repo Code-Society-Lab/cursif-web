@@ -29,8 +29,8 @@ const UPDATE_NOTEBOOK_MUTATION = gql`
 `;
 
 const ADD_COLLABORATOR = gql`
-  mutation AddCollaborator($notebookId: ID!, $userId: ID, $email: String!) {
-    addCollaborator(notebookId: $notebookId, userId: $userId, email: $email) {
+  mutation AddCollaborator($notebookId: ID!, $email: String!) {
+    addCollaborator(notebookId: $notebookId, email: $email) {
       id
     }
   }
@@ -141,7 +141,7 @@ export default function NotebookForm({
     if (email.includes('@')) {
       addCollaborator({ variables: { notebookId: notebook?.id, email: email } });
     } else {
-      addCollaborator({ variables: { notebookId: notebook?.id, userId: email } });
+      Notify.failure("Invalid email address!");
     }
   }
 
