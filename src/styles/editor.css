@@ -115,6 +115,7 @@
 }
 
 .editor .EasyMDEContainer .editor-preview pre {
+  overflow: auto;
   background-color: var(--code-background-color);
 
   padding: 20px;
