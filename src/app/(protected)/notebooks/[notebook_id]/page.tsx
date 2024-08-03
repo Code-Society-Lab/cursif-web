@@ -17,10 +17,8 @@ const NOTEBOOK_QUERY = gql`
       title
       description
       owner {
-        ... on PartialUser {
-          id
-          username
-        }
+        id
+        username
       }
       pages {
         id
@@ -29,8 +27,6 @@ const NOTEBOOK_QUERY = gql`
       }
       collaborators {
         id
-        notebook_id
-        user_id
         email
         username
       }

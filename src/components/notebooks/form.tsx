@@ -103,7 +103,6 @@ export default function NotebookForm({
       }
 
       Notify.success("Collaborator added!");
-      router.push(`/notebooks/${notebook?.id}`);
     },
     onError: (error) => {
       Notify.failure(`${error.message}!`);
@@ -118,7 +117,6 @@ export default function NotebookForm({
       }
 
       Notify.success("Collaborator removed!");
-      router.push(`/notebooks/${notebook?.id}`);
     },
     onError: (error) => {
       Notify.failure(`${error.message}!`);
@@ -138,11 +136,7 @@ export default function NotebookForm({
   const onAddCollaborator = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (email.includes('@')) {
-      addCollaborator({ variables: { notebookId: notebook?.id, email: email } });
-    } else {
-      Notify.failure("Invalid email address!");
-    }
+    addCollaborator({ variables: { notebookId: notebook?.id, email: email } });
   }
 
   if (createLoading || updateLoading)
