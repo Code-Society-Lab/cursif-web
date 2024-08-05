@@ -35,7 +35,7 @@ function makeClient() {
   const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach((error) => {
-        if (Config.production())
+        if (Config.development())
           console.log(`[GraphQL error]: ${error.message}`);
         return forward(operation);
       });
