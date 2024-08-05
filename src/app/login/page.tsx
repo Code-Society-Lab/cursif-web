@@ -65,6 +65,7 @@ export default function Page() {
 			Notify.success(`Welcome back ${login.user.username}!`);
 			toggleLoader(false);
 
+			// need to move this elwehre to avoid routing error in console
 			router.push('/notebooks')
 		},
 		onError: (error) => {
@@ -75,10 +76,6 @@ export default function Page() {
 
 	if (loading)
 		toggleLoader(true);
-
-	if (typeof window !== 'undefined' && document.cookie.includes('token')) {
-		router.push('/notebooks');
-	}
 
 	return (
 		<div className="flex flex-col h-screen">
