@@ -89,7 +89,7 @@ export default function Page({
         </div>
       </div>
       <div className="flex-[4] max-w-screen overflow-hidden">
-        <PageEditor page_id={params.page_id} />
+        <PageEditor pageId={params.page_id} />
       </div>
     </div>
   );

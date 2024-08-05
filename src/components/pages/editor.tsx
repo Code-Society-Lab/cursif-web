@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { useQuery, useMutation, useSubscription, gql } from '@apollo/client';
+import { useQuery, useMutation, gql } from '@apollo/client';
 import { Loader } from "@/components/loader";
 
 import dynamic from "next/dynamic";
@@ -10,7 +10,6 @@ const SimpleMDE = dynamic(
   () => import("react-simplemde-editor"),
   { ssr: false }
 );
-
 
 const PAGE_QUERY = gql`
    query GetPage($id: ID!) {
@@ -42,23 +41,12 @@ const PAGE_UPDATE_SUBSCRIPTION = gql`
   }
 `;
 
-function updatedPage() {
-  const { data, loading } = useSubscription(PAGE_UPDATE_SUBSCRIPTION, {
-    variables: {
-      id: "e91a2b62-4a22-438c-ab99-a201604fe66c"
-    }
-  });
-
-  console.log(updatedPageData);
-  return data.pageUpdated.content;
-}
-
-export default function PageEditor({ page_id }: { page_id: String }): JSX.Element {
+export default function PageEditor({ pageId }: { pageId: String }): JSX.Element {
   const [content, setContent] = useState('');
 
   const { data, loading, error, subscribeToMore } = useQuery(PAGE_QUERY, {
     variables: {
-      id: page_id,
+      id: pageId,
     },
     onCompleted: (data) => {
       setContent(data.page.content || '');
@@ -67,7 +55,7 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
 
   subscribeToMore({
     document: PAGE_UPDATE_SUBSCRIPTION,
-    variables: { id: page_id },
+    variables: { id: pageId },
     updateQuery: (prev, { subscriptionData }) => {
       setContent(subscriptionData.data.pageUpdated.content);
 
@@ -84,26 +72,21 @@ export default function PageEditor({ page_id }: { page_id: String }): JSX.Elemen
 
   const [updatePage] = useMutation(UPDATE_PAGE_MUTATION, {
     variables: {
-      id: page_id,
+      id: pageId,
       title: data?.page.title,
     }
   });
 
-  const onChange = useCallback(setContent, []);
+  const onChange = (newContent) => {
+    setContent(newContent);
 
-  function save() {
-    updatePage({
-      variables: {
-        id: page_id,
-        content: content,
-      },
-    });
+    // updatePage({
+    //   variables: {
+    //     id: pageId,
+    //     content: newContent,
+    //   },
+    // });
   }
-
-  useEffect(() => {
-    const timeout = setTimeout(save, 1000);
-    return () => clearTimeout(timeout);
-  }, [content]);
 
   const options = useMemo(() => {
       return {
