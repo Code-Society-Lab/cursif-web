@@ -7,7 +7,9 @@ import { useQuery, gql } from "@apollo/client";
 import { Bars3Icon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 
-import PageEditor from "@/components/pages/editor";
+// import CollaborativeEditor from "@/components/pages/editor";
+import { PhoenixSocketProvider } from '@components/graphql/phoenix-socket';
+import CollaborativeEditor from "@components/pages/collaborative-editor"
 
 const NOTEBOOK_QUERY = gql`
   query GetNotebook($id: ID!) {
@@ -89,7 +91,9 @@ export default function Page({
         </div>
       </div>
       <div className="flex-[4] max-w-screen overflow-hidden">
-        <PageEditor pageId={params.page_id} />
+        <PhoenixSocketProvider>
+          <CollaborativeEditor pageId={params.page_id} />
+        </PhoenixSocketProvider>
       </div>
     </div>
   );
