@@ -87,6 +87,7 @@
 .editor .EasyMDEContainer ul,
 .editor .EasyMDEContainer ol {
   margin-left: 2rem;
+  margin-bottom: 1em;
 }
 
 .editor .EasyMDEContainer li {
