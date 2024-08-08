@@ -7,28 +7,27 @@ const Config = {
   
   test: () => Config.environment === 'test',
 
-  // hopefully remove NEXT_PUBLIC
-  graphql: {
-    domain: process.env.NEXT_PUBLIC_GRAPHQL_DOMAIN,
-    ssl: process.env.NEXT_PUBLIC_GRAPHQL_SSL,
+  homeserver: {
+    domain: process.env.CURSIF_HOMESERVER_DOMAIN || 'localhost:4000',
+    ssl: process.env.CURSIF_HOMESERVER_SSL,
 
-    http: () => {
-      if (Config.production()) {
-        return `https://${Config.graphql.domain}/api`
-      }
-
-      return `http://${Config.graphql.domain}/api`
-    },
-    socket: () => {
-      if (Config.production()) {
-        return `https://${Config.graphql.domain}/api`
-      }
-
-      return `ws://${Config.graphql.domain}/socket`
-    },
-
-    endpoint: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || 'http://localhost:4000/api'
-  }
+    http_endpoint: null,
+    websocket_endpoint: null,
+    subscription_endpoint: null,
+  },
 }
+
+function _build_endpoint(protocol, path) {
+  if (Config.production() || Config.homeserver.ssl) {
+    return `${protocol}s://${Config.homeserver.domain}/${path}`;
+  }
+
+  return `${protocol}://${Config.homeserver.domain}/${path}`;
+}
+
+Config.homeserver.http_endpoint = _build_endpoint('http', 'api');
+Config.homeserver.websocket_endpoint = _build_endpoint('ws', 'socket');
+Config.homeserver.subscription_endpoint = _build_endpoint('ws', 'subscriptions');
+
 
 export default Config;

@@ -90,7 +90,7 @@ export default function Page({
           <Bars3Icon className="h-6 w-6" />
         </div>
       </div>
-      <div className="flex-[4] max-w-screen overflow-hidden">
+      <div className="flex-[4]">
         <PhoenixSocketProvider>
           <CollaborativeEditor pageId={params.page_id} />
         </PhoenixSocketProvider>

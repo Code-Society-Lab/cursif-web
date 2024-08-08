@@ -54,12 +54,13 @@ function makeClient() {
   });
 
   const httpLink = new HttpLink({ 
-    uri: Config.graphql.endpoint
+    uri: Config.homeserver.http_endpoint
   });
 
+  // Not currently used buy can be later
   const wsLink = new GraphQLWsLink(
     createClient({
-      url: "ws://localhost:4000/api/websocket",
+      url: Config.homeserver.subscription_endpoint,
       connectionParams: {
         authToken: Cookies.get('token')
       }

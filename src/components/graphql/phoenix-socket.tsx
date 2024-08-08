@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import Config from '@/config';
 import PropTypes from 'prop-types';
 import { Socket } from 'phoenix';
 
@@ -9,7 +10,7 @@ export function PhoenixSocketProvider({ children }) {
   const [socket, setSocket] = useState();
 
   useEffect(() => {
-    const socket = new Socket('ws://localhost:4000/socket', {
+    const socket = new Socket(Config.homeserver.websocket_endpoint, {
       params: {
         token: Cookies.get("token")
       }
