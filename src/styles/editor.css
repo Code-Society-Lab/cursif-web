@@ -36,3 +36,8 @@
   width: 100%;
   height: 100%;
 }
+
+.editor .ql-container.ql-snow,
+.editor .ql-toolbar.ql-snow {
+  border: none;
+}

@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { PagesNavigation } from "@/components/notebooks/pages-navigation";
 import { useState, useEffect } from 'react';
@@ -72,8 +72,8 @@ export default function Page({
     return <Loader />;
 
   return (
-    <div className="grid grid-cols-5 h-screen">
-      <div className="col-span-1">
+    <div className="flex h-screen">
+      <div>
         {isNavVisible && (
           <PagesNavigation
             notebook={data?.notebook}
@@ -93,7 +93,7 @@ export default function Page({
         </div>
       </div>
       */}
-      <div className="col-span-4">
+      <div className="grow min-w-[300px]">
         <PhoenixSocketProvider>
           <Editor pageId={params.page_id} />
         </PhoenixSocketProvider>

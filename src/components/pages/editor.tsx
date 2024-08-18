@@ -1,7 +1,7 @@
 "use client"
 
 
-import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
+import { useEffect, useState, useMemo, useCallback, useRef, forwardRef } from 'react';
 import { useChannel } from '@/components/graphql/phoenix-socket';
 import { Socket } from 'phoenix';
 
@@ -9,15 +9,40 @@ import dynamic from "next/dynamic";
 import hljs from 'highlight.js';
 import Config from '@/config';
 
-import QuillEditor, { Quill } from 'react-quill';
+import { Quill } from "react-quill";
 import QuillMarkdown from 'quilljs-markdown';
-import Emoji from 'quill-emoji';
 
 import '@styles/editor.css';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 
-Quill.register('modules/quillMarkdown', QuillMarkdown);
+// const QuillEditor = dynamic(
+//   async () => {
+//     const { Quill } = require("react-quill");
+//     const { default: ReactQuill } = await import('react-quill');
+
+//     Quill.register('modules/quillMarkdown', QuillMarkdown);
+
+//     return ({ forwardedRef, ...props }: { forwardedRef: RefObject<ReactQuill> } & ReactQuillProps) => (
+//       <ReactQuill ref={forwardedRef} {...props} />
+//     );
+//   }, {
+//     ssr: false,
+//   }
+// )
+const QuillEditor = dynamic(
+  async () => {
+    const { default: ReactQuill } = await import('react-quill');
+    // const { Quill } = require("react-quill");
+    // Quill.register('modules/quillMarkdown', QuillMarkdown);
+
+    return ({ forwardedRef, ...props }: { forwardedRef: RefObject<ReactQuill> } & ReactQuillProps) => (
+      <ReactQuill ref={forwardedRef} {...props} />
+    );
+  }, { 
+    ssr: false 
+  }
+);
 
 export default function Editor({ pageId }) {
   const editorRef = useRef(null);
@@ -44,16 +69,15 @@ export default function Editor({ pageId }) {
 
   const quillModules = {
     toolbar: [
-      [{ header: [1, 2, 3, false] }],
+      [{ header: [1, 2, 3, 4, false] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       [{ list: 'ordered' }, { list: 'bullet' }],
       ['link', 'image'],
-      [{ align: [] }],
-      [{ color: [] }],
       ['code-block'],
       ['clean'],
     ],
-    quillMarkdown: {},
+    // syntax: { highlight: text => hljs.highlightAuto(text).value },
+    // quillMarkdown: {},
   };
 
   const quillFormats = [
@@ -67,19 +91,17 @@ export default function Editor({ pageId }) {
     'bullet',
     'link',
     'image',
-    'align',
-    'color',
     'code-block',
   ]
 
   return (
     <QuillEditor
-      theme="bubble"
+      theme="snow"
       onChange={onChange}
       modules={quillModules}
       formats={quillFormats}
       className="editor"
-      ref={editorRef}
+      forwardedRef={editorRef}
     />
   );
 }
