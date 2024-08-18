@@ -1,123 +1,85 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { useQuery, useMutation, gql } from '@apollo/client';
-import { Loader } from "@/components/loader";
+"use client"
+
+
+import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
+import { useChannel } from '@/components/graphql/phoenix-socket';
+import { Socket } from 'phoenix';
 
 import dynamic from "next/dynamic";
 import hljs from 'highlight.js';
+import Config from '@/config';
+
+import QuillEditor, { Quill } from 'react-quill';
+import QuillMarkdown from 'quilljs-markdown';
+import Emoji from 'quill-emoji';
+
 import '@styles/editor.css';
+import 'react-quill/dist/quill.snow.css';
+import 'react-quill/dist/quill.bubble.css';
 
-const SimpleMDE = dynamic(
-  () => import("react-simplemde-editor"),
-  { ssr: false }
-);
+Quill.register('modules/quillMarkdown', QuillMarkdown);
 
-const PAGE_QUERY = gql`
-   query GetPage($id: ID!) {
-     page(id: $id) {
-       id
-       title
-       content
-     }
-   }
-`;
+export default function Editor({ pageId }) {
+  const editorRef = useRef(null);
+  const channel = useChannel(`page:${pageId}`);
 
-const UPDATE_PAGE_MUTATION = gql`
-   mutation UpdatePage($id: ID!, $content: String!, $title: String) {
-     updatePage(id: $id, content: $content, title: $title) {
-       id
-       title
-       content
-     }
-   }
-`;
+  useEffect(() => {
+    if (!channel) return;
 
-const PAGE_UPDATE_SUBSCRIPTION = gql`
-  subscription PageUpdated($id: ID!) {
-    pageUpdated(id: $id) {
-      id
-      title
-      content
-    }
-  }
-`;
+    channel.on('updated', (payload) => {
+      if (Config.development()) console.log("RCV", payload)
 
-export default function PageEditor({ pageId }: { pageId: String }): JSX.Element {
-  const [content, setContent] = useState('');
+      editorRef.current.getEditor().updateContents(payload.changes, 'api')
+    });
 
-  const { data, loading, error, subscribeToMore } = useQuery(PAGE_QUERY, {
-    variables: {
-      id: pageId,
-    },
-    onCompleted: (data) => {
-      setContent(data.page.content || '');
-    }
-  });
+    channel.off("updated", channel);
+  }, [editorRef, channel])
 
-  subscribeToMore({
-    document: PAGE_UPDATE_SUBSCRIPTION,
-    variables: { id: pageId },
-    updateQuery: (prev, { subscriptionData }) => {
-      setContent(subscriptionData.data.pageUpdated.content);
+  const onChange = (value, delta, source, editor) => {
+    if (!channel || source !== "user") return;
+    if (Config.development()) console.log("SND", editor.getContents())
 
-      return Object.assign({}, prev, {
-        page: {
-          id: subscriptionData.data.pageUpdated.id,
-          title: subscriptionData.data.pageUpdated.title,
-          content: subscriptionData.data.pageUpdated.content,
-          __typename: prev.page.__typename
-        }
-      });
-    },
-  });
+    channel.push("update", { changes: delta });
+  };
 
-  const [updatePage] = useMutation(UPDATE_PAGE_MUTATION, {
-    variables: {
-      id: pageId,
-      title: data?.page.title,
-    }
-  });
+  const quillModules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['link', 'image'],
+      [{ align: [] }],
+      [{ color: [] }],
+      ['code-block'],
+      ['clean'],
+    ],
+    quillMarkdown: {},
+  };
 
-  const onChange = (newContent) => {
-    setContent(newContent);
-
-    // updatePage({
-    //   variables: {
-    //     id: pageId,
-    //     content: newContent,
-    //   },
-    // });
-  }
-
-  const options = useMemo(() => {
-      return {
-        autofocus: true,
-        spellChecker: true,
-        status: false,
-        previewImagesInEditor: true,
-        toolbar: [
-          "bold", "italic", "heading", "|",
-          "quote", "unordered-list", "ordered-list", "|",
-          "link", "image", "|",
-          "preview", "side-by-side", "fullscreen", "|",
-          "guide"
-        ],
-        renderingConfig: {
-          codeSyntaxHighlighting: true,
-          hljs: hljs,
-        },
-      } as EasyMDE.Options;
-    }, []);
-
-  if (loading)
-    return <Loader />;
+  const quillFormats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'link',
+    'image',
+    'align',
+    'color',
+    'code-block',
+  ]
 
   return (
-    <SimpleMDE
-      className='editor'
-      value={content}
+    <QuillEditor
+      theme="bubble"
       onChange={onChange}
-      placeholder='Write your thoughts...'
-      options={options}
+      modules={quillModules}
+      formats={quillFormats}
+      className="editor"
+      ref={editorRef}
     />
   );
 }

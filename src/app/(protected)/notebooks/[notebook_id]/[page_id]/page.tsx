@@ -7,9 +7,8 @@ import { useQuery, gql } from "@apollo/client";
 import { Bars3Icon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 
-// import CollaborativeEditor from "@/components/pages/editor";
 import { PhoenixSocketProvider } from '@components/graphql/phoenix-socket';
-import CollaborativeEditor from "@components/pages/collaborative-editor"
+import Editor from "@components/pages/editor"
 
 const NOTEBOOK_QUERY = gql`
   query GetNotebook($id: ID!) {
@@ -73,15 +72,18 @@ export default function Page({
     return <Loader />;
 
   return (
-    <div className="flex h-screen items-stretch">
-      {isNavVisible && (
-        <PagesNavigation
-          notebook={data?.notebook}
-          currentPageId={params.page_id}
-          onUpdate={() => refetch()}
-        />
-      )}
-      <div className="relative">
+    <div className="grid grid-cols-5 h-screen">
+      <div className="col-span-1">
+        {isNavVisible && (
+          <PagesNavigation
+            notebook={data?.notebook}
+            currentPageId={params.page_id}
+            onUpdate={() => refetch()}
+          />
+        )}
+      </div>
+      {/*
+      <div>
         <div
           className="p-1 mt-2 rounded cursor-pointer"
           onClick={() => setIsNavVisible(!isNavVisible)}
@@ -90,9 +92,10 @@ export default function Page({
           <Bars3Icon className="h-6 w-6" />
         </div>
       </div>
-      <div className="flex-[4]">
+      */}
+      <div className="col-span-4">
         <PhoenixSocketProvider>
-          <CollaborativeEditor pageId={params.page_id} />
+          <Editor pageId={params.page_id} />
         </PhoenixSocketProvider>
       </div>
     </div>

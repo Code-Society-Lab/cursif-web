@@ -1,15 +1,14 @@
 import './pages-navigation.css';
 
 import Link from 'next/link'
-import { useRouter } from "next/navigation";
 import EditTitle from "@/components/pages/edit";
-import { Notify } from "@/config/notiflix-config";
-import { useMutation, gql } from "@apollo/client";
 import NotebookForm from "@/components/notebooks/form";
 import DeletePageForm from '@/components/pages/delete';
-import {
-  TrashIcon, ChevronLeftIcon, Cog8ToothIcon
-} from "@heroicons/react/24/solid";
+
+import { useRouter } from "next/navigation";
+import { Notify } from "@/config/notiflix-config";
+import { useMutation, gql } from "@apollo/client";
+import { TrashIcon, ChevronLeftIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
 import { Modal, openModal, closeModal } from "@/components/modal";
 
 const CREATE_PAGE_MUTATION = gql`
